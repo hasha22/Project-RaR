@@ -5,21 +5,14 @@ public class UIManager : MonoBehaviour
     public static UIManager instance { get; private set; }
 
     [Header("Resources")]
-    public GameObject fundsOutline;
-    public GameObject purityOutline;
-    public GameObject biodiversityOutline;
-    [Space]
     public GameObject fundsFill;
     public GameObject purityFill;
     public GameObject biodiversityFill;
-    [Space]
-    public GameObject fundsIcon;
-    public GameObject purityIcon;
-    public GameObject biodiversityIcon;
 
     [Header("Monitor")]
+    public GameObject monitorUI;
     public GameObject openMonitorButton;
-    public GameObject closeMonitorButton;
+    private bool isMonitorOpened = false;
 
     [Header("Dialogue")]
     public GameObject dialogueBox;
@@ -33,6 +26,30 @@ public class UIManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+    private void Update()
+    {
+        if (InputManager.instance.hasPressedSpaceThisFrame)
+        {
+            InputManager.instance.hasPressedSpaceThisFrame = false;
+            if (isMonitorOpened) monitorUI.SetActive(false);
+            else monitorUI.SetActive(true);
+
+            isMonitorOpened = !isMonitorOpened;
+        }
+    }
+    public void EnableMonitorUI()
+    {
+        if (!isMonitorOpened)
+        {
+            isMonitorOpened = true;
+            monitorUI.SetActive(true);
+        }
+        else
+        {
+            isMonitorOpened = false;
+            monitorUI.SetActive(false);
         }
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 72d298e052b9e3d4e91e896fe6a1e466
+guid: 75e61f45142f6ea419d8854acf8b4fd6
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -116,10 +116,10 @@ TextureImporter:
       name: Textbox_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 209
         y: 0
-        width: 1518
-        height: 350
+        width: 1510
+        height: 349
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

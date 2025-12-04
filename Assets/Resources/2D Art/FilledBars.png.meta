@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 59feca1ee4911c04aabdc37fc91ca00c
+guid: 39d3eb9e6162e0540a706986ccc33455
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -43,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -122,12 +122,12 @@ TextureImporter:
       name: FilledBars_0
       rect:
         serializedVersion: 2
-        x: 108
-        y: 950
-        width: 303
-        height: 84
+        x: 107
+        y: 953
+        width: 305
+        height: 82
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -144,12 +144,12 @@ TextureImporter:
       name: FilledBars_1
       rect:
         serializedVersion: 2
-        x: 562
+        x: 561
         y: 949
-        width: 291
-        height: 87
+        width: 293
+        height: 86
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -166,12 +166,12 @@ TextureImporter:
       name: FilledBars_2
       rect:
         serializedVersion: 2
-        x: 969
-        y: 952
-        width: 297
-        height: 85
+        x: 968
+        y: 951
+        width: 299
+        height: 87
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -196,9 +196,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
       FilledBars_0: 891996957476158818
       FilledBars_1: 7326307093169053300
