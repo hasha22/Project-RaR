@@ -1,0 +1,9 @@
+﻿EventID;DialogID;CharacterName;Text;SelectID;SkipaAndMoveTo;Description
+1;1;A;Hi;;;
+;;;How's it going?;1;;
+;2;A;Oh;;;
+;;;Nice;;4;
+;3;A;Wow;;;
+;4;B;This is event 1 end;;;
+2;5;B;Hi this is event 2;;;
+;6;A;Ok;;;
