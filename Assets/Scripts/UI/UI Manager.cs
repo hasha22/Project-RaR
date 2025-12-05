@@ -30,9 +30,9 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
-        if (InputManager.instance.hasPressedSpaceThisFrame)
+        if (InputManager.instance.hasPressedSpace)
         {
-            InputManager.instance.hasPressedSpaceThisFrame = false;
+            InputManager.instance.hasPressedSpace = false;
             if (isMonitorOpened) monitorUI.SetActive(false);
             else monitorUI.SetActive(true);
 

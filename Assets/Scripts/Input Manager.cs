@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour
     private PlayerInput playerInput;
 
     [Header("Actions")]
-    public bool hasPressedSpaceThisFrame = false;
+    public bool hasPressedSpace = false;
     private void Awake()
     {
         if (instance == null)
@@ -46,7 +46,7 @@ public class InputManager : MonoBehaviour
     {
         if (context.started)
         {
-            hasPressedSpaceThisFrame = true;
+            hasPressedSpace = true;
         }
     }
     private void OnApplicationFocus(bool focus)
@@ -87,7 +87,7 @@ public class InputManager : MonoBehaviour
     public void DisableInput()
     {
         playerInput.enabled = false;
-        hasPressedSpaceThisFrame = false;
+        hasPressedSpace = false;
     }
     public void EnableInput()
     {
