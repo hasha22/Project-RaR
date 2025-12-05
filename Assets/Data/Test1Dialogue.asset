@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714a0965560e54551b7bc768954c7e32, type: 3}
+  m_Name: Test1Dialogue
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
+  sequentialTalks:
+  - talkerName: Noa
+    content: Hi
+  - talkerName: Noa
+    content: How's it going?
+  choices:
+  - text: Fine
+    nextNode: {fileID: 0}
+    statToChange: 
+    statChangeAmount: 0
+    flagToSet: 
+    flagValue: 0
+  - text: Bad
+    nextNode: {fileID: 0}
+    statToChange: 
+    statChangeAmount: 0
+    flagToSet: 
+    flagValue: 0
+  autoNextNode: {fileID: 11400000, guid: afaadc71889d14d30a043e0adc242f82, type: 2}

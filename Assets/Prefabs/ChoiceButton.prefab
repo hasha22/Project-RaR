@@ -148,8 +148,9 @@ GameObject:
   - component: {fileID: 4609930016850885316}
   - component: {fileID: 7200762263167984553}
   - component: {fileID: 8733947435457297299}
+  - component: {fileID: 7130553852358560628}
   m_Layer: 5
-  m_Name: SelectButton
+  m_Name: ChoiceButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,3 +258,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7130553852358560628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7909460490556297892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eace699bb3cd4cc28e27aff0f607204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChoiceController
+  button: {fileID: 8733947435457297299}
+  contentText: {fileID: 7791287298171216416}
