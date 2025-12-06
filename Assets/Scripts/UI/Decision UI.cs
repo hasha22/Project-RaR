@@ -8,7 +8,6 @@ public class DecisionUI : MonoBehaviour
 
     [Header("Data")]
     public Decision decision;
-
     public void OnDecisionClicked()
     {
         if (decision != null)

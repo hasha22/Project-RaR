@@ -20,19 +20,6 @@ public class ResourceManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void OnDialogueChoice(bool answer)
-    {
-        // requires data about the choice
-        //impacts resources based on choice
-        if (answer)
-        {
-
-        }
-        else
-        {
-
-        }
-    }
     public void OnDayPassed()
     {
         //requires data about the day, how many resources to award the player

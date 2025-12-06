@@ -25,7 +25,6 @@ public class DecisionManager : MonoBehaviour
     }
     public void OnYesButtonPressed()
     {
-        Debug.Log("meow");
         // Addition
         ResourceManager.instance.AddFunds(activeDecision.fundsToAddA);
         ResourceManager.instance.AddPurity(activeDecision.purityToAddA);
