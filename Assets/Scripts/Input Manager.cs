@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour
 
     [Header("Actions")]
     public bool hasPressedSpace = false;
+    public bool hasPressedF = false;
     private void Awake()
     {
         if (instance == null)
@@ -47,6 +48,13 @@ public class InputManager : MonoBehaviour
         if (context.started)
         {
             hasPressedSpace = true;
+        }
+    }
+    public void OnDropdownListExpanded(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            hasPressedF = true;
         }
     }
     private void OnApplicationFocus(bool focus)
