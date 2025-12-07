@@ -12,11 +12,12 @@ public class DecisionUI : MonoBehaviour
     {
         if (decision != null)
         {
+            Debug.Log("meow");
             DecisionManager.instance.AssignDecision(decision);
         }
         else
         {
-            Debug.LogError("No decision assigned!");
+            Debug.Log("No decision assigned!");
         }
     }
 }

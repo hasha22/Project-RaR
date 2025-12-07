@@ -101,17 +101,17 @@ public class UIManager : MonoBehaviour
     }
     public void EnableExpandedList()
     {
+        Image img = dropdownButton.GetComponent<Image>();
+
         if (!isDecisionListOpened)
         {
-            Sprite imageSprite = dropdownButton.GetComponent<Image>().sprite;
-            imageSprite = dropdownOpened;
+            img.sprite = dropdownOpened;
             isDecisionListOpened = true;
             expandedDecisionList.SetActive(true);
         }
         else
         {
-            Sprite imageSprite = dropdownButton.GetComponent<Image>().sprite;
-            imageSprite = dropdownClosed;
+            img.sprite = dropdownClosed;
             isDecisionListOpened = false;
             expandedDecisionList.SetActive(false);
         }

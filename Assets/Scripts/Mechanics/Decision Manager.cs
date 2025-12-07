@@ -20,8 +20,8 @@ public class DecisionManager : MonoBehaviour
     }
     public void AssignDecision(Decision decision)
     {
-        UIManager.instance.BeginDecisionDialogue(decision);
         activeDecision = decision;
+        UIManager.instance.BeginDecisionDialogue(decision);
     }
     public void OnYesButtonPressed()
     {
