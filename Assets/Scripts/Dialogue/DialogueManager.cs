@@ -27,7 +27,13 @@ public class DialogueManager : MonoBehaviour
     private int activeTalkIndex = 0;
     private List<ChoiceController> choiceButtons = new List<ChoiceController>();
 
-    private void Awake() { dialogueBox.SetActive(false); }
+    private TypingEffect typingEffect;
+
+    private void Awake() 
+    { 
+        dialogueBox.SetActive(false); 
+        if (contentText != null) typingEffect = contentText.GetComponent<TypingEffect>();
+    }
     
     // 외부에서 대화를 시작할 때 호출
     public void StartDialogue(DialogueNode startNode)
@@ -47,6 +53,12 @@ public class DialogueManager : MonoBehaviour
         // 선택지가 활성화된 상태에서는 클릭 무시
         if (choicePanel.activeSelf) return; 
 
+        if (typingEffect.isTyping)
+        {
+            typingEffect.SkipTyping();
+            return;
+        }
+
         ProgressDialogue();
     }
 
@@ -63,7 +75,9 @@ public class DialogueManager : MonoBehaviour
 
             DialogueNode.Talk currentTalk = currentDialogueNode.sequentialTalks[activeTalkIndex];
             talkerNameText.text = currentTalk.talkerName;
-            contentText.text = currentTalk.content;
+
+            // contentText.text = currentTalk.content;
+            typingEffect.StartTyping(currentTalk.content);        
 
             activeTalkIndex += 1;
         }
