@@ -63,7 +63,8 @@ public class DecisionManager : MonoBehaviour
     public void AssignDecision(Decision decision)
     {
         activeDecision = decision;
-        UIManager.instance.BeginDecisionDialogue(decision);
+        // also temp, needs to be reef specific
+        if (decisionsTakenFirstReef < firstReefHardCap) { UIManager.instance.BeginDecisionDialogue(decision); }
     }
     public void OnYesButtonPressed()
     {
@@ -81,6 +82,7 @@ public class DecisionManager : MonoBehaviour
         IncreaseDecisionsTaken();
 
         UIManager.instance.EndDecisionDialogue();
+        UIManager.instance.RemoveDecision(activeDecision);
     }
     public void OnNoButtonPressed()
     {
@@ -98,6 +100,7 @@ public class DecisionManager : MonoBehaviour
         IncreaseDecisionsTaken();
 
         UIManager.instance.EndDecisionDialogue();
+        UIManager.instance.RemoveDecision(activeDecision);
     }
     public void OnMaybeButtonPressed()
     {

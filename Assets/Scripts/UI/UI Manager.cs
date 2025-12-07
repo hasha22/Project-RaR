@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite dropdownOpened;
     [SerializeField] private TextMeshProUGUI currentDecisionsTaken;
     [SerializeField] private TextMeshProUGUI maxDecisions;
+    private List<GameObject> decisionList = new List<GameObject>();
     [Space]
     //dialogue box variables
     [SerializeField] private GameObject decisionDialogueBox;
@@ -164,11 +165,11 @@ public class UIManager : MonoBehaviour
     }
     public void UpdatePurityUI(int newPurity)
     {
-        funds.text = newPurity.ToString();
+        purity.text = newPurity.ToString();
     }
     public void UpdateBiodiversityUI(int newBiodiversity)
     {
-        funds.text = newBiodiversity.ToString();
+        biodiversity.text = newBiodiversity.ToString();
     }
     public void UpdateDecisionsTaken(int newDecisions)
     {
@@ -179,6 +180,7 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < decisions.Count; i++)
         {
             GameObject decision = Instantiate(decisionPrefab, decisionsContainer);
+            decisionList.Add(decision);
 
             TextMeshProUGUI title = decision.GetComponentInChildren<TextMeshProUGUI>();
             title.text = decisions[i].decisionTitle;
@@ -188,9 +190,20 @@ public class UIManager : MonoBehaviour
             decisionScript.decision = decisions[i];
         }
     }
-    public void RemoveDecision()
+    public void RemoveDecision(Decision decision)
     {
+        for (int i = 0; i < decisionList.Count; i++)
+        {
+            DecisionUI script = decisionList[i].GetComponent<DecisionUI>();
+            if (script.decision.decisionTitle == decision.decisionTitle)
+            {
+                GameObject obj = decisionList[i];
 
+                decisionList.RemoveAt(i);
+                Destroy(obj);
+                break;
+            }
+        }
     }
 
 }

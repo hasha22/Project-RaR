@@ -5,6 +5,7 @@ public class ResourceManager : MonoBehaviour
     public static ResourceManager instance { get; private set; }
 
     [Header("Player Resources")]
+    //these need to be assigned at the beginning of a day (most likely), not through inspector
     public int funds;
     public int purity;
     public int biodiversity;
@@ -19,6 +20,7 @@ public class ResourceManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
     }
     public void OnDayPassed()
     {
