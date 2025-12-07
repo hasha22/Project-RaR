@@ -2,6 +2,13 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 
+// Overall flow:
+// 1) 'StartDialogue(node)' is called externally
+// 2) 'DialogueManager' displays the 'sequential talks' in order
+// 3) If the last Talk contains 'choices', the choice UI is shown
+// 4) When the user selects an option, 'HandleChoiceSelected()' moves to the next node.
+// 5) If there are no choices, 'EndDialogue()' is called
+
 public class DialogueManager : MonoBehaviour
 {
     [Header("UI")]

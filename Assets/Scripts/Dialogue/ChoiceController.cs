@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// Assigned to each Choice Button
 public class ChoiceController : MonoBehaviour
 {
     private DialogueManager dialogueManager;
