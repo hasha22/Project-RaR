@@ -19,15 +19,6 @@ MonoBehaviour:
     content: How's it going?
   choices:
   - text: Fine
-    nextNode: {fileID: 0}
-    statToChange: 
-    statChangeAmount: 0
-    flagToSet: 
-    flagValue: 0
+    nextNode: {fileID: 11400000, guid: afaadc71889d14d30a043e0adc242f82, type: 2}
   - text: Bad
     nextNode: {fileID: 0}
-    statToChange: 
-    statChangeAmount: 0
-    flagToSet: 
-    flagValue: 0
-  autoNextNode: {fileID: 11400000, guid: afaadc71889d14d30a043e0adc242f82, type: 2}

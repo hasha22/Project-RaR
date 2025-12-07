@@ -81,7 +81,7 @@ public class DialogueManager : MonoBehaviour
     // 선택지 버튼
     private void ShowChoices()
     {
-        talkPanel.SetActive(false);
+        // talkPanel.SetActive(false);
         choicePanel.SetActive(true);
 
         DestroyChoiceButtons();
@@ -93,9 +93,7 @@ public class DialogueManager : MonoBehaviour
             // 버튼 인스턴스화 및 설정
             ChoiceController button = Instantiate(choiceButtonPrefab, choiceButtonContainer);
             
-            // 위치 조정
-            // TODO: grid layout group 으로 설정하기
-            button.transform.localPosition = Vector3.down * choiceButtonSpacing * i;
+            // 위치 조정: grid layout group 으로 설정
             
             // 데이터 설정 및 리스너 등록
             button.SetChoice(this, choice, i);
@@ -107,13 +105,10 @@ public class DialogueManager : MonoBehaviour
     // ChoiceButtonController에서 호출되어 선택지 처리 및 다음 노드 이동
     public void HandleChoiceSelected(DialogueNode.Choice selectedChoice)
     {
-        // 1. 스탯 및 플래그 변경 로직 실행
-        // TODO
-
-        // 2. 대화 끝
+        // 1) 대화 끝
         EndDialogue();
         
-        // 3. 다음 노드로 이동 (재귀 호출)
+        // 2) 다음 노드로 이동 (재귀 호출)
         if (selectedChoice.nextNode != null) StartDialogue(selectedChoice.nextNode);
     }
     
@@ -124,7 +119,7 @@ public class DialogueManager : MonoBehaviour
         choiceButtons.Clear();
     }
     
-    // 대화 종료
+    // 대화 끝
     private void EndDialogue()
     {
         Debug.Log("Dialogue End");
