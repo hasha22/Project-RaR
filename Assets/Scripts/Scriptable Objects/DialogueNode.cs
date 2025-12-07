@@ -24,15 +24,6 @@ public class DialogueNode : ScriptableObject
         // 이동할 다음 Dialogue 노드 (분기 설정)
         // 값 없는 경우 넘어감
         public DialogueNode nextNode; 
-
-        // TODO: stat / flag 데이터 관리
-        /*
-        public string statToChange;
-        public int statChangeAmount; 
-        
-        public string flagToSet;
-        public bool flagValue;
-        */
     }
 
     public Choice[] choices; // 선택지 목록
