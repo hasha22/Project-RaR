@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4f611f972e7f946af855e6fdceb7a5, type: 3}
+  m_Name: R1 Decision 4
+  m_EditorClassIdentifier: Assembly-CSharp::Decision
+  reefType: 0
+  decisionTitle: Scientist Proposal
+  decisionText: A group of scientists wishes to introduce a new species of algae
+    eating snails.
+  fundsToAddA: 0
+  purityToAddA: 20
+  biodiversityToAddA: 20
+  fundsToSubtractA: 500
+  purityToSubtractA: 0
+  biodiversityToSubtractA: 0
+  fundsToAddN: 0
+  purityToAddN: 0
+  biodiversityToAddN: 0
+  fundsToSubtractN: 0
+  purityToSubtractN: 0
+  biodiversityToSubtractN: 0

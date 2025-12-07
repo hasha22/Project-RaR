@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,33 +13,38 @@ public class UIManager : MonoBehaviour
     public GameObject purityFill;
     public GameObject biodiversityFill;
     */
-    public TextMeshProUGUI funds;
-    public TextMeshProUGUI purity;
-    public TextMeshProUGUI biodiversity;
+    [SerializeField] private TextMeshProUGUI funds;
+    [SerializeField] private TextMeshProUGUI purity;
+    [SerializeField] private TextMeshProUGUI biodiversity;
 
     [Header("Reef Secretary")]
-    public GameObject reefSecretary1;
+    [SerializeField] private GameObject reefSecretary1;
 
     [Header("Monitor")]
-    public GameObject monitorUI;
-    public GameObject openMonitorButton;
+    [SerializeField] private GameObject monitorUI;
+    [SerializeField] private GameObject openMonitorButton;
     private bool isMonitorOpened = false;
 
     [Header("Decisions")]
-    public GameObject expandedDecisionList;
     private bool isDecisionListOpened = false;
+    //list variables
+    [SerializeField] private GameObject expandedDecisionList;
+    [SerializeField] private GameObject dropdownButton;
+    [SerializeField] private GameObject decisionPrefab;
+    [SerializeField] private Transform decisionsContainer;
+    [SerializeField] private Sprite dropdownClosed;
+    [SerializeField] private Sprite dropdownOpened;
+    [SerializeField] private TextMeshProUGUI currentDecisionsTaken;
+    [SerializeField] private TextMeshProUGUI maxDecisions;
     [Space]
-    public GameObject dropdownButton;
-    public Sprite dropdownClosed;
-    public Sprite dropdownOpened;
-    [Space]
-    public GameObject decisionDialogueBox;
-    public TextMeshProUGUI speakerName;
-    public TextMeshProUGUI decisionContext;
+    //dialogue box variables
+    [SerializeField] private GameObject decisionDialogueBox;
+    [SerializeField] private TextMeshProUGUI speakerName;
+    [SerializeField] private TextMeshProUGUI decisionContext;
     //public float typingSpeed = 0.03f;
 
     [Header("Dialogue")]
-    public GameObject dialogueBox;
+    [SerializeField] private GameObject dialogueBox;
     private void Awake()
     {
         if (instance == null)
@@ -50,10 +56,18 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        //temporary. the hard cap for each reef should be set at the beginning of the day
+
         decisionDialogueBox.SetActive(false);
         reefSecretary1.SetActive(false);
         expandedDecisionList.SetActive(false);
         monitorUI.SetActive(false);
+    }
+    private void Start()
+    {
+        //moved to start due to loading order errors, will be changed later in project settings
+        maxDecisions.text = DecisionManager.instance.firstReefHardCap.ToString();
     }
     private void Update()
     {
@@ -155,6 +169,28 @@ public class UIManager : MonoBehaviour
     public void UpdateBiodiversityUI(int newBiodiversity)
     {
         funds.text = newBiodiversity.ToString();
+    }
+    public void UpdateDecisionsTaken(int newDecisions)
+    {
+        currentDecisionsTaken.text = newDecisions.ToString();
+    }
+    public void InstantiateDecisions(List<Decision> decisions)
+    {
+        for (int i = 0; i < decisions.Count; i++)
+        {
+            GameObject decision = Instantiate(decisionPrefab, decisionsContainer);
+
+            TextMeshProUGUI title = decision.GetComponentInChildren<TextMeshProUGUI>();
+            title.text = decisions[i].decisionTitle;
+
+            //this logic should be separate, works for now
+            DecisionUI decisionScript = decision.GetComponent<DecisionUI>();
+            decisionScript.decision = decisions[i];
+        }
+    }
+    public void RemoveDecision()
+    {
+
     }
 
 }
