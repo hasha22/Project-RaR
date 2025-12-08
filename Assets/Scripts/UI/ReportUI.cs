@@ -1,0 +1,60 @@
+using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+
+public class ReportUI : MonoBehaviour
+{
+    [SerializeField] private GameObject reportPanel;
+    [SerializeField] private TextMeshProUGUI reportText;
+    [SerializeField] private TextMeshProUGUI gameOverText;
+    [SerializeField] private Button nextDayButton;
+
+    private void Init() 
+    { 
+        if (TimeManager.Instance != null) TimeManager.Instance.OnDayEnd += ShowDailyReport; 
+        Debug.Log($"{name}: Subscribing to TimeManager events");
+    }
+
+    private void Start()
+    {
+        Init();
+        if (reportPanel != null) reportPanel.SetActive(false);
+    }
+
+    public void ShowDailyReport()
+    {
+        ResourceManager.instance.GetDailyChange();
+        Debug.Log ("ShowReport OK");
+
+        reportPanel.SetActive(true);
+        int dFunds = ResourceManager.instance.deltaFunds;
+        int dPurity = ResourceManager.instance.deltaPurity;
+        int dBiodiversity = ResourceManager.instance.deltaBiodiversity;
+
+        reportText.text = $"Daily Report - Day {TimeManager.Instance.currentDay}\n" +
+                          $"Funds: {dFunds:+#;-#;0}\n" +
+                          $"Purity: {dPurity:+#;-#;0}\n" +
+                          $"Biodiversity: {dBiodiversity:+#;-#;0}";
+
+        // Check game over
+        if (ResourceManager.instance.isGameOver)
+        {
+            gameOverText.text = "GAME OVER";
+            gameOverText.gameObject.SetActive(true);
+            reportText.gameObject.SetActive(false);
+            nextDayButton.gameObject.SetActive(false);
+        }
+
+        else
+        {
+            gameOverText.gameObject.SetActive(false);
+            nextDayButton.gameObject.SetActive(true);
+        }
+    }
+
+    public void OnClickNextDay()
+    {   
+        reportPanel.SetActive(false);
+        TimeManager.Instance.StartDay();
+    }
+}
