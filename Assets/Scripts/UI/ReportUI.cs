@@ -11,8 +11,8 @@ public class ReportUI : MonoBehaviour
 
     private void Init() 
     { 
-        if (TimeManager.Instance != null) TimeManager.Instance.OnDayEnd += ShowDailyReport; 
-        Debug.Log($"{name}: Subscribing to TimeManager events");
+        if (DayManager.Instance != null) DayManager.Instance.OnDayEnd += ShowDailyReport; 
+        Debug.Log($"{name}: Subscribing to DayManager events");
     }
 
     private void Start()
@@ -31,7 +31,7 @@ public class ReportUI : MonoBehaviour
         int dPurity = ResourceManager.instance.deltaPurity;
         int dBiodiversity = ResourceManager.instance.deltaBiodiversity;
 
-        reportText.text = $"Daily Report - Day {TimeManager.Instance.currentDay}\n" +
+        reportText.text = $"Daily Report - Day {DayManager.Instance.currentDay}\n" +
                           $"Funds: {dFunds:+#;-#;0}\n" +
                           $"Purity: {dPurity:+#;-#;0}\n" +
                           $"Biodiversity: {dBiodiversity:+#;-#;0}";
@@ -55,6 +55,6 @@ public class ReportUI : MonoBehaviour
     public void OnClickNextDay()
     {   
         reportPanel.SetActive(false);
-        TimeManager.Instance.StartDay();
+        DayManager.Instance.StartDay();
     }
 }

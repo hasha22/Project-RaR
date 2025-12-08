@@ -51,7 +51,7 @@ public class DecisionManager : MonoBehaviour
     //////////////////////////////////// Noa ////////////////////////////////////
     private void CheckProgress()
     {
-        if (decisionsTakenFirstReef >= firstReefHardCap) TimeManager.Instance.AdvanceDay(); 
+        if (decisionsTakenFirstReef >= firstReefHardCap) DayManager.Instance.AdvanceDay(); 
     }
     /////////////////////////////////////////////////////////////////////////////
     

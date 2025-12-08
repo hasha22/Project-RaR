@@ -50,17 +50,17 @@ public class ResourceManager : MonoBehaviour
     //////////////////////////////////// Noa ////////////////////////////////////
     private void Init() 
     { 
-        if (TimeManager.Instance != null)
+        if (DayManager.Instance != null)
         {
-            TimeManager.Instance.OnDayStart += AssignDailyResources;
-            TimeManager.Instance.OnDayEnd += GetDailyChange; 
-            Debug.Log($"{name}: Subscribing to TimeManager events");
+            DayManager.Instance.OnDayStart += AssignDailyResources;
+            DayManager.Instance.OnDayEnd += GetDailyChange; 
+            Debug.Log($"{name}: Subscribing to DayManager events");
         }
     }
 
     private void AssignDailyResources()
     {
-        if (TimeManager.Instance.currentDay == 1)
+        if (DayManager.Instance.currentDay == 1)
         {
             // temporary value
             funds = 2000;
@@ -102,7 +102,7 @@ public class ResourceManager : MonoBehaviour
             Debug.Log("GAME OVER");
 
             isGameOver = true;
-            TimeManager.Instance.AdvanceDay();
+            DayManager.Instance.AdvanceDay();
         }
     }
     /////////////////////////////////////////////////////////////////////////////

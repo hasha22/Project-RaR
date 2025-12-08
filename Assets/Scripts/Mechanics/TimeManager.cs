@@ -4,9 +4,9 @@ using System;
 // Create an Init() to subscribe to events, and call it from Start()
 // Script for managing the start and end of each day
 
-public class TimeManager : MonoBehaviour
+public class DayManager : MonoBehaviour
 {
-    public static TimeManager Instance { get; private set; }
+    public static DayManager Instance { get; private set; }
     public int currentDay = 0; // 현재 게임 일수
     public bool isDayActive = false;
 
@@ -48,11 +48,4 @@ public class TimeManager : MonoBehaviour
 
     // 현재 일수 반환
     public int GetCurrentDay() => currentDay;
-
-    // 게임 시간 초기화
-    public void ResetTime(int startDay = 1)
-    {
-        currentDay = startDay;
-        isDayActive = false;
-    }
 }
