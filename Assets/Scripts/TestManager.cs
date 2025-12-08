@@ -6,5 +6,7 @@ public class TestManager : MonoBehaviour
     [SerializeField] private DialogueNode testDialogueNode;
     [SerializeField] private DialogueManager dialogueManager;
 
-    private void Start() { dialogueManager.StartDialogue(testDialogueNode); }
+    private void Start()
+    { //dialogueManager.StartDialogue(testDialogueNode);
+    }
 }

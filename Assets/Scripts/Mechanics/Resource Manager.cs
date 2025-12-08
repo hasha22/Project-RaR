@@ -5,8 +5,9 @@ public class ResourceManager : MonoBehaviour
     public static ResourceManager instance { get; private set; }
 
     [Header("Player Resources")]
-    public int playerFunds;
-    public int waterPurity;
+    //these need to be assigned at the beginning of a day (most likely), not through inspector
+    public int funds;
+    public int purity;
     public int biodiversity;
     private void Awake()
     {
@@ -19,46 +20,40 @@ public class ResourceManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    public void OnDialogueChoice(bool answer)
-    {
-        // requires data about the choice
-        //impacts resources based on choice
-        if (answer)
-        {
 
-        }
-        else
-        {
-
-        }
     }
     public void OnDayPassed()
     {
         //requires data about the day, how many resources to award the player
     }
-    public void AddFunds()
+    public void AddFunds(int newFunds)
     {
-
+        funds += newFunds;
+        UIManager.instance.UpdateBiodiversityUI(funds);
     }
-    public void AddPurity()
+    public void AddPurity(int newPurity)
     {
-
+        purity += newPurity;
+        UIManager.instance.UpdatePurityUI(purity);
     }
-    public void AddBiodiversity()
+    public void AddBiodiversity(int newBiodiversity)
     {
-
+        biodiversity += newBiodiversity;
+        UIManager.instance.UpdateBiodiversityUI(biodiversity);
     }
-    public void SubtractFunds()
+    public void SubtractFunds(int newFunds)
     {
-
+        funds -= newFunds;
+        UIManager.instance.UpdateFundsUI(funds);
     }
-    public void SubtractWaterPurity()
+    public void SubtractPurity(int newPurity)
     {
-
+        purity -= newPurity;
+        UIManager.instance.UpdatePurityUI(purity);
     }
-    public void SubtractBiodiversity()
+    public void SubtractBiodiversity(int newBiodiversity)
     {
-
+        biodiversity -= newBiodiversity;
+        UIManager.instance.UpdateBiodiversityUI(biodiversity);
     }
 }

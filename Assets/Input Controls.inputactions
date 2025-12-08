@@ -576,7 +576,16 @@
                     "id": "10efe00d-a13c-465f-8a45-ef472c84428c",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenDecisionList",
+                    "type": "Button",
+                    "id": "a724fe8f-fa6e-477e-86c4-5d2a77c24375",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -1007,6 +1016,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenMonitor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15a39914-b83e-43f2-ac11-a3df9dba9ab5",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenDecisionList",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

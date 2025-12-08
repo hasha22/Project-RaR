@@ -662,7 +662,16 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""id"": ""10efe00d-a13c-465f-8a45-ef472c84428c"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenDecisionList"",
+                    ""type"": ""Button"",
+                    ""id"": ""a724fe8f-fa6e-477e-86c4-5d2a77c24375"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 }
             ],
@@ -1095,6 +1104,17 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""action"": ""OpenMonitor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15a39914-b83e-43f2-ac11-a3df9dba9ab5"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenDecisionList"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1186,6 +1206,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_OpenMonitor = m_UI.FindAction("OpenMonitor", throwIfNotFound: true);
+        m_UI_OpenDecisionList = m_UI.FindAction("OpenDecisionList", throwIfNotFound: true);
     }
 
     ~@InputControls()
@@ -1462,6 +1483,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_OpenMonitor;
+    private readonly InputAction m_UI_OpenDecisionList;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -1517,6 +1539,10 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/OpenMonitor".
         /// </summary>
         public InputAction @OpenMonitor => m_Wrapper.m_UI_OpenMonitor;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/OpenDecisionList".
+        /// </summary>
+        public InputAction @OpenDecisionList => m_Wrapper.m_UI_OpenDecisionList;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1576,6 +1602,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @OpenMonitor.started += instance.OnOpenMonitor;
             @OpenMonitor.performed += instance.OnOpenMonitor;
             @OpenMonitor.canceled += instance.OnOpenMonitor;
+            @OpenDecisionList.started += instance.OnOpenDecisionList;
+            @OpenDecisionList.performed += instance.OnOpenDecisionList;
+            @OpenDecisionList.canceled += instance.OnOpenDecisionList;
         }
 
         /// <summary>
@@ -1620,6 +1649,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @OpenMonitor.started -= instance.OnOpenMonitor;
             @OpenMonitor.performed -= instance.OnOpenMonitor;
             @OpenMonitor.canceled -= instance.OnOpenMonitor;
+            @OpenDecisionList.started -= instance.OnOpenDecisionList;
+            @OpenDecisionList.performed -= instance.OnOpenDecisionList;
+            @OpenDecisionList.canceled -= instance.OnOpenDecisionList;
         }
 
         /// <summary>
@@ -1873,5 +1905,12 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnOpenMonitor(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenDecisionList" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenDecisionList(InputAction.CallbackContext context);
     }
 }
