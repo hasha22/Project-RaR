@@ -191,6 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 62295520}
   - component: {fileID: 62295521}
+  - component: {fileID: 62295522}
   m_Layer: 5
   m_Name: BiodiversityBar
   m_TagString: Untagged
@@ -264,12 +265,26 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 0.507
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &62295522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62295519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e21f8cf88e9496841ae8e46591a553ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceBarUI
+  slider: {fileID: 62295521}
+  lerpSpeed: 3
 --- !u!1 &108183134
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +342,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f197507c830cd744bb820c7bb1b530c5, type: 2}
   m_sharedMaterial: {fileID: -2548573021985749307, guid: f197507c830cd744bb820c7bb1b530c5, type: 2}
@@ -951,7 +966,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceManager
   funds: 5000
   purity: 25
-  biodiversity: 50
+  biodiversity: 40
+  fundsUI: {fileID: 1364662905}
+  purityUI: {fileID: 1315649611}
+  biodiversityUI: {fileID: 62295522}
 --- !u!4 &170442417
 Transform:
   m_ObjectHideFlags: 0
@@ -1502,7 +1520,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &410282512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3810,6 +3828,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1315649609}
   - component: {fileID: 1315649610}
+  - component: {fileID: 1315649611}
   m_Layer: 5
   m_Name: PurityBar
   m_TagString: Untagged
@@ -3883,12 +3902,26 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 0.35
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1315649611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315649608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e21f8cf88e9496841ae8e46591a553ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceBarUI
+  slider: {fileID: 1315649610}
+  lerpSpeed: 3
 --- !u!1 &1323030304
 GameObject:
   m_ObjectHideFlags: 0
@@ -4049,6 +4082,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1364662903}
   - component: {fileID: 1364662904}
+  - component: {fileID: 1364662905}
   m_Layer: 5
   m_Name: MoneyBar
   m_TagString: Untagged
@@ -4122,12 +4156,26 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 10000
   m_WholeNumbers: 0
-  m_Value: 0.8
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1364662905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364662902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e21f8cf88e9496841ae8e46591a553ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceBarUI
+  slider: {fileID: 1364662904}
+  lerpSpeed: 3
 --- !u!1 &1382206188
 GameObject:
   m_ObjectHideFlags: 0
@@ -4772,7 +4820,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1606265212
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5264,7 +5312,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 25
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f197507c830cd744bb820c7bb1b530c5, type: 2}
   m_sharedMaterial: {fileID: -2548573021985749307, guid: f197507c830cd744bb820c7bb1b530c5, type: 2}
@@ -5689,7 +5737,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5000
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f197507c830cd744bb820c7bb1b530c5, type: 2}
   m_sharedMaterial: {fileID: -2548573021985749307, guid: f197507c830cd744bb820c7bb1b530c5, type: 2}
