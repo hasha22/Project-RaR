@@ -47,6 +47,14 @@ public class DecisionManager : MonoBehaviour
         firstReefDecisions = GetRandomDecisions();
         UIManager.instance.InstantiateDecisions(firstReefDecisions);
     }
+
+    //////////////////////////////////// Noa ////////////////////////////////////
+    private void CheckProgress()
+    {
+        if (decisionsTakenFirstReef >= firstReefHardCap) TimeManager.Instance.AdvanceDay(); 
+    }
+    /////////////////////////////////////////////////////////////////////////////
+    
     public List<Decision> GetRandomDecisions()
     {
         List<Decision> temp = new List<Decision>(firstReefDecisionPool);
@@ -83,6 +91,8 @@ public class DecisionManager : MonoBehaviour
 
         UIManager.instance.EndDecisionDialogue();
         UIManager.instance.RemoveDecision(activeDecision);
+
+        CheckProgress();
     }
     public void OnNoButtonPressed()
     {
@@ -101,6 +111,8 @@ public class DecisionManager : MonoBehaviour
 
         UIManager.instance.EndDecisionDialogue();
         UIManager.instance.RemoveDecision(activeDecision);
+
+        CheckProgress();
     }
     public void OnMaybeButtonPressed()
     {

@@ -1,15 +1,13 @@
 using UnityEngine;
 using System;
 
-// Use subscription like this: 
-// private void OnEnable() { TimeManager.instance.OnDayStart += FUNCTION; }
-// private void OnDisable() { TimeManager.instance.OnDayStart -= FUNCTION; }
-// private void FUNCTION() { }
+// Create an Init() to subscribe to events, and call it from Start()
+// Script for managing the start and end of each day
 
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance { get; private set; }
-    public int currentDay = 1; // 현재 게임 일수
+    public int currentDay = 0; // 현재 게임 일수
     public bool isDayActive = false;
 
     // 이벤트: 하루 시작 / 끝
@@ -26,21 +24,20 @@ public class TimeManager : MonoBehaviour
     // 하루 시작
     public void StartDay()
     {
-        Debug.Log($"Day {currentDay} started");
-
         isDayActive = true;
         currentDay += 1;
         OnDayStart?.Invoke();
+
+        Debug.Log($"Day {currentDay} started");
     }
 
-    // 하루 끝: 자동으로 다음 날 시작
+    // 하루 끝
     public void EndDay()
     {
-        Debug.Log($"Day {currentDay} ended");
-
         isDayActive = false;
         OnDayEnd?.Invoke();
-        StartDay();
+
+        Debug.Log($"Day {currentDay} ended");
     }
 
     // 하루 진행: 유저의 특정 행동 후 호출

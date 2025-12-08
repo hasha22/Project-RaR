@@ -13,10 +13,26 @@ public class ResourceManager : MonoBehaviour
     private int maxPurity = 100;
     private int maxBiodiversity = 100;
 
+    //////////////////////////////////// Noa ////////////////////////////////////
+    // 증감 확인하기 위해 초기 값 저장
+    private int fundsAtStart;
+    private int purityAtStart;
+    private int biodiversityAtStart;
+
+    // 게임오버 체크
+    public bool isGameOver { get; private set; }
+
+    // 증감 값
+    public int deltaFunds { get; private set; }
+    public int deltaPurity { get; private set; }
+    public int deltaBiodiversity { get; private set; }
+    /////////////////////////////////////////////////////////////////////////////
+
     [Header("Resource UI Scripts")]
     public ResourceBarUI fundsUI;
     public ResourceBarUI purityUI;
     public ResourceBarUI biodiversityUI;
+
     private void Awake()
     {
         if (instance == null)
@@ -30,8 +46,28 @@ public class ResourceManager : MonoBehaviour
         }
 
     }
-    private void Start()
+
+    //////////////////////////////////// Noa ////////////////////////////////////
+    private void Init() 
+    { 
+        if (TimeManager.Instance != null)
+        {
+            TimeManager.Instance.OnDayStart += AssignDailyResources;
+            TimeManager.Instance.OnDayEnd += GetDailyChange; 
+            Debug.Log($"{name}: Subscribing to TimeManager events");
+        }
+    }
+
+    private void AssignDailyResources()
     {
+        if (TimeManager.Instance.currentDay == 1)
+        {
+            // temporary value
+            funds = 2000;
+            purity = 25;
+            biodiversity = 40;
+        }
+
         fundsUI.SetMaxValue(maxFunds);
         purityUI.SetMaxValue(maxPurity);
         biodiversityUI.SetMaxValue(maxBiodiversity);
@@ -43,7 +79,53 @@ public class ResourceManager : MonoBehaviour
         UIManager.instance.UpdateFundsUI(funds);
         UIManager.instance.UpdatePurityUI(purity);
         UIManager.instance.UpdateBiodiversityUI(biodiversity);
+
+        // 증감 계산을 위해 시작 값 기록
+        fundsAtStart = funds;
+        purityAtStart = purity;
+        biodiversityAtStart = biodiversity;
     }
+
+    public void GetDailyChange()
+    {
+        deltaFunds = funds - fundsAtStart;
+        deltaPurity = purity - purityAtStart;
+        deltaBiodiversity = biodiversity - biodiversityAtStart;
+
+        Debug.Log($"delta funds: {deltaFunds}\ndelta purity: {deltaPurity}\ndelta biodiversity: {deltaBiodiversity}");
+    }
+
+    private void CheckGameOver()
+    {
+        if (funds <= 0 || purity <= 0 || biodiversity <= 0) 
+        {
+            Debug.Log("GAME OVER");
+
+            isGameOver = true;
+            TimeManager.Instance.AdvanceDay();
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////////
+
+    private void Start()
+    {
+        Init();
+
+        /*
+        fundsUI.SetMaxValue(maxFunds);
+        purityUI.SetMaxValue(maxPurity);
+        biodiversityUI.SetMaxValue(maxBiodiversity);
+
+        fundsUI.SetValue(funds);
+        purityUI.SetValue(purity);
+        biodiversityUI.SetValue(biodiversity);
+
+        UIManager.instance.UpdateFundsUI(funds);
+        UIManager.instance.UpdatePurityUI(purity);
+        UIManager.instance.UpdateBiodiversityUI(biodiversity);
+        */
+    }
+
     public void OnDayPassed()
     {
         //requires data about the day, how many resources to award the player
@@ -52,7 +134,7 @@ public class ResourceManager : MonoBehaviour
     {
         funds += newFunds;
         fundsUI.SetValue(funds);
-        UIManager.instance.UpdateBiodiversityUI(funds);
+        UIManager.instance.UpdateFundsUI(funds);
     }
     public void AddPurity(int newPurity)
     {
@@ -71,17 +153,23 @@ public class ResourceManager : MonoBehaviour
         funds -= newFunds;
         fundsUI.SetValue(funds);
         UIManager.instance.UpdateFundsUI(funds);
+
+        CheckGameOver();
     }
     public void SubtractPurity(int newPurity)
     {
         purity -= newPurity;
         purityUI.SetValue(purity);
         UIManager.instance.UpdatePurityUI(purity);
+
+        CheckGameOver();
     }
     public void SubtractBiodiversity(int newBiodiversity)
     {
         biodiversity -= newBiodiversity;
         biodiversityUI.SetValue(biodiversity);
         UIManager.instance.UpdateBiodiversityUI(biodiversity);
+
+        CheckGameOver();
     }
 }

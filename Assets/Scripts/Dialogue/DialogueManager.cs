@@ -21,7 +21,6 @@ public class DialogueManager : MonoBehaviour
     [Header("Choice Button")]
     [SerializeField] private ChoiceController choiceButtonPrefab;
     [SerializeField] private Transform choiceButtonContainer;
-    [SerializeField] private float choiceButtonSpacing = 10f;
 
     private DialogueNode currentDialogueNode;
     private int activeTalkIndex = 0;
@@ -50,7 +49,10 @@ public class DialogueManager : MonoBehaviour
     // 유저의 클릭으로 다음 대화나 선택지로 진행
     public void OnClickNext()
     {
-        // 선택지가 활성화된 상태에서는 클릭 무시
+        // 게임오버인 경우 클릭 무시
+        if (ResourceManager.instance.isGameOver) return;
+
+        // 선택지가 활성화된 경우 클릭 무시
         if (choicePanel.activeSelf) return; 
 
         if (typingEffect.isTyping)
