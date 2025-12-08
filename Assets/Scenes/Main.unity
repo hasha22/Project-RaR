@@ -2349,6 +2349,7 @@ GameObject:
   - component: {fileID: 857749563}
   - component: {fileID: 857749565}
   - component: {fileID: 857749564}
+  - component: {fileID: 857749566}
   m_Layer: 5
   m_Name: ContentText
   m_TagString: Untagged
@@ -2474,6 +2475,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857749562}
   m_CullTransparentMesh: 1
+--- !u!114 &857749566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857749562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5916579cb224d46c1ba2f2ba5c5e8e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TypingEffect
+  typeSpeed: 0.03
 --- !u!1 &884788572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,6 +2499,7 @@ GameObject:
   - component: {fileID: 884788573}
   - component: {fileID: 884788575}
   - component: {fileID: 884788574}
+  - component: {fileID: 884788576}
   m_Layer: 5
   m_Name: ChoicePanel
   m_TagString: Untagged
@@ -2508,8 +2523,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -68.49231, y: -152.68082}
-  m_SizeDelta: {x: -690.6307, y: -293.9462}
+  m_AnchoredPosition: {x: -45.32328, y: -152.68082}
+  m_SizeDelta: {x: -644.2926, y: -293.9462}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &884788574
 MonoBehaviour:
@@ -2549,6 +2564,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 884788572}
   m_CullTransparentMesh: 1
+--- !u!114 &884788576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884788572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
+  m_Padding:
+    m_Left: 10
+    m_Right: 10
+    m_Top: 10
+    m_Bottom: 10
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 250, y: 20}
+  m_Spacing: {x: 20, y: 20}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &928910471
 GameObject:
   m_ObjectHideFlags: 0
