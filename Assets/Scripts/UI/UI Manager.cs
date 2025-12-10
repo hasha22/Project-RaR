@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject decisionDialogueBox;
     [SerializeField] private TextMeshProUGUI speakerName;
     [SerializeField] private TextMeshProUGUI decisionContext;
+    private TypingEffect typingEffect;
     //public float typingSpeed = 0.03f;
 
     [Header("Dialogue")]
@@ -64,6 +65,7 @@ public class UIManager : MonoBehaviour
         reefSecretary1.SetActive(false);
         expandedDecisionList.SetActive(false);
         monitorUI.SetActive(false);
+        typingEffect = decisionContext.GetComponent<TypingEffect>();
     }
     private void Start()
     {
@@ -133,6 +135,8 @@ public class UIManager : MonoBehaviour
     }
     public void BeginDecisionDialogue(Decision decision)
     {
+        if (DialogueManager.Instance.isDialogueBoxOpened) return;
+
         decisionContext.text = decision.decisionText;
 
         switch (decision.reefType)
@@ -153,6 +157,8 @@ public class UIManager : MonoBehaviour
 
         reefSecretary1.SetActive(true);
         decisionDialogueBox.SetActive(true);
+        typingEffect.StartTyping(decision.decisionText);
+
     }
     public void EndDecisionDialogue()
     {

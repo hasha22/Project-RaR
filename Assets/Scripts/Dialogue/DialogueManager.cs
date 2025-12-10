@@ -1,6 +1,6 @@
-using UnityEngine;
-using TMPro;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 // Overall flow:
 // 1) 'StartDialogue(node)' is called externally
@@ -11,13 +11,16 @@ using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager Instance { get; private set; }
+
     [Header("UI")]
     [SerializeField] private GameObject dialogueBox; // 최고부모 
     [SerializeField] private GameObject talkPanel; // 대화 뭉텅이 1개
     [SerializeField] private TextMeshProUGUI talkerNameText;
     [SerializeField] private TextMeshProUGUI contentText;
-    [SerializeField] private GameObject choicePanel; // 분기점 
-    
+    [SerializeField] private GameObject choicePanel; // 분기점
+    [HideInInspector] public bool isDialogueBoxOpened = false;
+
     [Header("Choice Button")]
     [SerializeField] private ChoiceController choiceButtonPrefab;
     [SerializeField] private Transform choiceButtonContainer;
@@ -28,12 +31,16 @@ public class DialogueManager : MonoBehaviour
 
     private TypingEffect typingEffect;
 
-    private void Awake() 
-    { 
-        dialogueBox.SetActive(false); 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) { Destroy(this); return; }
+        Instance = this;
+        DontDestroyOnLoad(this.gameObject);
+
+        dialogueBox.SetActive(false);
         if (contentText != null) typingEffect = contentText.GetComponent<TypingEffect>();
     }
-    
+
     // 외부에서 대화를 시작할 때 호출
     public void StartDialogue(DialogueNode startNode)
     {
@@ -42,10 +49,11 @@ public class DialogueManager : MonoBehaviour
         currentDialogueNode = startNode;
         activeTalkIndex = 0;
         dialogueBox.SetActive(true);
-        
+        isDialogueBoxOpened = true;
+
         ProgressDialogue();
     }
-    
+
     // 유저의 클릭으로 다음 대화나 선택지로 진행
     public void OnClickNext()
     {
@@ -53,7 +61,7 @@ public class DialogueManager : MonoBehaviour
         if (ResourceManager.instance.isGameOver) return;
 
         // 선택지가 활성화된 경우 클릭 무시
-        if (choicePanel.activeSelf) return; 
+        if (choicePanel.activeSelf) return;
 
         if (typingEffect.isTyping)
         {
@@ -79,7 +87,7 @@ public class DialogueManager : MonoBehaviour
             talkerNameText.text = currentTalk.talkerName;
 
             // contentText.text = currentTalk.content;
-            typingEffect.StartTyping(currentTalk.content);        
+            typingEffect.StartTyping(currentTalk.content);
 
             activeTalkIndex += 1;
         }
@@ -89,13 +97,13 @@ public class DialogueManager : MonoBehaviour
         // 화자: 그래서 말이지
         // 버튼: 그래서? << 이걸 클릭해서 다음 대화로 넘어가는거임
         // 화자: 무슨무슨 일이 있더라고 ***
-        
+
         // 2. 노드 마지막에 도달한 경우
         else
         {
             // 1) 선택지 분기점 처리
             if (currentDialogueNode.choices != null && currentDialogueNode.choices.Length > 0) ShowChoices();
-            
+
             // 2) 대화 끝
             else EndDialogue();
         }
@@ -112,15 +120,15 @@ public class DialogueManager : MonoBehaviour
         for (int i = 0; i < currentDialogueNode.choices.Length; i++)
         {
             DialogueNode.Choice choice = currentDialogueNode.choices[i];
-            
+
             // 버튼 인스턴스화 및 설정
             ChoiceController button = Instantiate(choiceButtonPrefab, choiceButtonContainer);
-            
+
             // 위치 조정: grid layout group 으로 설정
-            
+
             // 데이터 설정 및 리스너 등록
             button.SetChoice(this, choice, i);
-            
+
             choiceButtons.Add(button);
         }
     }
@@ -130,24 +138,25 @@ public class DialogueManager : MonoBehaviour
     {
         // 1) 대화 끝
         EndDialogue();
-        
+
         // 2) 다음 노드로 이동 (재귀 호출)
         if (selectedChoice.nextNode != null) StartDialogue(selectedChoice.nextNode);
     }
-    
+
     // 생성된 선택지 버튼들 제거
     private void DestroyChoiceButtons()
     {
         foreach (var button in choiceButtons) Destroy(button.gameObject);
         choiceButtons.Clear();
     }
-    
+
     // 대화 끝
     private void EndDialogue()
     {
         Debug.Log("Dialogue End");
 
         dialogueBox.SetActive(false);
+        isDialogueBoxOpened = false;
         currentDialogueNode = null;
         activeTalkIndex = 0;
         DestroyChoiceButtons();
