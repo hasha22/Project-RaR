@@ -4,11 +4,10 @@ using UnityEngine;
 public class TestManager : MonoBehaviour
 {
     [SerializeField] private DialogueNode testDialogueNode;
-    [SerializeField] private DialogueManager dialogueManager;
 
     private void Start()
-    { 
+    {
         DayManager.Instance.StartDay();
-        dialogueManager.StartDialogue(testDialogueNode); 
+        DialogueManager.Instance.StartDialogue(testDialogueNode);
     }
 }
