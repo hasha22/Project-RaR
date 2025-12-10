@@ -2,12 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+// Logic:
+// 1) Decision Pools are filled with SOs in the Unity Editor
+// 2) At the beginning of each day, a number of decisions gets randomly chosen for each reef
+// 3) These are displayed in the decision list, whenever one decisions gets chosen it cannot be chosen again
+// 4) Player has a hardcap for how many decisions can be taken each day for a section of the reef
 public class DecisionManager : MonoBehaviour
 {
     public static DecisionManager instance { get; private set; }
 
     [Header("Data")]
-    //Decision pools for the 4 reefs. will be added manually
+    //Decision pools for the 4 reefs.
     [SerializeField] private List<Decision> firstReefDecisionPool = new List<Decision>();
     [SerializeField] private List<Decision> secondReefDecisionPool = new List<Decision>();
     [SerializeField] private List<Decision> thirdReefDecisionPool = new List<Decision>();
@@ -48,13 +53,12 @@ public class DecisionManager : MonoBehaviour
         UIManager.instance.InstantiateDecisions(firstReefDecisions);
     }
 
-    //////////////////////////////////// Noa ////////////////////////////////////
     private void CheckProgress()
     {
-        if (decisionsTakenFirstReef >= firstReefHardCap) DayManager.Instance.AdvanceDay(); 
+        // temporary. could have advancing to the next day be done with a UI button
+        if (decisionsTakenFirstReef >= firstReefHardCap) DayManager.Instance.AdvanceDay();
     }
-    /////////////////////////////////////////////////////////////////////////////
-    
+
     public List<Decision> GetRandomDecisions()
     {
         List<Decision> temp = new List<Decision>(firstReefDecisionPool);
@@ -86,7 +90,6 @@ public class DecisionManager : MonoBehaviour
         ResourceManager.instance.SubtractPurity(activeDecision.purityToSubtractA);
         ResourceManager.instance.SubtractBiodiversity(activeDecision.biodiversityToSubtractA);
 
-        //TO DO: Handle everything else: UI closing, SFX, removing decision from daily list
         IncreaseDecisionsTaken();
 
         UIManager.instance.EndDecisionDialogue();
@@ -106,7 +109,6 @@ public class DecisionManager : MonoBehaviour
         ResourceManager.instance.SubtractPurity(activeDecision.purityToSubtractN);
         ResourceManager.instance.SubtractBiodiversity(activeDecision.biodiversityToSubtractN);
 
-        //TO DO: Handle everything else: UI closing, SFX, removing decision from daily list
         IncreaseDecisionsTaken();
 
         UIManager.instance.EndDecisionDialogue();
