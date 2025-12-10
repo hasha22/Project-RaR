@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714a0965560e54551b7bc768954c7e32, type: 3}
+  m_Name: Start Game Node
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
+  sequentialTalks:
+  - talkerName: Secretary
+    content: "Ah, you\u2019ve finally arrived. Welcome! It\u2019s a pleasure to finally
+      get to meet you. I\u2019ve been excited awaiting your arrival since you volunteered
+      for this position!"
+  - talkerName: Manager
+    content: Thank you, can you fill me in?
+  - talkerName: Secretary
+    content: "Of course! I\u2019m your environmental assistant here, it\u2019s my
+      job to advise you and organise the various problems you may encounter whilst
+      on the job."
+  - talkerName: Manager
+    content: Ah I see, what sort of problems?
+  - talkerName: Secretary
+    content: "Well, for instance I will approach you regarding various situations
+      that are ongoing. You see, we\u2019re here to save this dying coral reef. If
+      we lose it well\u2026"
+  - talkerName: Manager
+    content: Well?
+  - talkerName: Secretary
+    content: "We\u2019ll lose one of nature's great treasures to our planet. So,
+      the local environmental agency hired you to use your expertise to oversee this
+      patch of ocean and protect it."
+  - talkerName: Manager
+    content: Okay, I'll do my best! Where do we begin?
+  - talkerName: Secretary
+    content: Yes! Straight to business!. Well, I have the first question for you,
+      have you done this before?
+  choices:
+  - text: 
+    nextNode: {fileID: 0}
