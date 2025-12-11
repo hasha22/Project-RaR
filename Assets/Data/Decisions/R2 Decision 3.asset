@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a4f611f972e7f946af855e6fdceb7a5, type: 3}
-  m_Name: R1 Decision 1
+  m_Name: R2 Decision 3
   m_EditorClassIdentifier: Assembly-CSharp::Decision
-  reefType: 1
-  decisionTitle: Coral Disease Spreading
-  decisionText: A new coral disease is spreading, killing off a lot of the coral.
-    Do you fund research to prevent the disease?
+  reefType: 2
+  decisionTitle: R2 test 3
+  decisionText: this is r2 test 3
   fundsToAddA: 0
   purityToAddA: 0
-  biodiversityToAddA: 30
-  fundsToSubtractA: 2000
+  biodiversityToAddA: 0
+  fundsToSubtractA: 0
   purityToSubtractA: 0
   biodiversityToSubtractA: 0
   fundsToAddN: 0
@@ -27,4 +26,4 @@ MonoBehaviour:
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
-  biodiversityToSubtractN: 20
+  biodiversityToSubtractN: 0
