@@ -96,7 +96,7 @@ public class DecisionManager : MonoBehaviour
         UIManager.instance.RemoveDecision(activeDecision);
 
         CheckProgress();
-        Debug.Log("meow1");
+
     }
     public void OnNoButtonPressed()
     {
@@ -116,12 +116,10 @@ public class DecisionManager : MonoBehaviour
         UIManager.instance.RemoveDecision(activeDecision);
 
         CheckProgress();
-        Debug.Log("meow2");
     }
     public void OnMaybeButtonPressed()
     {
         UIManager.instance.EndDecisionDialogue();
-        Debug.Log("meow3");
     }
     private void IncreaseDecisionsTaken()
     {

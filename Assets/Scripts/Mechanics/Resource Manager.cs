@@ -13,20 +13,15 @@ public class ResourceManager : MonoBehaviour
     private int maxPurity = 100;
     private int maxBiodiversity = 100;
 
-    //////////////////////////////////// Noa ////////////////////////////////////
-    // 증감 확인하기 위해 초기 값 저장
     private int fundsAtStart;
     private int purityAtStart;
     private int biodiversityAtStart;
 
-    // 게임오버 체크
     public bool isGameOver { get; private set; }
 
-    // 증감 값
     public int deltaFunds { get; private set; }
     public int deltaPurity { get; private set; }
     public int deltaBiodiversity { get; private set; }
-    /////////////////////////////////////////////////////////////////////////////
 
     [Header("Resource UI Scripts")]
     public ResourceBarUI fundsUI;
@@ -46,23 +41,20 @@ public class ResourceManager : MonoBehaviour
         }
 
     }
-
-    //////////////////////////////////// Noa ////////////////////////////////////
-    private void Init() 
-    { 
+    private void Init()
+    {
         if (DayManager.Instance != null)
         {
-            DayManager.Instance.OnDayStart += AssignDailyResources;
-            DayManager.Instance.OnDayEnd += GetDailyChange; 
+            DayManager.Instance.OnDayStart += AssignResources;
+            DayManager.Instance.OnDayEnd += GetDailyChange;
             Debug.Log($"{name}: Subscribing to DayManager events");
         }
     }
 
-    private void AssignDailyResources()
+    private void AssignResources()
     {
         if (DayManager.Instance.currentDay == 1)
         {
-            // temporary value
             funds = 2000;
             purity = 25;
             biodiversity = 40;
@@ -97,7 +89,7 @@ public class ResourceManager : MonoBehaviour
 
     private void CheckGameOver()
     {
-        if (funds <= 0 || purity <= 0 || biodiversity <= 0) 
+        if (funds <= 0 || purity <= 0 || biodiversity <= 0)
         {
             Debug.Log("GAME OVER");
 
