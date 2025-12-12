@@ -26,10 +26,14 @@ public class ReportUI : MonoBehaviour
         ResourceManager.instance.GetDailyChange();
         Debug.Log ("ShowReport OK");
 
+        ReefType currentReef = ReefManager.Instance.activeReefType;
+
         reportPanel.SetActive(true);
         int dFunds = ResourceManager.instance.deltaFunds;
-        int dPurity = ResourceManager.instance.deltaPurity;
-        int dBiodiversity = ResourceManager.instance.deltaBiodiversity;
+        // int dPurity = ResourceManager.instance.deltaPurity;
+        // int dBiodiversity = ResourceManager.instance.deltaBiodiversity;
+        int dPurity = ResourceManager.instance.deltaPurity[currentReef];
+        int dBiodiversity = ResourceManager.instance.deltaBiodiversity[currentReef];
 
         reportText.text = $"Daily Report - Day {DayManager.Instance.currentDay}\n" +
                           $"Funds: {dFunds:+#;-#;0}\n" +

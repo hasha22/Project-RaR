@@ -7,6 +7,8 @@ public class ReefData : ScriptableObject
     [Header("Reef Info")]
     public ReefType reefType;
     public string reefName;
+    public int initialPurity;
+    public int initialBiodiversity;
 
     [Header("Visuals")]
     public Sprite backgroundImage; 

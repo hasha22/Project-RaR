@@ -8,7 +8,7 @@ public class ReefManager : MonoBehaviour
     public static ReefManager Instance { get; private set; }
 
     [Header("Data")]
-    [SerializeField] private List<ReefData> allReefData;
+    public List<ReefData> allReefData;
     
     public ReefType activeReefType { get; private set; }
     public ReefData activeReefData { get; private set; }

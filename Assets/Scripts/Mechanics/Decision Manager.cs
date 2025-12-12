@@ -123,15 +123,17 @@ public class DecisionManager : MonoBehaviour
     }
     public void OnYesButtonPressed()
     {
+        ReefType currentReef = activeDecision.reefType;
+
         // Addition
         ResourceManager.instance.AddFunds(activeDecision.fundsToAddA);
-        ResourceManager.instance.AddPurity(activeDecision.purityToAddA);
-        ResourceManager.instance.AddBiodiversity(activeDecision.biodiversityToAddA);
+        ResourceManager.instance.AddPurity(currentReef, activeDecision.purityToAddA);
+        ResourceManager.instance.AddBiodiversity(currentReef, activeDecision.biodiversityToAddA);
 
         //Subtraction
         ResourceManager.instance.SubtractFunds(activeDecision.fundsToSubtractA);
-        ResourceManager.instance.SubtractPurity(activeDecision.purityToSubtractA);
-        ResourceManager.instance.SubtractBiodiversity(activeDecision.biodiversityToSubtractA);
+        ResourceManager.instance.SubtractPurity(currentReef, activeDecision.purityToSubtractA);
+        ResourceManager.instance.SubtractBiodiversity(currentReef, activeDecision.biodiversityToSubtractA);
 
         IncreaseDecisionsTaken();
 
@@ -142,15 +144,17 @@ public class DecisionManager : MonoBehaviour
     }
     public void OnNoButtonPressed()
     {
+        ReefType currentReef = activeDecision.reefType;
+
         // Addition
         ResourceManager.instance.AddFunds(activeDecision.fundsToAddN);
-        ResourceManager.instance.AddPurity(activeDecision.purityToAddN);
-        ResourceManager.instance.AddBiodiversity(activeDecision.biodiversityToAddN);
+        ResourceManager.instance.AddPurity(currentReef, activeDecision.purityToAddN);
+        ResourceManager.instance.AddBiodiversity(currentReef, activeDecision.biodiversityToAddN);
 
         //Subtraction
         ResourceManager.instance.SubtractFunds(activeDecision.fundsToSubtractN);
-        ResourceManager.instance.SubtractPurity(activeDecision.purityToSubtractN);
-        ResourceManager.instance.SubtractBiodiversity(activeDecision.biodiversityToSubtractN);
+        ResourceManager.instance.SubtractPurity(currentReef, activeDecision.purityToSubtractN);
+        ResourceManager.instance.SubtractBiodiversity(currentReef, activeDecision.biodiversityToSubtractN);
 
         IncreaseDecisionsTaken();
 

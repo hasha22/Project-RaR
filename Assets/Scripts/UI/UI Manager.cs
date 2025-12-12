@@ -78,6 +78,13 @@ public class UIManager : MonoBehaviour
             ReefManager.Instance.OnReefSwitched += UpdateReefUI;
             Debug.Log($"{name}: Subscribing to ReefManager events");
         }
+
+        if (ResourceManager.instance != null)
+        {
+            ResourceManager.instance.OnFundsChanged += UpdateFundsUI; 
+            ResourceManager.instance.OnPurityChanged += UpdatePurityUI; 
+            ResourceManager.instance.OnBiodiversityChanged += UpdateBiodiversityUI; 
+        }
     }
 
     private void Start()
