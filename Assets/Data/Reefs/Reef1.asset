@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e02887746b84ed79285e45d58aabba, type: 3}
+  m_Name: Reef1
+  m_EditorClassIdentifier: Assembly-CSharp::ReefData
+  reefType: 1
+  reefName: Reef 1
+  backgroundImage: {fileID: 7226839270606809080, guid: 538cfe25ddfad194db093b47111dd2ea, type: 3}
+  decisionPool:
+  - {fileID: 11400000, guid: 608afb31c5efdca4d8584336eb509b96, type: 2}
+  - {fileID: 11400000, guid: ed44abdfcd4bf204396e7c54772be988, type: 2}
+  - {fileID: 11400000, guid: ef9667efe66e32247a990dee28d86115, type: 2}
+  - {fileID: 11400000, guid: 87c0a7f6ebb81ea479b7cf53ac07fb11, type: 2}
+  - {fileID: 11400000, guid: 1e59416b6fb9e0647b6f943629fbc94f, type: 2}

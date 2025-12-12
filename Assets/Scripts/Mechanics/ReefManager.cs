@@ -1,0 +1,42 @@
+using UnityEngine;
+using System;
+using System.Collections.Generic;
+
+// Script for managing reef state and dispatching switch events
+public class ReefManager : MonoBehaviour
+{
+    public static ReefManager Instance { get; private set; }
+
+    [Header("Data")]
+    [SerializeField] private List<ReefData> allReefData;
+    
+    public ReefType activeReefType { get; private set; }
+    public ReefData activeReefData { get; private set; }
+
+    // Reef가 전환될 때마다 UI와 DecisionManager에게 알리는 이벤트
+    public event Action<ReefType> OnReefSwitched;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) { Destroy(this); return; }
+        Instance = this;
+        DontDestroyOnLoad(this);
+
+        activeReefType = ReefType.None;
+    }
+
+    public void SwitchReef(ReefType targetReef)
+    {
+        if (activeReefType == targetReef) return;
+
+        ReefData data = allReefData.Find(r => r.reefType == targetReef);
+        if (data == null) return;
+
+        activeReefType = targetReef;
+        activeReefData = data;
+        
+        Debug.Log($"Switched to {targetReef}");
+        
+        OnReefSwitched?.Invoke(activeReefType);
+    }
+}

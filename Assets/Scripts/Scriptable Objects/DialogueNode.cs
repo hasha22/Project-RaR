@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(menuName = "Dialogue System/Dialogue Node")]
+[CreateAssetMenu(menuName = "Dialogues/New Dialogue")]
 public class DialogueNode : ScriptableObject
 {
     // 1. 순차적 대화

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4f611f972e7f946af855e6fdceb7a5, type: 3}
   m_Name: R1 Decision 3
   m_EditorClassIdentifier: Assembly-CSharp::Decision
-  reefType: 0
+  reefType: 1
   decisionTitle: Build Windfarms
   decisionText: A Green Energy fund wants to build some windfarms not far from the
     Coral Reef, they ask for your permission to do so.

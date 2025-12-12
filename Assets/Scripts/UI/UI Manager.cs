@@ -17,7 +17,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI purity;
     [SerializeField] private TextMeshProUGUI biodiversity;
 
-    [Header("Reef Secretary")]
+    [Header("Reef Visuals")]
+    [SerializeField] private Image reefImage; 
     [SerializeField] private GameObject reefSecretary1;
 
     [Header("Monitor")]
@@ -31,12 +32,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject expandedDecisionList;
     [SerializeField] private GameObject dropdownButton;
     [SerializeField] private GameObject decisionPrefab;
-    [SerializeField] private Transform decisionsContainer;
+    // [SerializeField] private Transform decisionsContainer;
+    public Transform decisionsContainer;
     [SerializeField] private Sprite dropdownClosed;
     [SerializeField] private Sprite dropdownOpened;
     [SerializeField] private TextMeshProUGUI currentDecisionsTaken;
     [SerializeField] private TextMeshProUGUI maxDecisions;
-    private List<GameObject> decisionList = new List<GameObject>();
+    // private List<GameObject> decisionList = new List<GameObject>();
+    public List<GameObject> decisionList = new List<GameObject>();
     [Space]
     //dialogue box variables
     [SerializeField] private GameObject decisionDialogueBox;
@@ -67,11 +70,35 @@ public class UIManager : MonoBehaviour
         monitorUI.SetActive(false);
         typingEffect = decisionContext.GetComponent<TypingEffect>();
     }
+
+    private void Init() 
+    { 
+        if (ReefManager.Instance != null)
+        {
+            ReefManager.Instance.OnReefSwitched += UpdateReefUI;
+            Debug.Log($"{name}: Subscribing to ReefManager events");
+        }
+    }
+
     private void Start()
     {
+        Init();
+
         //moved to start due to loading order errors, will be changed later in project settings
         maxDecisions.text = DecisionManager.instance.firstReefHardCap.ToString();
     }
+
+    private void UpdateReefUI(ReefType newReef)
+    {
+        ReefData data = ReefManager.Instance.activeReefData;
+        
+        // 인게임 배경 이미지 갱신
+        if (reefImage != null && data.backgroundImage != null)
+        {
+            reefImage.sprite = data.backgroundImage;
+        }
+    }
+
     private void Update()
     {
         if (InputManager.instance.hasPressedSpace)

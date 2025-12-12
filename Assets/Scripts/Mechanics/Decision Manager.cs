@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Logic:
 // 1) Decision Pools are filled with SOs in the Unity Editor
@@ -46,12 +47,54 @@ public class DecisionManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    //////////////////////////////////// Noa ////////////////////////////////////
+    private void Init() 
+    { 
+        if (ReefManager.Instance != null)
+        {
+            ReefManager.Instance.OnReefSwitched += UpdateDecisionPool;
+            Debug.Log($"{name}: Subscribing to ReefManager events");
+        }
+    }
+
     private void Start()
     {
+        Init();
+
         // temporary on start. needs to be implemented to shuffle at the beginning of each day
-        firstReefDecisions = GetRandomDecisions();
-        UIManager.instance.InstantiateDecisions(firstReefDecisions);
+        // firstReefDecisions = GetRandomDecisions();
+        // UIManager.instance.InstantiateDecisions(firstReefDecisions);
     }
+
+    private void UpdateDecisionPool(ReefType newReef)
+    {
+        if (ReefManager.Instance.activeReefData == null) return;
+        
+        ReefData data = ReefManager.Instance.activeReefData;
+        
+        // 현재 Reef의 전체 풀을 가져옴
+        List<Decision> pool = data.decisionPool;
+        
+        // 기존 Decision 리스트 UI 초기화 및 새 Decision 생성
+        ResetDecisionList(pool); 
+    }
+
+    // Temporary reset function for reef switching
+    public void ResetDecisionList(List<Decision> pool)
+    {
+        // 기존 UI 버튼들 제거
+        foreach (Transform child in UIManager.instance.decisionsContainer) Destroy(child.gameObject);
+
+        UIManager.instance.decisionList.Clear();
+
+        // 새로운 무작위 결정 리스트 확보 및 인스턴스화
+        List<Decision> newDecisions = GetRandomDecisions(pool);
+        UIManager.instance.InstantiateDecisions(newDecisions);
+        
+        Debug.Log($"Decisions updated for {ReefManager.Instance.activeReefType}");
+    }
+    /////////////////////////////////////////////////////////////////////////////
 
     private void CheckProgress()
     {
@@ -59,9 +102,9 @@ public class DecisionManager : MonoBehaviour
         if (decisionsTakenFirstReef >= firstReefHardCap) DayManager.Instance.AdvanceDay();
     }
 
-    public List<Decision> GetRandomDecisions()
+    public List<Decision> GetRandomDecisions(List<Decision> pool)
     {
-        List<Decision> temp = new List<Decision>(firstReefDecisionPool);
+        List<Decision> temp = new List<Decision>(pool);
 
         for (int i = 0; i < temp.Count; i++)
         {
@@ -96,7 +139,6 @@ public class DecisionManager : MonoBehaviour
         UIManager.instance.RemoveDecision(activeDecision);
 
         CheckProgress();
-
     }
     public void OnNoButtonPressed()
     {

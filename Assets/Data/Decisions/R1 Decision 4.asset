@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4f611f972e7f946af855e6fdceb7a5, type: 3}
   m_Name: R1 Decision 4
   m_EditorClassIdentifier: Assembly-CSharp::Decision
-  reefType: 0
+  reefType: 1
   decisionTitle: Scientist Proposal
   decisionText: A group of scientists wishes to introduce a new species of algae
     eating snails.
