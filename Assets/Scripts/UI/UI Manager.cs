@@ -8,17 +8,12 @@ public class UIManager : MonoBehaviour
     public static UIManager instance { get; private set; }
 
     [Header("Resources")]
-    /*
-    public GameObject fundsFill;
-    public GameObject purityFill;
-    public GameObject biodiversityFill;
-    */
     [SerializeField] private TextMeshProUGUI funds;
     [SerializeField] private TextMeshProUGUI purity;
     [SerializeField] private TextMeshProUGUI biodiversity;
 
     [Header("Reef Visuals")]
-    [SerializeField] private Image reefImage; 
+    [SerializeField] private Image reefImage;
     [SerializeField] private GameObject reefSecretary1;
 
     [Header("Monitor")]
@@ -62,43 +57,39 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        //temporary. the hard cap for each reef should be set at the beginning of the day
-
         decisionDialogueBox.SetActive(false);
         reefSecretary1.SetActive(false);
         expandedDecisionList.SetActive(false);
         monitorUI.SetActive(false);
         typingEffect = decisionContext.GetComponent<TypingEffect>();
     }
-
-    private void Init() 
-    { 
-        if (ReefManager.Instance != null)
-        {
-            ReefManager.Instance.OnReefSwitched += UpdateReefUI;
-            Debug.Log($"{name}: Subscribing to ReefManager events");
-        }
-
-        if (ResourceManager.instance != null)
-        {
-            ResourceManager.instance.OnFundsChanged += UpdateFundsUI; 
-            ResourceManager.instance.OnPurityChanged += UpdatePurityUI; 
-            ResourceManager.instance.OnBiodiversityChanged += UpdateBiodiversityUI; 
-        }
-    }
-
     private void Start()
     {
         Init();
 
-        //moved to start due to loading order errors, will be changed later in project settings
-        maxDecisions.text = DecisionManager.instance.firstReefHardCap.ToString();
+        maxDecisions.text = DecisionManager.instance.decisionHardCap.ToString();
+    }
+
+    private void Init()
+    {
+        if (ReefManager.Instance != null)
+        {
+            ReefManager.Instance.OnReefSwitched += UpdateReefUI;
+            //Debug.Log($"{name}: Subscribing to ReefManager events");
+        }
+
+        if (ResourceManager.instance != null)
+        {
+            ResourceManager.instance.OnFundsChanged += UpdateFundsUI;
+            ResourceManager.instance.OnPurityChanged += UpdatePurityUI;
+            ResourceManager.instance.OnBiodiversityChanged += UpdateBiodiversityUI;
+        }
     }
 
     private void UpdateReefUI(ReefType newReef)
     {
         ReefData data = ReefManager.Instance.activeReefData;
-        
+
         // 인게임 배경 이미지 갱신
         if (reefImage != null && data.backgroundImage != null)
         {

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 // Logic:
 // 1) Decision Pools are filled with SOs in the Unity Editor
@@ -31,10 +30,8 @@ public class DecisionManager : MonoBehaviour
     public int decisionsTakenThirdReef;
     public int decisionsTakenFourthReef;
     [Space]
-    public int firstReefHardCap;
-    private int secondReefHardCap;
-    private int thirdReefHardCap;
-    private int fourthReefHardCap;
+    public int decisionHardCap;
+
     private void Awake()
     {
         if (instance == null)
@@ -47,10 +44,8 @@ public class DecisionManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    //////////////////////////////////// Noa ////////////////////////////////////
-    private void Init() 
-    { 
+    private void Init()
+    {
         if (ReefManager.Instance != null)
         {
             ReefManager.Instance.OnReefSwitched += UpdateDecisionPool;
@@ -60,6 +55,8 @@ public class DecisionManager : MonoBehaviour
 
     private void Start()
     {
+        ReefManager.Instance.SetNewReef(ReefManager.Instance.allReefData[0]);
+        UpdateDecisionPool(ResourceManager.instance.activeReef);
         Init();
 
         // temporary on start. needs to be implemented to shuffle at the beginning of each day
@@ -70,18 +67,15 @@ public class DecisionManager : MonoBehaviour
     private void UpdateDecisionPool(ReefType newReef)
     {
         if (ReefManager.Instance.activeReefData == null) return;
-        
+
         ReefData data = ReefManager.Instance.activeReefData;
-        
-        // 현재 Reef의 전체 풀을 가져옴
-        List<Decision> pool = data.decisionPool;
-        
+
         // 기존 Decision 리스트 UI 초기화 및 새 Decision 생성
-        ResetDecisionList(pool); 
+
+        ResetDecisionList(data);
     }
 
-    // Temporary reset function for reef switching
-    public void ResetDecisionList(List<Decision> pool)
+    public void ResetDecisionList(ReefData data)
     {
         // 기존 UI 버튼들 제거
         foreach (Transform child in UIManager.instance.decisionsContainer) Destroy(child.gameObject);
@@ -89,22 +83,25 @@ public class DecisionManager : MonoBehaviour
         UIManager.instance.decisionList.Clear();
 
         // 새로운 무작위 결정 리스트 확보 및 인스턴스화
-        List<Decision> newDecisions = GetRandomDecisions(pool);
+        List<Decision> newDecisions = GetDailyDecisions(data, DayManager.Instance.currentDay);
         UIManager.instance.InstantiateDecisions(newDecisions);
-        
-        Debug.Log($"Decisions updated for {ReefManager.Instance.activeReefType}");
+
+        //Debug.Log($"Decisions updated for {ReefManager.Instance.activeReefType}");
     }
-    /////////////////////////////////////////////////////////////////////////////
 
     private void CheckProgress()
     {
         // temporary. could have advancing to the next day be done with a UI button
-        if (decisionsTakenFirstReef >= firstReefHardCap) DayManager.Instance.AdvanceDay();
+        if (decisionsTakenFirstReef >= decisionHardCap) DayManager.Instance.AdvanceDay();
     }
 
-    public List<Decision> GetRandomDecisions(List<Decision> pool)
+    public List<Decision> GetDailyDecisions(ReefData data, int currentDay)
     {
-        List<Decision> temp = new List<Decision>(pool);
+        Debug.Log(data.lastGeneratedDay);
+        if (data.dailyDecisions != null && data.lastGeneratedDay == currentDay)
+            return data.dailyDecisions;
+
+        List<Decision> temp = new List<Decision>(data.decisionPool);
 
         for (int i = 0; i < temp.Count; i++)
         {
@@ -113,13 +110,16 @@ public class DecisionManager : MonoBehaviour
         }
 
         // 5 is temporary, might have to change to account for game balance
-        return temp.Take(5).ToList();
+        data.dailyDecisions = temp.Take(5).ToList();
+        data.lastGeneratedDay = currentDay;
+
+        return data.dailyDecisions;
     }
     public void AssignDecision(Decision decision)
     {
         activeDecision = decision;
         // also temp, needs to be reef specific
-        if (decisionsTakenFirstReef < firstReefHardCap) { UIManager.instance.BeginDecisionDialogue(decision); }
+        if (decisionsTakenFirstReef < decisionHardCap) { UIManager.instance.BeginDecisionDialogue(decision); }
     }
     public void OnYesButtonPressed()
     {
@@ -136,6 +136,8 @@ public class DecisionManager : MonoBehaviour
         ResourceManager.instance.SubtractBiodiversity(currentReef, activeDecision.biodiversityToSubtractA);
 
         IncreaseDecisionsTaken();
+
+        ReefManager.Instance.activeReefData.dailyDecisions.Remove(activeDecision);
 
         UIManager.instance.EndDecisionDialogue();
         UIManager.instance.RemoveDecision(activeDecision);

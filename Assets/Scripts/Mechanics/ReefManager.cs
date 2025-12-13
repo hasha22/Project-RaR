@@ -1,6 +1,6 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 // Script for managing reef state and dispatching switch events
 public class ReefManager : MonoBehaviour
@@ -9,7 +9,7 @@ public class ReefManager : MonoBehaviour
 
     [Header("Data")]
     public List<ReefData> allReefData;
-    
+
     public ReefType activeReefType { get; private set; }
     public ReefData activeReefData { get; private set; }
 
@@ -22,7 +22,8 @@ public class ReefManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this);
 
-        activeReefType = ReefType.None;
+        //changed to reef1
+        activeReefType = ReefType.Reef1;
     }
 
     public void SwitchReef(ReefType targetReef)
@@ -34,9 +35,13 @@ public class ReefManager : MonoBehaviour
 
         activeReefType = targetReef;
         activeReefData = data;
-        
-        Debug.Log($"Switched to {targetReef}");
-        
+
+        //Debug.Log($"Switched to {targetReef}");
+
         OnReefSwitched?.Invoke(activeReefType);
+    }
+    public void SetNewReef(ReefData newReefData)
+    {
+        activeReefData = newReefData;
     }
 }

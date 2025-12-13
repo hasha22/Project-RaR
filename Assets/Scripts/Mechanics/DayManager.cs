@@ -1,5 +1,5 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 // Create an Init() to subscribe to events, and call it from Start()
 // Script for managing the start and end of each day
@@ -28,7 +28,7 @@ public class DayManager : MonoBehaviour
         currentDay += 1;
         OnDayStart?.Invoke();
 
-        Debug.Log($"Day {currentDay} started");
+        //Debug.Log($"Day {currentDay} started");
     }
 
     // 하루 끝
@@ -37,7 +37,7 @@ public class DayManager : MonoBehaviour
         isDayActive = false;
         OnDayEnd?.Invoke();
 
-        Debug.Log($"Day {currentDay} ended");
+        //Debug.Log($"Day {currentDay} ended");
     }
 
     // 하루 진행: 유저의 특정 행동 후 호출

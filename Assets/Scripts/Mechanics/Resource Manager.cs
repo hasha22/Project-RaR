@@ -1,7 +1,6 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
-using UnityEngine.AI;
+using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
@@ -10,14 +9,12 @@ public class ResourceManager : MonoBehaviour
     [Header("Player Resources")]
     //these need to be assigned at the beginning of a day (most likely), not through inspector
     public int funds;
-    // public int purity;
-    // public int biodiversity;
     private Dictionary<ReefType, int> purityByReef = new Dictionary<ReefType, int>();
     private Dictionary<ReefType, int> biodiversityByReef = new Dictionary<ReefType, int>();
     public event Action<int> OnFundsChanged;
     public event Action<int> OnPurityChanged;
     public event Action<int> OnBiodiversityChanged;
-    private ReefType activeReef = ReefType.None;
+    public ReefType activeReef = ReefType.None;
 
     private int maxFunds = 10000;
     private int maxPurity = 100;
@@ -32,7 +29,6 @@ public class ResourceManager : MonoBehaviour
     public int deltaFunds { get; private set; }
     public Dictionary<ReefType, int> deltaPurity = new Dictionary<ReefType, int>();
     public Dictionary<ReefType, int> deltaBiodiversity = new Dictionary<ReefType, int>();
-    /////////////////////////////////////////////////////////////////////////////
 
     [Header("Resource UI Scripts")]
     public ResourceBarUI fundsUI;
@@ -52,31 +48,39 @@ public class ResourceManager : MonoBehaviour
         }
 
     }
+    private void Start()
+    {
+        activeReef = ReefType.Reef1;
+        Init();
+    }
     private void Init()
     {
         if (DayManager.Instance != null)
         {
             DayManager.Instance.OnDayStart += AssignResources;
             DayManager.Instance.OnDayEnd += GetDailyChange;
-            Debug.Log($"{name}: Subscribing to DayManager events");
+            //Debug.Log($"{name}: Subscribing to DayManager events");
         }
 
         if (ReefManager.Instance != null)
         {
             ReefManager.Instance.OnReefSwitched += OnReefSwitched;
-            Debug.Log($"{name}: Subscribing to ReefManager events");
+            //Debug.Log($"{name}: Subscribing to ReefManager events");
         }
     }
 
     private void OnReefSwitched(ReefType targetReef)
     {
         activeReef = targetReef;
-        
+
         if (activeReef != ReefType.None && purityByReef.ContainsKey(activeReef))
         {
             // Reef가 전환될 경우 해당 Reef의 Purity/Biodiversity 값을 즉시 UI에 알림
             OnPurityChanged?.Invoke(purityByReef[activeReef]);
             OnBiodiversityChanged?.Invoke(biodiversityByReef[activeReef]);
+
+            purityUI.SetValue(purityByReef[activeReef]);
+            biodiversityUI.SetValue(biodiversityByReef[activeReef]);
         }
     }
 
@@ -85,13 +89,13 @@ public class ResourceManager : MonoBehaviour
         fundsUI.SetMaxValue(maxFunds);
         purityUI.SetMaxValue(maxPurity);
         biodiversityUI.SetMaxValue(maxBiodiversity);
-        
+
         if (DayManager.Instance.currentDay == 1)
         {
             funds = 2000;
         }
 
-        foreach (ReefData data in ReefManager.Instance.allReefData) 
+        foreach (ReefData data in ReefManager.Instance.allReefData)
         {
             // day 1에만 초기값 설정: 이후 날짜에는 전날의 최종값을 씀
             if (DayManager.Instance.currentDay == 1)
@@ -103,6 +107,7 @@ public class ResourceManager : MonoBehaviour
             // 증감 계산을 위해 시작 값 기록: 매일 아침 갱신
             purityAtStart[data.reefType] = purityByReef[data.reefType];
             biodiversityAtStart[data.reefType] = biodiversityByReef[data.reefType];
+
         }
 
         fundsAtStart = funds;
@@ -111,20 +116,24 @@ public class ResourceManager : MonoBehaviour
         // Funds는 글로벌 값이므로 이곳에서 한번 발송
         OnFundsChanged?.Invoke(funds);
         fundsUI.SetValue(funds);
-        
+
         if (activeReef != ReefType.None && purityByReef.ContainsKey(activeReef))
         {
+            /*
             // Purity와 Biodiversity는 현재 Active Reef의 값만 발송
             if (activeReef != ReefType.None && purityByReef.ContainsKey(activeReef))
             {
                 OnPurityChanged?.Invoke(purityByReef[activeReef]);
                 OnBiodiversityChanged?.Invoke(biodiversityByReef[activeReef]);
             }
-
+            */
             purityUI.SetValue(purityByReef[activeReef]);
             biodiversityUI.SetValue(biodiversityByReef[activeReef]);
+
+            UIManager.instance.UpdatePurityUI(purityByReef[activeReef]);
+            UIManager.instance.UpdateBiodiversityUI(biodiversityByReef[activeReef]);
         }
-        
+
         /*
         UIManager.instance.UpdateFundsUI(funds);
         UIManager.instance.UpdatePurityUI(purityByReef[activeReef]);
@@ -140,18 +149,17 @@ public class ResourceManager : MonoBehaviour
     public void GetDailyChange()
     {
         deltaFunds = funds - fundsAtStart;
-        foreach (ReefData data in ReefManager.Instance.allReefData) 
+        foreach (ReefData data in ReefManager.Instance.allReefData)
         {
             deltaPurity[data.reefType] = purityByReef[data.reefType] - purityAtStart[data.reefType];
             deltaBiodiversity[data.reefType] = biodiversityByReef[data.reefType] - biodiversityAtStart[data.reefType];
         }
 
-        // Debug.Log($"delta funds: {deltaFunds}\ndelta purity: {deltaPurity}\ndelta biodiversity: {deltaBiodiversity}");
     }
 
     private void CheckGameOver()
     {
-        if (funds <= 0) 
+        if (funds <= 0)
         {
             Debug.Log("GAME OVER by funds");
 
@@ -163,37 +171,12 @@ public class ResourceManager : MonoBehaviour
         {
             if (purityByReef[data.reefType] <= 0 || biodiversityByReef[data.reefType] <= 0)
             {
-                Debug.Log($"GAME OVER by purity of biodiversity");
+                Debug.Log($"GAME OVER by purity or biodiversity");
 
                 isGameOver = true;
                 DayManager.Instance.AdvanceDay();
             }
         }
-    }
-    /////////////////////////////////////////////////////////////////////////////
-
-    private void Start()
-    {
-        Init();
-
-        /*
-        fundsUI.SetMaxValue(maxFunds);
-        purityUI.SetMaxValue(maxPurity);
-        biodiversityUI.SetMaxValue(maxBiodiversity);
-
-        fundsUI.SetValue(funds);
-        purityUI.SetValue(purity);
-        biodiversityUI.SetValue(biodiversity);
-
-        UIManager.instance.UpdateFundsUI(funds);
-        UIManager.instance.UpdatePurityUI(purity);
-        UIManager.instance.UpdateBiodiversityUI(biodiversity);
-        */
-    }
-
-    public void OnDayPassed()
-    {
-        //requires data about the day, how many resources to award the player
     }
     public void AddFunds(int newFunds)
     {
@@ -205,9 +188,9 @@ public class ResourceManager : MonoBehaviour
     public void AddPurity(ReefType targetReef, int newPurity)
     {
         if (targetReef == ReefType.None || !purityByReef.ContainsKey(targetReef)) return;
-        
+
         purityByReef[targetReef] += newPurity;
-        
+
         // 현재 활성 Reef인 경우에만 UI에 변경을 알립니다.
         if (targetReef == activeReef)
         {
@@ -220,9 +203,9 @@ public class ResourceManager : MonoBehaviour
     public void AddBiodiversity(ReefType targetReef, int newBiodiversity)
     {
         if (targetReef == ReefType.None || !biodiversityByReef.ContainsKey(targetReef)) return;
-        
+
         biodiversityByReef[targetReef] += newBiodiversity;
-        
+
         // 현재 활성 Reef인 경우에만 UI에 변경을 알립니다.
         if (targetReef == activeReef)
         {
@@ -239,14 +222,17 @@ public class ResourceManager : MonoBehaviour
         fundsUI.SetValue(funds);
         UIManager.instance.UpdateFundsUI(funds);
 
-        CheckGameOver();
+        //for all game over checks, make sure they happen at the end of the day, not immediately when a certain value drops to 0. 
+        //this gives the player a chance to go above the game over threshold if they pick the right decisions before they hit their decision limit
+
+        //CheckGameOver();
     }
     public void SubtractPurity(ReefType targetReef, int newPurity)
     {
         if (targetReef == ReefType.None || !purityByReef.ContainsKey(targetReef)) return;
-        
+
         purityByReef[targetReef] -= newPurity;
-        
+
         // 현재 활성 Reef인 경우에만 UI에 변경을 알립니다.
         if (targetReef == activeReef)
         {
@@ -256,14 +242,14 @@ public class ResourceManager : MonoBehaviour
         purityUI.SetValue(purityByReef[targetReef]);
         UIManager.instance.UpdatePurityUI(purityByReef[targetReef]);
 
-        CheckGameOver();
+        //CheckGameOver();
     }
     public void SubtractBiodiversity(ReefType targetReef, int newBiodiversity)
     {
         if (targetReef == ReefType.None || !biodiversityByReef.ContainsKey(targetReef)) return;
-        
+
         biodiversityByReef[targetReef] -= newBiodiversity;
-        
+
         // 현재 활성 Reef인 경우에만 UI에 변경을 알립니다.
         if (targetReef == activeReef)
         {
@@ -273,6 +259,6 @@ public class ResourceManager : MonoBehaviour
         biodiversityUI.SetValue(biodiversityByReef[targetReef]);
         UIManager.instance.UpdateBiodiversityUI(biodiversityByReef[targetReef]);
 
-        CheckGameOver();
+        //CheckGameOver();
     }
 }

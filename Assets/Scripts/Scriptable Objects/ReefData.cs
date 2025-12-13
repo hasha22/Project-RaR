@@ -1,7 +1,7 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-[CreateAssetMenu( menuName = "Reefs/New Reef")]
+[CreateAssetMenu(menuName = "Reefs/New Reef")]
 public class ReefData : ScriptableObject
 {
     [Header("Reef Info")]
@@ -11,8 +11,11 @@ public class ReefData : ScriptableObject
     public int initialBiodiversity;
 
     [Header("Visuals")]
-    public Sprite backgroundImage; 
-    
+    public Sprite backgroundImage;
+
     [Header("Decision Pool Reference")]
     public List<Decision> decisionPool;
+
+    [HideInInspector] public List<Decision> dailyDecisions;
+    [HideInInspector] public int lastGeneratedDay = -1;
 }
