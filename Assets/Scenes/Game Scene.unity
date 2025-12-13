@@ -151,7 +151,7 @@ MonoBehaviour:
   funds: {fileID: 1890956733}
   purity: {fileID: 1826540412}
   biodiversity: {fileID: 108183136}
-  inGameBackgroundImage: {fileID: 719177538}
+  reefImage: {fileID: 0}
   reefSecretary1: {fileID: 1848399299}
   monitorUI: {fileID: 266608689}
   openMonitorButton: {fileID: 116971078}
@@ -987,8 +987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceManager
   funds: 0
-  purity: 0
-  biodiversity: 0
+  activeReef: 0
   fundsUI: {fileID: 1364662905}
   purityUI: {fileID: 1315649611}
   biodiversityUI: {fileID: 62295522}
@@ -3460,7 +3459,7 @@ MonoBehaviour:
   decisionsTakenSecondReef: 0
   decisionsTakenThirdReef: 0
   decisionsTakenFourthReef: 0
-  firstReefHardCap: 3
+  decisionHardCap: 3
 --- !u!4 &1070532947
 Transform:
   m_ObjectHideFlags: 0

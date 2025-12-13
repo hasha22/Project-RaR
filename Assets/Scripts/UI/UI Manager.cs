@@ -111,17 +111,16 @@ public class UIManager : MonoBehaviour
         if (InputManager.instance.hasPressedF)
         {
             InputManager.instance.hasPressedF = false;
+            Image img = dropdownButton.GetComponent<Image>();
 
             if (isDecisionListOpened)
             {
-                Sprite imageSprite = dropdownButton.GetComponent<Image>().sprite;
-                imageSprite = dropdownClosed;
+                img.sprite = dropdownClosed;
                 expandedDecisionList.SetActive(false);
             }
             else
             {
-                Sprite imageSprite = dropdownButton.GetComponent<Image>().sprite;
-                imageSprite = dropdownOpened;
+                img.sprite = dropdownOpened;
                 expandedDecisionList.SetActive(true);
             }
 

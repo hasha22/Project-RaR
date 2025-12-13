@@ -16,6 +16,4 @@ public class ReefData : ScriptableObject
     [Header("Decision Pool Reference")]
     public List<Decision> decisionPool;
 
-    [HideInInspector] public List<Decision> dailyDecisions;
-    [HideInInspector] public int lastGeneratedDay = -1;
 }

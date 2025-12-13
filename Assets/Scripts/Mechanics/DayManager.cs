@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 // Create an Init() to subscribe to events, and call it from Start()
@@ -9,6 +10,8 @@ public class DayManager : MonoBehaviour
     public static DayManager Instance { get; private set; }
     public int currentDay = 0; // 현재 게임 일수
     public bool isDayActive = false;
+
+    public Dictionary<ReefData, DailyDecisionCache> dailyDecisionCache = new Dictionary<ReefData, DailyDecisionCache>();
 
     // 이벤트: 하루 시작 / 끝
     public event Action OnDayStart;
@@ -48,4 +51,10 @@ public class DayManager : MonoBehaviour
 
     // 현재 일수 반환
     public int GetCurrentDay() => currentDay;
+
+    public class DailyDecisionCache
+    {
+        public int day;
+        public List<Decision> decisions;
+    }
 }

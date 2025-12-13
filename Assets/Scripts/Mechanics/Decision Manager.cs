@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static DayManager;
 
 // Logic:
 // 1) Decision Pools are filled with SOs in the Unity Editor
@@ -97,9 +98,11 @@ public class DecisionManager : MonoBehaviour
 
     public List<Decision> GetDailyDecisions(ReefData data, int currentDay)
     {
-        Debug.Log(data.lastGeneratedDay);
-        if (data.dailyDecisions != null && data.lastGeneratedDay == currentDay)
-            return data.dailyDecisions;
+        if (DayManager.Instance.dailyDecisionCache.TryGetValue(data, out var cache))
+        {
+            if (cache.day == currentDay)
+                return cache.decisions;
+        }
 
         List<Decision> temp = new List<Decision>(data.decisionPool);
 
@@ -110,10 +113,15 @@ public class DecisionManager : MonoBehaviour
         }
 
         // 5 is temporary, might have to change to account for game balance
-        data.dailyDecisions = temp.Take(5).ToList();
-        data.lastGeneratedDay = currentDay;
 
-        return data.dailyDecisions;
+        var newCache = new DailyDecisionCache
+        {
+            day = currentDay,
+            decisions = temp.Take(5).ToList()
+        };
+
+        DayManager.Instance.dailyDecisionCache[data] = newCache;
+        return newCache.decisions;
     }
     public void AssignDecision(Decision decision)
     {
@@ -137,7 +145,8 @@ public class DecisionManager : MonoBehaviour
 
         IncreaseDecisionsTaken();
 
-        ReefManager.Instance.activeReefData.dailyDecisions.Remove(activeDecision);
+        //removes from daily decision cache
+        GetDailyDecisions(ReefManager.Instance.activeReefData, DayManager.Instance.currentDay).Remove(activeDecision);
 
         UIManager.instance.EndDecisionDialogue();
         UIManager.instance.RemoveDecision(activeDecision);
@@ -159,6 +168,9 @@ public class DecisionManager : MonoBehaviour
         ResourceManager.instance.SubtractBiodiversity(currentReef, activeDecision.biodiversityToSubtractN);
 
         IncreaseDecisionsTaken();
+
+        //removes from daily decision cache
+        GetDailyDecisions(ReefManager.Instance.activeReefData, DayManager.Instance.currentDay).Remove(activeDecision);
 
         UIManager.instance.EndDecisionDialogue();
         UIManager.instance.RemoveDecision(activeDecision);
