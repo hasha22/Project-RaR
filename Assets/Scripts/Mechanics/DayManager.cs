@@ -11,6 +11,9 @@ public class DayManager : MonoBehaviour
     public int currentDay = 0; // 현재 게임 일수
     public bool isDayActive = false;
 
+    public int daysWithDeficit = 0; // 적자로 끝난 날수
+    public int maxAllowedDeficitDays = 3; // 적자 허락되는 최대 일수
+
     public Dictionary<ReefData, DailyDecisionCache> dailyDecisionCache = new Dictionary<ReefData, DailyDecisionCache>();
 
     // 이벤트: 하루 시작 / 끝
@@ -38,6 +41,7 @@ public class DayManager : MonoBehaviour
     public void EndDay()
     {
         isDayActive = false;
+        ResourceManager.instance.CheckGameOver();
         OnDayEnd?.Invoke();
 
         //Debug.Log($"Day {currentDay} ended");

@@ -45,6 +45,12 @@ public class UIManager : MonoBehaviour
 
     [Header("Dialogue")]
     [SerializeField] private GameObject dialogueBox;
+
+    [Header("Warning UI")]
+    [SerializeField] private GameObject[] warningBadges; // 0:Funds / 1:Purity / 2:Bio
+    [SerializeField] private GameObject warningPopup;
+    [SerializeField] private TextMeshProUGUI warningText;
+
     private void Awake()
     {
         if (instance == null)
@@ -236,4 +242,20 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ToggleWarningBadge(int index, bool isActive)
+    {
+        if (warningBadges[index] != null) warningBadges[index].SetActive(isActive);
+    }
+
+    public void OnClickWarningBadge(int index)
+    {
+        string resourceName = index == 0 ? "Funds" : (index == 1 ? "Purity" : "Biodiversity");
+        warningText.text = $"Warning: {resourceName} is below 0!";
+        warningPopup.SetActive(true);
+    }
+
+    public void CloseWarningPopup()
+    {
+        warningPopup.SetActive(false);
+    }
 }

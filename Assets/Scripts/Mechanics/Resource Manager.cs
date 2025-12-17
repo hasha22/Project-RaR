@@ -35,6 +35,8 @@ public class ResourceManager : MonoBehaviour
     public ResourceBarUI purityUI;
     public ResourceBarUI biodiversityUI;
 
+    private bool hasWarningActive = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -82,6 +84,8 @@ public class ResourceManager : MonoBehaviour
             purityUI.SetValue(purityByReef[activeReef]);
             biodiversityUI.SetValue(biodiversityByReef[activeReef]);
         }
+
+        RefreshWarningStatus();
     }
 
     private void AssignResources()
@@ -146,6 +150,7 @@ public class ResourceManager : MonoBehaviour
         */
     }
 
+    // TODO: Update to display the delta values for each reef
     public void GetDailyChange()
     {
         deltaFunds = funds - fundsAtStart;
@@ -157,33 +162,62 @@ public class ResourceManager : MonoBehaviour
 
     }
 
-    private void CheckGameOver()
+    // 하루 끝날 때마다 검사
+    public void CheckGameOver()
     {
-        if (funds <= 0)
-        {
-            Debug.Log("GAME OVER by funds");
+        bool isAnyResourceDeficit = false;
 
-            isGameOver = true;
-            DayManager.Instance.AdvanceDay();
-        }
+        if (funds <= 0) isAnyResourceDeficit = true;
 
         foreach (ReefData data in ReefManager.Instance.allReefData)
         {
             if (purityByReef[data.reefType] <= 0 || biodiversityByReef[data.reefType] <= 0)
             {
-                Debug.Log($"GAME OVER by purity or biodiversity");
+                isAnyResourceDeficit = true;
+                break;
+            }
+        }
 
+        if (isAnyResourceDeficit)
+        {
+            DayManager.Instance.daysWithDeficit += 1;
+            Debug.Log($"적자 누적 일수: {DayManager.Instance.daysWithDeficit}");
+
+            if (DayManager.Instance.daysWithDeficit >= DayManager.Instance.maxAllowedDeficitDays)
+            {
                 isGameOver = true;
-                DayManager.Instance.AdvanceDay();
+                Debug.Log("GAME OVER");
             }
         }
     }
+
+    private void RefreshWarningStatus()
+    {
+        bool fundsDanger = funds <= 0;
+        UIManager.instance.ToggleWarningBadge(0, fundsDanger);
+
+        foreach (var data in ReefManager.Instance.allReefData)
+        {
+            bool purityDanger = purityByReef[data.reefType] <= 0;
+            bool bioDanger = biodiversityByReef[data.reefType] <= 0;
+
+            // 현재 활성 Reef인 경우에만
+            if (data.reefType == activeReef)
+            {
+                UIManager.instance.ToggleWarningBadge(1, purityDanger);
+                UIManager.instance.ToggleWarningBadge(2, bioDanger);
+            }
+        }
+    }
+    
     public void AddFunds(int newFunds)
     {
         funds += newFunds;
         OnFundsChanged?.Invoke(funds);
         fundsUI.SetValue(funds);
         UIManager.instance.UpdateFundsUI(funds);
+
+        RefreshWarningStatus();
     }
     public void AddPurity(ReefType targetReef, int newPurity)
     {
@@ -199,6 +233,8 @@ public class ResourceManager : MonoBehaviour
 
         purityUI.SetValue(purityByReef[targetReef]);
         UIManager.instance.UpdatePurityUI(purityByReef[targetReef]);
+
+        RefreshWarningStatus();
     }
     public void AddBiodiversity(ReefType targetReef, int newBiodiversity)
     {
@@ -214,6 +250,8 @@ public class ResourceManager : MonoBehaviour
 
         biodiversityUI.SetValue(biodiversityByReef[targetReef]);
         UIManager.instance.UpdateBiodiversityUI(biodiversityByReef[targetReef]);
+
+        RefreshWarningStatus();
     }
     public void SubtractFunds(int newFunds)
     {
@@ -226,6 +264,7 @@ public class ResourceManager : MonoBehaviour
         //this gives the player a chance to go above the game over threshold if they pick the right decisions before they hit their decision limit
 
         //CheckGameOver();
+        RefreshWarningStatus();
     }
     public void SubtractPurity(ReefType targetReef, int newPurity)
     {
@@ -243,6 +282,7 @@ public class ResourceManager : MonoBehaviour
         UIManager.instance.UpdatePurityUI(purityByReef[targetReef]);
 
         //CheckGameOver();
+        RefreshWarningStatus();
     }
     public void SubtractBiodiversity(ReefType targetReef, int newBiodiversity)
     {
@@ -260,5 +300,6 @@ public class ResourceManager : MonoBehaviour
         UIManager.instance.UpdateBiodiversityUI(biodiversityByReef[targetReef]);
 
         //CheckGameOver();
+        RefreshWarningStatus();
     }
 }

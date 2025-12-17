@@ -19,7 +19,7 @@ MonoBehaviour:
   purityToAddA: 0
   biodiversityToAddA: 0
   fundsToSubtractA: 0
-  purityToSubtractA: 0
+  purityToSubtractA: 200000
   biodiversityToSubtractA: 0
   fundsToAddN: 0
   purityToAddN: 0
