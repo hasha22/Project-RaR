@@ -20,6 +20,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI contentText;
     [SerializeField] private GameObject choicePanel; // 분기점
     [HideInInspector] public bool isDialogueBoxOpened = false;
+    [SerializeField] private GameObject nextText;
 
     [Header("Choice Button")]
     [SerializeField] private ChoiceController choiceButtonPrefab;
@@ -39,6 +40,7 @@ public class DialogueManager : MonoBehaviour
 
         dialogueBox.SetActive(false);
         if (contentText != null) typingEffect = contentText.GetComponent<TypingEffect>();
+        typingEffect.OnTypingComplete = () => { if (nextText != null) nextText.SetActive(true); };
     }
 
     // 외부에서 대화를 시작할 때 호출
@@ -81,6 +83,7 @@ public class DialogueManager : MonoBehaviour
             // choice panel 비활성화
             talkPanel.SetActive(true);
             choicePanel.SetActive(false);
+            nextText.SetActive(false);
             DestroyChoiceButtons();
 
             DialogueNode.Talk currentTalk = currentDialogueNode.sequentialTalks[activeTalkIndex];
@@ -101,6 +104,8 @@ public class DialogueManager : MonoBehaviour
         // 2. 노드 마지막에 도달한 경우
         else
         {
+            nextText.SetActive(false);
+
             // 1) 선택지 분기점 처리
             if (currentDialogueNode.choices != null && currentDialogueNode.choices.Length > 0) ShowChoices();
 

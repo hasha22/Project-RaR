@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using System;
 
 // Assigned to each Text UI
 
@@ -12,6 +13,8 @@ public class TypingEffect : MonoBehaviour
     private TextMeshProUGUI textUI;
     private Coroutine typingCoroutine;
     private string fullText = "";
+
+    public Action OnTypingComplete;
 
     private void Awake()
     {
@@ -35,6 +38,7 @@ public class TypingEffect : MonoBehaviour
         StopCoroutine(typingCoroutine);
         textUI.text = fullText;
         isTyping = false;
+        OnTypingComplete?.Invoke();
     }
 
     private IEnumerator TypingRoutine()
@@ -48,5 +52,6 @@ public class TypingEffect : MonoBehaviour
         }
 
         isTyping = false;
+        OnTypingComplete?.Invoke();
     }
 }
