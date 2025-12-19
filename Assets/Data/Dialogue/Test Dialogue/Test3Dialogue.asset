@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 714a0965560e54551b7bc768954c7e32, type: 3}
-  m_Name: Test1Dialogue
+  m_Name: Test3Dialogue
   m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
   sequentialTalks:
-  - talkerName: Noa
-    content: Hi This is day1 dialogue
-  - talkerName: Noa
-    content: How's it going?
+  - talkerName: Alex
+    content: This is day2 dialogue
+  - talkerName: Alex
+    content: Great
   choices:
-  - text: Fine
-    nextNode: {fileID: 11400000, guid: afaadc71889d14d30a043e0adc242f82, type: 2}
-  - text: Bad
-    nextNode: {fileID: 0}
+  - text: ABC
+    nextNode: {fileID: 11400000, guid: 6a6e4be8094a34666bf244adf7a5df80, type: 2}

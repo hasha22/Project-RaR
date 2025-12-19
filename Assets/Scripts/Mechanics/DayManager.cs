@@ -20,6 +20,9 @@ public class DayManager : MonoBehaviour
     public event Action OnDayStart;
     public event Action OnDayEnd;
 
+    [Header("Dialog Setting")]
+    [SerializeField] private DialogueSetting dialogueSetting;
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(this); return; }
@@ -32,6 +35,13 @@ public class DayManager : MonoBehaviour
     {
         isDayActive = true;
         currentDay += 1;
+
+        if (dialogueSetting != null)
+        {
+            DialogueNode todayDialogue = dialogueSetting.GetDialogueForDay(currentDay);
+            if (todayDialogue != null) DialogueManager.Instance.StartDialogue(todayDialogue);
+        }
+
         OnDayStart?.Invoke();
 
         //Debug.Log($"Day {currentDay} started");
