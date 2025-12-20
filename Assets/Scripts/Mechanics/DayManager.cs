@@ -46,7 +46,6 @@ public class DayManager : MonoBehaviour
         }
 
         OnDayStart?.Invoke();
-
     }
 
     // 하루 끝

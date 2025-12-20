@@ -46,6 +46,19 @@ public class EventManager : MonoBehaviour
             }
         }
     }
+    public List<EventBase> GetReadyEvents()
+    {
+        List<EventBase> readyEvents = new();
+        foreach (var e in activeEvents)
+        {
+            if (!e.hasBeenSeen && e.daysSinceTrigger >= e.timeToTrigger)
+            {
+                readyEvents.Add(e);
+            }
+        }
+
+        return readyEvents;
+    }
     public void RemoveActiveEvent(string title)
     {
         for (int i = 0; i < activeEvents.Count; i++)

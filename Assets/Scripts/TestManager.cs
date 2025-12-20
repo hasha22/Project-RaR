@@ -8,6 +8,5 @@ public class TestManager : MonoBehaviour
     private void Start()
     {
         DayManager.Instance.StartDay();
-        // DialogueManager.Instance.StartDialogue(testDialogueNode);
     }
 }

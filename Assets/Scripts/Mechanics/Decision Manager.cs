@@ -75,6 +75,8 @@ public class DecisionManager : MonoBehaviour
     private void CheckProgress()
     {
         if (dailyDecisionsTaken >= decisionHardCap) DayManager.Instance.AdvanceDay();
+        dailyDecisionsTaken = 0;
+        UIManager.instance.UpdateDecisionsTaken(dailyDecisionsTaken);
     }
 
     public List<Decision> GetDailyDecisions(ReefData data, int currentDay)

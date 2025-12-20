@@ -16,5 +16,6 @@ public class EventBase : ScriptableObject
     [Header("Later Event")]
     public EventBase laterEvent;
 
-    public int daysSinceTrigger;
+    [HideInInspector] public int daysSinceTrigger;
+    [HideInInspector] public bool hasBeenSeen;
 }

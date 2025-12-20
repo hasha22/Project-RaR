@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject expandedDecisionList;
     [SerializeField] private GameObject dropdownButton;
     [SerializeField] private GameObject decisionPrefab;
+    [SerializeField] private GameObject eventPrefab;
     public Transform decisionsContainer;
     [SerializeField] private Sprite dropdownClosed;
     [SerializeField] private Sprite dropdownOpened;
@@ -214,6 +215,29 @@ public class UIManager : MonoBehaviour
     {
         currentDecisionsTaken.text = newDecisions.ToString();
     }
+    public void RefreshDecisionAndEventUI()
+    {
+        var events = EventManager.instance.GetReadyEvents();
+        InstantiateEvents(events);
+
+        var decisions = DecisionManager.instance.GetDailyDecisions(
+            ReefManager.Instance.activeReefData,
+            DayManager.Instance.currentDay
+        );
+
+        InstantiateDecisions(decisions);
+    }
+    public void InstantiateEvents(List<EventBase> events)
+    {
+        foreach (var e in events)
+        {
+            GameObject obj = Instantiate(eventPrefab, decisionsContainer);
+            decisionList.Add(obj);
+
+            EventUI ui = obj.GetComponent<EventUI>();
+            ui.Bind(e);
+        }
+    }
     public void InstantiateDecisions(List<Decision> decisions)
     {
         for (int i = 0; i < decisions.Count; i++)
@@ -227,6 +251,11 @@ public class UIManager : MonoBehaviour
             DecisionUI decisionScript = decision.GetComponent<DecisionUI>();
             decisionScript.decision = decisions[i];
         }
+    }
+    public void RemoveEvent(EventUI ui)
+    {
+        decisionList.Remove(ui.gameObject);
+        Destroy(ui.gameObject);
     }
     public void RemoveDecision(Decision decision)
     {
