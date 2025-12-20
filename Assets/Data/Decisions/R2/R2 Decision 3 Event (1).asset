@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e298682fed9d14ba0c9eb4b3d254a4, type: 3}
+  m_Name: R2 Decision 3 Event (1)
+  m_EditorClassIdentifier: Assembly-CSharp::DecisionEvent
+  eventText: "We\u2019re not sure if introducing this species will have a positive
+    or negative impact on the reef. Do you want to fund further research into this
+    species\u2019 biology?"
+  eventTitle: Fund Research
+  reefType: 2
+  timeToTrigger: 0
+  fundsToTrigger: 0
+  purityToTrigger: 0
+  biodiversityToTrigger: 0
+  laterEvent: {fileID: 11400000, guid: b0ef2770109b4fe4bb43b557d18098d2, type: 2}
+  daysSinceTrigger: 0
+  yesButtonText: Approve the Research
+  noButtonText: Decline
+  fundsToAddA: 0
+  purityToAddA: 0
+  biodiversityToAddA: 0
+  fundsToSubtractA: 2000
+  purityToSubtractA: 0
+  biodiversityToSubtractA: 0
+  fundsToAddN: 0
+  purityToAddN: 0
+  biodiversityToAddN: 0
+  fundsToSubtractN: 0
+  purityToSubtractN: 0
+  biodiversityToSubtractN: 0

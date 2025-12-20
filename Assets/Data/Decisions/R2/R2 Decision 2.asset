@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: R2 Decision 2
   m_EditorClassIdentifier: Assembly-CSharp::Decision
   reefType: 2
-  decisionTitle: R2 test 2
-  decisionText: this is r2 test 2
+  decisionTitle: Oil Spill
+  decisionText: There was a large oil spill near your reef. Do you want to sue the
+    company that did this?
   fundsToAddA: 0
   purityToAddA: 0
   biodiversityToAddA: 0
-  fundsToSubtractA: 0
-  purityToSubtractA: 0
-  biodiversityToSubtractA: 0
+  fundsToSubtractA: 2000
+  purityToSubtractA: 30
+  biodiversityToSubtractA: 30
   fundsToAddN: 0
   purityToAddN: 0
   biodiversityToAddN: 0
   fundsToSubtractN: 0
-  purityToSubtractN: 0
-  biodiversityToSubtractN: 0
+  purityToSubtractN: 30
+  biodiversityToSubtractN: 30
+  eventToTriggerA: {fileID: 11400000, guid: b25b16b4976eaf440bba3f2c727142b9, type: 2}
+  eventToTriggerN: {fileID: 0}

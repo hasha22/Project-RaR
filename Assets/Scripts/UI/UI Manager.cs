@@ -14,7 +14,8 @@ public class UIManager : MonoBehaviour
 
     [Header("Reef Visuals")]
     [SerializeField] private Image reefImage;
-    [SerializeField] private GameObject reefSecretary1;
+    public GameObject reefSecretary1;
+    public GameObject reefSecretary2;
 
     [Header("Monitor")]
     [SerializeField] private GameObject monitorUI;

@@ -44,4 +44,15 @@ public class ReefManager : MonoBehaviour
     {
         activeReefData = newReefData;
     }
+    public GameObject GetActiveReefSecretary()
+    {
+        switch (activeReefType)
+        {
+            case ReefType.Reef1:
+                return UIManager.instance.reefSecretary1;
+            case ReefType.Reef2:
+                return UIManager.instance.reefSecretary2;
+        }
+        return null;
+    }
 }

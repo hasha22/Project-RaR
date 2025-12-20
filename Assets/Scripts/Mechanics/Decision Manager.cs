@@ -13,17 +13,6 @@ public class DecisionManager : MonoBehaviour
     public static DecisionManager instance { get; private set; }
 
     [Header("Data")]
-    //Decision pools for the 4 reefs.
-    [SerializeField] private List<Decision> firstReefDecisionPool = new List<Decision>();
-    [SerializeField] private List<Decision> secondReefDecisionPool = new List<Decision>();
-    [SerializeField] private List<Decision> thirdReefDecisionPool = new List<Decision>();
-    [SerializeField] private List<Decision> fourthReefDecisionPool = new List<Decision>();
-    [Space]
-    //decision lists that get filled in at the beginning of each day
-    public List<Decision> firstReefDecisions;
-    public List<Decision> secondReefDecisions;
-    public List<Decision> thirdReefDecisions;
-    public List<Decision> fourthReefDecisions;
     public Decision activeDecision;
     [Space]
     public int decisionsTakenFirstReef;
@@ -117,7 +106,7 @@ public class DecisionManager : MonoBehaviour
         var newCache = new DailyDecisionCache
         {
             day = currentDay,
-            decisions = temp.Take(5).ToList()
+            decisions = temp.Take(3).ToList()
         };
 
         DayManager.Instance.dailyDecisionCache[data] = newCache;
@@ -145,6 +134,23 @@ public class DecisionManager : MonoBehaviour
 
         IncreaseDecisionsTaken();
 
+        if (activeDecision.eventToTriggerA != null)
+        {
+            activeDecision.eventToTriggerA.daysSinceTrigger = 0;
+            EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerA);
+
+            if (activeDecision.eventToTriggerA.laterEvent != null)
+            {
+                activeDecision.eventToTriggerA.laterEvent.daysSinceTrigger = 0;
+                EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerA);
+            }
+
+            if (activeDecision.eventToTriggerA.timeToTrigger == 0)
+            {
+                //Trigger Event Immediately and activate event box immediately
+            }
+        }
+
         //removes from daily decision cache
         GetDailyDecisions(ReefManager.Instance.activeReefData, DayManager.Instance.currentDay).Remove(activeDecision);
 
@@ -168,6 +174,23 @@ public class DecisionManager : MonoBehaviour
         ResourceManager.instance.SubtractBiodiversity(currentReef, activeDecision.biodiversityToSubtractN);
 
         IncreaseDecisionsTaken();
+
+        if (activeDecision.eventToTriggerN != null)
+        {
+            activeDecision.eventToTriggerN.daysSinceTrigger = 0;
+            EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerN);
+
+            if (activeDecision.eventToTriggerN.laterEvent != null)
+            {
+                activeDecision.eventToTriggerN.laterEvent.daysSinceTrigger = 0;
+                EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerN);
+            }
+
+            if (activeDecision.eventToTriggerN.timeToTrigger == 0)
+            {
+                //Trigger Event Immediately and activate event box immediately
+            }
+        }
 
         //removes from daily decision cache
         GetDailyDecisions(ReefManager.Instance.activeReefData, DayManager.Instance.currentDay).Remove(activeDecision);

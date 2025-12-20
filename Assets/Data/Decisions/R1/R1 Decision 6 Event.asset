@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bededec6f7db73647bcdc83df439b4f2, type: 3}
+  m_Name: R1 Decision 6 Event
+  m_EditorClassIdentifier: Assembly-CSharp::RegularEvent
+  eventText: The time has come for you to pay back your loan to the Government
+  eventTitle: Pay Back Loan
+  reefType: 1
+  timeToTrigger: 1
+  fundsToTrigger: 0
+  purityToTrigger: 0
+  biodiversityToTrigger: 0
+  daysSinceTrigger: 0
+  fundsToAdd: 0
+  purityToAdd: 0
+  biodiversityToAdd: 0
+  fundsToSubtract: 6000
+  purityToSubtract: 0
+  biodiversityToSubtract: 0
+  buttonFlavorText: Fine, take it...

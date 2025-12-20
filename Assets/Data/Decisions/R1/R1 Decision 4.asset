@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a4f611f972e7f946af855e6fdceb7a5, type: 3}
-  m_Name: R2 Decision 1
+  m_Name: R1 Decision 4
   m_EditorClassIdentifier: Assembly-CSharp::Decision
-  reefType: 2
-  decisionTitle: R2 test 1
-  decisionText: this is r2 test 1
+  reefType: 1
+  decisionTitle: Scientist Proposal
+  decisionText: A group of scientists wishes to introduce a new species of algae
+    eating snails.
   fundsToAddA: 0
-  purityToAddA: 0
-  biodiversityToAddA: 0
-  fundsToSubtractA: 0
-  purityToSubtractA: 200000
+  purityToAddA: 20
+  biodiversityToAddA: 20
+  fundsToSubtractA: 500
+  purityToSubtractA: 0
   biodiversityToSubtractA: 0
   fundsToAddN: 0
   purityToAddN: 0
@@ -27,3 +28,5 @@ MonoBehaviour:
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: 0
+  eventToTriggerA: {fileID: 11400000, guid: d493c5f78e6342141963789b4696ff60, type: 2}
+  eventToTriggerN: {fileID: 0}

@@ -36,6 +36,8 @@ public class DayManager : MonoBehaviour
         isDayActive = true;
         currentDay += 1;
 
+        EventManager.instance.CheckAllEvents();
+
         if (dialogueSetting != null)
         {
             DialogueNode todayDialogue = dialogueSetting.GetDialogueForDay(currentDay);
@@ -60,6 +62,7 @@ public class DayManager : MonoBehaviour
     // 하루 진행: 유저의 특정 행동 후 호출
     public void AdvanceDay()
     {
+        EventManager.instance.IncreaseDaysSinceTrigger();
         EndDay();
     }
 

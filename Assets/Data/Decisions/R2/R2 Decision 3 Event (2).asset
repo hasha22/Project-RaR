@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e298682fed9d14ba0c9eb4b3d254a4, type: 3}
+  m_Name: R2 Decision 3 Event (2)
+  m_EditorClassIdentifier: Assembly-CSharp::DecisionEvent
+  eventText: 'The research results have  come back. The fish had a specific predator,
+    and that predator would need to be introduced to maintain the balance of the
+    reef. Do you introduce this new species as well?
+
+'
+  eventTitle: Research Results
+  reefType: 2
+  timeToTrigger: 1
+  fundsToTrigger: 0
+  purityToTrigger: 0
+  biodiversityToTrigger: 0
+  daysSinceTrigger: 0
+  yesButtonText: Yes
+  noButtonText: No
+  fundsToAddA: 0
+  purityToAddA: 0
+  biodiversityToAddA: 40
+  fundsToSubtractA: 0
+  purityToSubtractA: 0
+  biodiversityToSubtractA: 0
+  fundsToAddN: 0
+  purityToAddN: 0
+  biodiversityToAddN: 0
+  fundsToSubtractN: 0
+  purityToSubtractN: 0
+  biodiversityToSubtractN: 35

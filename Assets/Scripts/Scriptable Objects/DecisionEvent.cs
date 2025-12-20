@@ -1,13 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Decisions/New Decision")]
-public class Decision : ScriptableObject
+[CreateAssetMenu(menuName = "Decisions/New Decision Event")]
+public class DecisionEvent : EventBase
 {
-    [Header("Data")]
-    public ReefType reefType;
-    public string decisionTitle;
-    [TextArea(2, 7)]
-    public string decisionText;
+    [Header("Text")]
+    public string yesButtonText;
+    public string noButtonText;
 
     [Header("Affirmative")]
     public int fundsToAddA;
@@ -24,11 +22,4 @@ public class Decision : ScriptableObject
     public int fundsToSubtractN;
     public int purityToSubtractN;
     public int biodiversityToSubtractN;
-
-    [Header("Event Data")]
-    public EventBase eventToTriggerA;
-    public EventBase eventToTriggerN;
-
-
-    //add flags for events that subtract/add resources over multiple days
 }

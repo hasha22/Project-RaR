@@ -48,9 +48,17 @@ public class DialogueManager : MonoBehaviour
     {
         if (startNode == null) return;
 
+
         currentDialogueNode = startNode;
         activeTalkIndex = 0;
         dialogueBox.SetActive(true);
+
+        GameObject reefSecretary = ReefManager.Instance.GetActiveReefSecretary();
+        if (reefSecretary != null)
+        {
+            reefSecretary.SetActive(true);
+        }
+
         isDialogueBoxOpened = true;
 
         ProgressDialogue();
@@ -161,6 +169,13 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("Dialogue End");
 
         dialogueBox.SetActive(false);
+
+        GameObject reefSecretary = ReefManager.Instance.GetActiveReefSecretary();
+        if (reefSecretary != null)
+        {
+            reefSecretary.SetActive(false);
+        }
+
         isDialogueBoxOpened = false;
         currentDialogueNode = null;
         activeTalkIndex = 0;

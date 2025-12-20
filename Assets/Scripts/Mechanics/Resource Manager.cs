@@ -9,8 +9,8 @@ public class ResourceManager : MonoBehaviour
     [Header("Player Resources")]
     //these need to be assigned at the beginning of a day (most likely), not through inspector
     public int funds;
-    private Dictionary<ReefType, int> purityByReef = new Dictionary<ReefType, int>();
-    private Dictionary<ReefType, int> biodiversityByReef = new Dictionary<ReefType, int>();
+    public Dictionary<ReefType, int> purityByReef = new Dictionary<ReefType, int>();
+    public Dictionary<ReefType, int> biodiversityByReef = new Dictionary<ReefType, int>();
     public event Action<int> OnFundsChanged;
     public event Action<int> OnPurityChanged;
     public event Action<int> OnBiodiversityChanged;
@@ -209,7 +209,7 @@ public class ResourceManager : MonoBehaviour
             }
         }
     }
-    
+
     public void AddFunds(int newFunds)
     {
         funds += newFunds;
