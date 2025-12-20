@@ -37,6 +37,7 @@ public class DayManager : MonoBehaviour
         currentDay += 1;
 
         EventManager.instance.CheckAllEvents();
+        DecisionManager.instance.UpdateDecisionPool(ResourceManager.instance.activeReef);
 
         if (dialogueSetting != null)
         {
@@ -46,7 +47,6 @@ public class DayManager : MonoBehaviour
 
         OnDayStart?.Invoke();
 
-        //Debug.Log($"Day {currentDay} started");
     }
 
     // 하루 끝
@@ -56,7 +56,6 @@ public class DayManager : MonoBehaviour
         ResourceManager.instance.CheckGameOver();
         OnDayEnd?.Invoke();
 
-        //Debug.Log($"Day {currentDay} ended");
     }
 
     // 하루 진행: 유저의 특정 행동 후 호출

@@ -36,8 +36,6 @@ public class ReefManager : MonoBehaviour
         activeReefType = targetReef;
         activeReefData = data;
 
-        //Debug.Log($"Switched to {targetReef}");
-
         OnReefSwitched?.Invoke(activeReefType);
     }
     public void SetNewReef(ReefData newReefData)

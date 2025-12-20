@@ -7,7 +7,6 @@ public class ResourceManager : MonoBehaviour
     public static ResourceManager instance { get; private set; }
 
     [Header("Player Resources")]
-    //these need to be assigned at the beginning of a day (most likely), not through inspector
     public int funds;
     public Dictionary<ReefType, int> purityByReef = new Dictionary<ReefType, int>();
     public Dictionary<ReefType, int> biodiversityByReef = new Dictionary<ReefType, int>();
@@ -35,8 +34,6 @@ public class ResourceManager : MonoBehaviour
     public ResourceBarUI purityUI;
     public ResourceBarUI biodiversityUI;
 
-    private bool hasWarningActive = false;
-
     private void Awake()
     {
         if (instance == null)
@@ -61,13 +58,11 @@ public class ResourceManager : MonoBehaviour
         {
             DayManager.Instance.OnDayStart += AssignResources;
             DayManager.Instance.OnDayEnd += GetDailyChange;
-            //Debug.Log($"{name}: Subscribing to DayManager events");
         }
 
         if (ReefManager.Instance != null)
         {
             ReefManager.Instance.OnReefSwitched += OnReefSwitched;
-            //Debug.Log($"{name}: Subscribing to ReefManager events");
         }
     }
 
@@ -123,14 +118,6 @@ public class ResourceManager : MonoBehaviour
 
         if (activeReef != ReefType.None && purityByReef.ContainsKey(activeReef))
         {
-            /*
-            // Purity와 Biodiversity는 현재 Active Reef의 값만 발송
-            if (activeReef != ReefType.None && purityByReef.ContainsKey(activeReef))
-            {
-                OnPurityChanged?.Invoke(purityByReef[activeReef]);
-                OnBiodiversityChanged?.Invoke(biodiversityByReef[activeReef]);
-            }
-            */
             purityUI.SetValue(purityByReef[activeReef]);
             biodiversityUI.SetValue(biodiversityByReef[activeReef]);
 
@@ -138,16 +125,6 @@ public class ResourceManager : MonoBehaviour
             UIManager.instance.UpdateBiodiversityUI(biodiversityByReef[activeReef]);
         }
 
-        /*
-        UIManager.instance.UpdateFundsUI(funds);
-        UIManager.instance.UpdatePurityUI(purityByReef[activeReef]);
-        UIManager.instance.UpdateBiodiversityUI(biodiversityByReef[activeReef]);
-
-        // 증감 계산을 위해 시작 값 기록
-        fundsAtStart = funds;
-        purityAtStart = purity;
-        biodiversityAtStart = biodiversity;
-        */
     }
 
     // TODO: Update to display the delta values for each reef
@@ -213,6 +190,8 @@ public class ResourceManager : MonoBehaviour
     public void AddFunds(int newFunds)
     {
         funds += newFunds;
+        if (funds >= maxFunds) funds = maxFunds;
+
         OnFundsChanged?.Invoke(funds);
         fundsUI.SetValue(funds);
         UIManager.instance.UpdateFundsUI(funds);
@@ -224,6 +203,7 @@ public class ResourceManager : MonoBehaviour
         if (targetReef == ReefType.None || !purityByReef.ContainsKey(targetReef)) return;
 
         purityByReef[targetReef] += newPurity;
+        if (purityByReef[targetReef] >= maxPurity) purityByReef[targetReef] = maxPurity;
 
         // 현재 활성 Reef인 경우에만 UI에 변경을 알립니다.
         if (targetReef == activeReef)
@@ -241,6 +221,7 @@ public class ResourceManager : MonoBehaviour
         if (targetReef == ReefType.None || !biodiversityByReef.ContainsKey(targetReef)) return;
 
         biodiversityByReef[targetReef] += newBiodiversity;
+        if (biodiversityByReef[targetReef] >= maxBiodiversity) biodiversityByReef[targetReef] = maxBiodiversity;
 
         // 현재 활성 Reef인 경우에만 UI에 변경을 알립니다.
         if (targetReef == activeReef)
@@ -260,10 +241,6 @@ public class ResourceManager : MonoBehaviour
         fundsUI.SetValue(funds);
         UIManager.instance.UpdateFundsUI(funds);
 
-        //for all game over checks, make sure they happen at the end of the day, not immediately when a certain value drops to 0. 
-        //this gives the player a chance to go above the game over threshold if they pick the right decisions before they hit their decision limit
-
-        //CheckGameOver();
         RefreshWarningStatus();
     }
     public void SubtractPurity(ReefType targetReef, int newPurity)
@@ -281,7 +258,6 @@ public class ResourceManager : MonoBehaviour
         purityUI.SetValue(purityByReef[targetReef]);
         UIManager.instance.UpdatePurityUI(purityByReef[targetReef]);
 
-        //CheckGameOver();
         RefreshWarningStatus();
     }
     public void SubtractBiodiversity(ReefType targetReef, int newBiodiversity)
@@ -299,7 +275,6 @@ public class ResourceManager : MonoBehaviour
         biodiversityUI.SetValue(biodiversityByReef[targetReef]);
         UIManager.instance.UpdateBiodiversityUI(biodiversityByReef[targetReef]);
 
-        //CheckGameOver();
         RefreshWarningStatus();
     }
 }

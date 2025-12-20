@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a4f611f972e7f946af855e6fdceb7a5, type: 3}
-  m_Name: R2 Decision 3
+  m_Name: R2 Decision 6
   m_EditorClassIdentifier: Assembly-CSharp::Decision
   reefType: 2
-  decisionTitle: Bring Back Fish
-  decisionText: A group of scientists have approached you about bringing back an
-    extinct species of fish. This would improve the Reef's biodiveristy at virtually
-    no cost.
+  decisionTitle: Introduce More Nutrients
+  decisionText: A fertilizer company is offering a special device that helps introduce
+    more nutrients into the ecosystem. Do you wish to buy this technology?
   fundsToAddA: 0
   purityToAddA: 0
-  biodiversityToAddA: 15
-  fundsToSubtractA: 0
+  biodiversityToAddA: 30
+  fundsToSubtractA: 1500
   purityToSubtractA: 0
   biodiversityToSubtractA: 0
   fundsToAddN: 0
@@ -28,6 +27,6 @@ MonoBehaviour:
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
-  biodiversityToSubtractN: 0
-  eventToTriggerA: {fileID: 11400000, guid: 4b8e192f17481f64c99fe233591372f0, type: 2}
+  biodiversityToSubtractN: -5
+  eventToTriggerA: {fileID: 0}
   eventToTriggerN: {fileID: 0}

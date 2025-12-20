@@ -14,11 +14,11 @@ public class DecisionManager : MonoBehaviour
 
     [Header("Data")]
     public Decision activeDecision;
+    private HashSet<string> takenDecisionTitles = new();
     [Space]
-    public int decisionsTakenFirstReef;
-    public int decisionsTakenSecondReef;
-    public int decisionsTakenThirdReef;
-    public int decisionsTakenFourthReef;
+    public int dailyDecisionsTaken;
+    //public int decisionsTakenThirdReef;
+    //public int decisionsTakenFourthReef;
     [Space]
     public int decisionHardCap;
 
@@ -39,7 +39,6 @@ public class DecisionManager : MonoBehaviour
         if (ReefManager.Instance != null)
         {
             ReefManager.Instance.OnReefSwitched += UpdateDecisionPool;
-            Debug.Log($"{name}: Subscribing to ReefManager events");
         }
     }
 
@@ -48,13 +47,9 @@ public class DecisionManager : MonoBehaviour
         ReefManager.Instance.SetNewReef(ReefManager.Instance.allReefData[0]);
         UpdateDecisionPool(ResourceManager.instance.activeReef);
         Init();
-
-        // temporary on start. needs to be implemented to shuffle at the beginning of each day
-        // firstReefDecisions = GetRandomDecisions();
-        // UIManager.instance.InstantiateDecisions(firstReefDecisions);
     }
 
-    private void UpdateDecisionPool(ReefType newReef)
+    public void UpdateDecisionPool(ReefType newReef)
     {
         if (ReefManager.Instance.activeReefData == null) return;
 
@@ -75,14 +70,11 @@ public class DecisionManager : MonoBehaviour
         // 새로운 무작위 결정 리스트 확보 및 인스턴스화
         List<Decision> newDecisions = GetDailyDecisions(data, DayManager.Instance.currentDay);
         UIManager.instance.InstantiateDecisions(newDecisions);
-
-        //Debug.Log($"Decisions updated for {ReefManager.Instance.activeReefType}");
     }
 
     private void CheckProgress()
     {
-        // temporary. could have advancing to the next day be done with a UI button
-        if (decisionsTakenFirstReef >= decisionHardCap) DayManager.Instance.AdvanceDay();
+        if (dailyDecisionsTaken >= decisionHardCap) DayManager.Instance.AdvanceDay();
     }
 
     public List<Decision> GetDailyDecisions(ReefData data, int currentDay)
@@ -93,15 +85,19 @@ public class DecisionManager : MonoBehaviour
                 return cache.decisions;
         }
 
-        List<Decision> temp = new List<Decision>(data.decisionPool);
+        //filters out already taken decisions
+        List<Decision> temp = data.decisionPool
+        .Where(d => !DecisionManager.instance.IsDecisionTaken(d))
+        .ToList();
+
+        if (temp.Count == 0)
+            return new List<Decision>();
 
         for (int i = 0; i < temp.Count; i++)
         {
             int randIndex = Random.Range(i, temp.Count);
             (temp[i], temp[randIndex]) = (temp[randIndex], temp[i]);
         }
-
-        // 5 is temporary, might have to change to account for game balance
 
         var newCache = new DailyDecisionCache
         {
@@ -115,11 +111,12 @@ public class DecisionManager : MonoBehaviour
     public void AssignDecision(Decision decision)
     {
         activeDecision = decision;
-        // also temp, needs to be reef specific
-        if (decisionsTakenFirstReef < decisionHardCap) { UIManager.instance.BeginDecisionDialogue(decision); }
+        if (dailyDecisionsTaken < decisionHardCap) { UIManager.instance.BeginDecisionDialogue(decision); }
     }
     public void OnYesButtonPressed()
     {
+        MarkDecisionTaken(activeDecision);
+
         ReefType currentReef = activeDecision.reefType;
 
         // Addition
@@ -132,7 +129,8 @@ public class DecisionManager : MonoBehaviour
         ResourceManager.instance.SubtractPurity(currentReef, activeDecision.purityToSubtractA);
         ResourceManager.instance.SubtractBiodiversity(currentReef, activeDecision.biodiversityToSubtractA);
 
-        IncreaseDecisionsTaken();
+        dailyDecisionsTaken++;
+        UIManager.instance.UpdateDecisionsTaken(dailyDecisionsTaken);
 
         if (activeDecision.eventToTriggerA != null)
         {
@@ -142,7 +140,7 @@ public class DecisionManager : MonoBehaviour
             if (activeDecision.eventToTriggerA.laterEvent != null)
             {
                 activeDecision.eventToTriggerA.laterEvent.daysSinceTrigger = 0;
-                EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerA);
+                EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerA.laterEvent);
             }
 
             if (activeDecision.eventToTriggerA.timeToTrigger == 0)
@@ -161,6 +159,8 @@ public class DecisionManager : MonoBehaviour
     }
     public void OnNoButtonPressed()
     {
+        MarkDecisionTaken(activeDecision);
+
         ReefType currentReef = activeDecision.reefType;
 
         // Addition
@@ -173,7 +173,8 @@ public class DecisionManager : MonoBehaviour
         ResourceManager.instance.SubtractPurity(currentReef, activeDecision.purityToSubtractN);
         ResourceManager.instance.SubtractBiodiversity(currentReef, activeDecision.biodiversityToSubtractN);
 
-        IncreaseDecisionsTaken();
+        dailyDecisionsTaken++;
+        UIManager.instance.UpdateDecisionsTaken(dailyDecisionsTaken);
 
         if (activeDecision.eventToTriggerN != null)
         {
@@ -183,7 +184,7 @@ public class DecisionManager : MonoBehaviour
             if (activeDecision.eventToTriggerN.laterEvent != null)
             {
                 activeDecision.eventToTriggerN.laterEvent.daysSinceTrigger = 0;
-                EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerN);
+                EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerN.laterEvent);
             }
 
             if (activeDecision.eventToTriggerN.timeToTrigger == 0)
@@ -204,26 +205,12 @@ public class DecisionManager : MonoBehaviour
     {
         UIManager.instance.EndDecisionDialogue();
     }
-    private void IncreaseDecisionsTaken()
+    private bool IsDecisionTaken(Decision decision)
     {
-        switch (activeDecision.reefType)
-        {
-            case ReefType.Reef1:
-                decisionsTakenFirstReef++;
-                UIManager.instance.UpdateDecisionsTaken(decisionsTakenFirstReef);
-                break;
-            case ReefType.Reef2:
-                decisionsTakenSecondReef++;
-                UIManager.instance.UpdateDecisionsTaken(decisionsTakenSecondReef);
-                break;
-            case ReefType.Reef3:
-                decisionsTakenThirdReef++;
-                UIManager.instance.UpdateDecisionsTaken(decisionsTakenThirdReef);
-                break;
-            case ReefType.Reef4:
-                decisionsTakenFourthReef++;
-                UIManager.instance.UpdateDecisionsTaken(decisionsTakenFourthReef);
-                break;
-        }
+        return takenDecisionTitles.Contains(decision.decisionTitle);
+    }
+    private void MarkDecisionTaken(Decision decision)
+    {
+        takenDecisionTitles.Add(decision.decisionTitle);
     }
 }

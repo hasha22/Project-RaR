@@ -19,33 +19,24 @@ public class UIManager : MonoBehaviour
 
     [Header("Monitor")]
     [SerializeField] private GameObject monitorUI;
-    [SerializeField] private GameObject openMonitorButton;
     private bool isMonitorOpened = false;
 
     [Header("Decisions")]
-    private bool isDecisionListOpened = false;
-    //list variables
     [SerializeField] private GameObject expandedDecisionList;
     [SerializeField] private GameObject dropdownButton;
     [SerializeField] private GameObject decisionPrefab;
-    // [SerializeField] private Transform decisionsContainer;
     public Transform decisionsContainer;
     [SerializeField] private Sprite dropdownClosed;
     [SerializeField] private Sprite dropdownOpened;
     [SerializeField] private TextMeshProUGUI currentDecisionsTaken;
     [SerializeField] private TextMeshProUGUI maxDecisions;
-    // private List<GameObject> decisionList = new List<GameObject>();
     public List<GameObject> decisionList = new List<GameObject>();
+    private bool isDecisionListOpened = false;
     [Space]
-    //dialogue box variables
     [SerializeField] private GameObject decisionDialogueBox;
     [SerializeField] private TextMeshProUGUI speakerName;
     [SerializeField] private TextMeshProUGUI decisionContext;
     private TypingEffect typingEffect;
-    //public float typingSpeed = 0.03f;
-
-    [Header("Dialogue")]
-    [SerializeField] private GameObject dialogueBox;
 
     [Header("Warning UI")]
     [SerializeField] private GameObject[] warningBadges; // 0:Funds / 1:Purity / 2:Bio
@@ -82,7 +73,6 @@ public class UIManager : MonoBehaviour
         if (ReefManager.Instance != null)
         {
             ReefManager.Instance.OnReefSwitched += UpdateReefUI;
-            //Debug.Log($"{name}: Subscribing to ReefManager events");
         }
 
         if (ResourceManager.instance != null)
@@ -173,23 +163,35 @@ public class UIManager : MonoBehaviour
         switch (decision.reefType)
         {
             case ReefType.Reef1:
-                speakerName.text = "Angela"; //names are placeholders
+                speakerName.text = "Angela";
                 break;
             case ReefType.Reef2:
                 speakerName.text = "Dutch";
                 break;
-            case ReefType.Reef3:
-                speakerName.text = "Micah";
-                break;
-            case ReefType.Reef4:
-                speakerName.text = "Your mom";
-                break;
+                /*
+                case ReefType.Reef3:
+                    speakerName.text = "Micah";
+                    break;
+                case ReefType.Reef4:
+                    speakerName.text = "Your mom";
+                    break;
+                */
         }
 
         reefSecretary1.SetActive(true);
         decisionDialogueBox.SetActive(true);
         typingEffect.StartTyping(decision.decisionText);
 
+    }
+    public void OnClickNext()
+    {
+        if (ResourceManager.instance.isGameOver) return;
+
+        if (typingEffect.isTyping)
+        {
+            typingEffect.SkipTyping();
+            return;
+        }
     }
     public void EndDecisionDialogue()
     {
@@ -222,7 +224,6 @@ public class UIManager : MonoBehaviour
             TextMeshProUGUI title = decision.GetComponentInChildren<TextMeshProUGUI>();
             title.text = decisions[i].decisionTitle;
 
-            //this logic should be separate, works for now
             DecisionUI decisionScript = decision.GetComponent<DecisionUI>();
             decisionScript.decision = decisions[i];
         }
