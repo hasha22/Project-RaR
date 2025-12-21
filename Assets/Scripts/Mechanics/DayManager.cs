@@ -29,15 +29,21 @@ public class DayManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this.gameObject);
     }
-
+    private void Start()
+    {
+        ReefManager.Instance.SetNewReef(ReefManager.Instance.allReefData[0]);
+        StartDay();
+    }
     // 하루 시작
     public void StartDay()
     {
         isDayActive = true;
         currentDay += 1;
 
-        EventManager.instance.CheckAllEvents();
-        DecisionManager.instance.UpdateDecisionPool(ResourceManager.instance.activeReef);
+        //events go first
+        EventManager.instance.EvaluateEvents();
+
+        UIManager.instance.RefreshDecisionAndEventUI();
 
         if (dialogueSetting != null)
         {

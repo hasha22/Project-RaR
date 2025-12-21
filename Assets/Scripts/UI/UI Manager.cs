@@ -25,7 +25,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject expandedDecisionList;
     [SerializeField] private GameObject dropdownButton;
     [SerializeField] private GameObject decisionPrefab;
-    [SerializeField] private GameObject eventPrefab;
     public Transform decisionsContainer;
     [SerializeField] private Sprite dropdownClosed;
     [SerializeField] private Sprite dropdownOpened;
@@ -37,7 +36,21 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject decisionDialogueBox;
     [SerializeField] private TextMeshProUGUI speakerName;
     [SerializeField] private TextMeshProUGUI decisionContext;
-    private TypingEffect typingEffect;
+    private TypingEffect decisionTypingEffect;
+
+    [Header("Events")]
+    [SerializeField] private GameObject eventPrefab;
+    [SerializeField] private GameObject regularEventBox;
+    [SerializeField] private GameObject decisionEventBox;
+    [SerializeField] private TextMeshProUGUI regularEventSpeaker;
+    [SerializeField] private TextMeshProUGUI decisionEventSpeaker;
+    [SerializeField] private TextMeshProUGUI regularEventContext;
+    [SerializeField] private TextMeshProUGUI decisionEventContext;
+    public TextMeshProUGUI regularEventButtonText;
+    public TextMeshProUGUI decisionEventYesText;
+    public TextMeshProUGUI decisionEventNoText;
+    private TypingEffect regularEventTypingEffect;
+    private TypingEffect decisionEventTypingEffect;
 
     [Header("Warning UI")]
     [SerializeField] private GameObject[] warningBadges; // 0:Funds / 1:Purity / 2:Bio
@@ -60,12 +73,14 @@ public class UIManager : MonoBehaviour
         reefSecretary1.SetActive(false);
         expandedDecisionList.SetActive(false);
         monitorUI.SetActive(false);
-        typingEffect = decisionContext.GetComponent<TypingEffect>();
+
+        decisionTypingEffect = decisionContext.GetComponent<TypingEffect>();
+        regularEventTypingEffect = regularEventContext.GetComponent<TypingEffect>();
+        decisionEventTypingEffect = decisionEventContext.GetComponent<TypingEffect>();
     }
     private void Start()
     {
         Init();
-
         maxDecisions.text = DecisionManager.instance.decisionHardCap.ToString();
     }
 
@@ -155,70 +170,17 @@ public class UIManager : MonoBehaviour
             expandedDecisionList.SetActive(false);
         }
     }
-    public void BeginDecisionDialogue(Decision decision)
-    {
-        if (DialogueManager.Instance.isDialogueBoxOpened) return;
-
-        decisionContext.text = decision.decisionText;
-
-        switch (decision.reefType)
-        {
-            case ReefType.Reef1:
-                speakerName.text = "Angela";
-                break;
-            case ReefType.Reef2:
-                speakerName.text = "Dutch";
-                break;
-                /*
-                case ReefType.Reef3:
-                    speakerName.text = "Micah";
-                    break;
-                case ReefType.Reef4:
-                    speakerName.text = "Your mom";
-                    break;
-                */
-        }
-
-        reefSecretary1.SetActive(true);
-        decisionDialogueBox.SetActive(true);
-        typingEffect.StartTyping(decision.decisionText);
-
-    }
-    public void OnClickNext()
-    {
-        if (ResourceManager.instance.isGameOver) return;
-
-        if (typingEffect.isTyping)
-        {
-            typingEffect.SkipTyping();
-            return;
-        }
-    }
-    public void EndDecisionDialogue()
-    {
-        reefSecretary1.SetActive(false);
-        decisionDialogueBox.SetActive(false);
-    }
-    public void UpdateFundsUI(int newFunds)
-    {
-        funds.text = newFunds.ToString();
-    }
-    public void UpdatePurityUI(int newPurity)
-    {
-        purity.text = newPurity.ToString();
-    }
-    public void UpdateBiodiversityUI(int newBiodiversity)
-    {
-        biodiversity.text = newBiodiversity.ToString();
-    }
-    public void UpdateDecisionsTaken(int newDecisions)
-    {
-        currentDecisionsTaken.text = newDecisions.ToString();
-    }
     public void RefreshDecisionAndEventUI()
     {
-        var events = EventManager.instance.GetReadyEvents();
-        InstantiateEvents(events);
+        foreach (Transform child in decisionsContainer)
+            Destroy(child.gameObject);
+
+        decisionList.Clear();
+
+        var dailyEvents = EventManager.instance.GetReadyEvents();
+        Debug.Log($"Found {dailyEvents.Count} ready events.");
+        if (dailyEvents.Count > 0)
+        { InstantiateEvents(dailyEvents); }
 
         var decisions = DecisionManager.instance.GetDailyDecisions(
             ReefManager.Instance.activeReefData,
@@ -252,23 +214,158 @@ public class UIManager : MonoBehaviour
             decisionScript.decision = decisions[i];
         }
     }
-    public void RemoveEvent(EventUI ui)
+    public void BeginRegularEventDialogue(EventBase newEvent)
     {
-        decisionList.Remove(ui.gameObject);
-        Destroy(ui.gameObject);
+        if (DialogueManager.Instance.isDialogueBoxOpened) return;
+
+        regularEventContext.text = newEvent.eventText;
+
+        switch (newEvent.reefType)
+        {
+            case ReefType.Reef1:
+                regularEventSpeaker.text = "Angela";
+                reefSecretary1.SetActive(true);
+                break;
+            case ReefType.Reef2:
+                regularEventSpeaker.text = "Dutch";
+                reefSecretary2.SetActive(true);
+                break;
+        }
+
+        regularEventBox.SetActive(true);
+        regularEventTypingEffect.StartTyping(newEvent.eventText);
+    }
+    public void BeginDecisionEventDialogue(EventBase newEvent)
+    {
+        if (DialogueManager.Instance.isDialogueBoxOpened) return;
+
+        decisionEventContext.text = newEvent.eventText;
+
+        switch (newEvent.reefType)
+        {
+            case ReefType.Reef1:
+                decisionEventSpeaker.text = "Angela";
+                reefSecretary1.SetActive(true);
+                break;
+            case ReefType.Reef2:
+                decisionEventSpeaker.text = "Dutch";
+                reefSecretary2.SetActive(true);
+                break;
+        }
+
+        decisionEventBox.SetActive(true);
+        decisionEventTypingEffect.StartTyping(newEvent.eventText);
+    }
+    public void BeginDecisionDialogue(Decision decision)
+    {
+        if (DialogueManager.Instance.isDialogueBoxOpened) return;
+
+        decisionContext.text = decision.decisionText;
+
+        switch (decision.reefType)
+        {
+            case ReefType.Reef1:
+                speakerName.text = "Angela";
+                reefSecretary1.SetActive(true);
+                break;
+            case ReefType.Reef2:
+                speakerName.text = "Dutch";
+                reefSecretary2.SetActive(true);
+                break;
+                /*
+                case ReefType.Reef3:
+                    speakerName.text = "Micah";
+                    break;
+                case ReefType.Reef4:
+                    speakerName.text = "Your mom";
+                    break;
+                */
+        }
+
+        decisionDialogueBox.SetActive(true);
+        decisionTypingEffect.StartTyping(decision.decisionText);
+
+    }
+    public void OnClickNext()
+    {
+        if (ResourceManager.instance.isGameOver) return;
+
+        if (decisionTypingEffect.isTyping)
+        {
+            decisionTypingEffect.SkipTyping();
+            return;
+        }
+    }
+    public void EndRegularEventDialogue()
+    {
+        reefSecretary1.SetActive(false);
+        reefSecretary2.SetActive(false);
+
+        regularEventBox.SetActive(false);
+    }
+    public void EndDecisionEventDialogue()
+    {
+        reefSecretary1.SetActive(false);
+        reefSecretary2.SetActive(false);
+
+        decisionEventBox.SetActive(false);
+    }
+    public void EndDecisionDialogue()
+    {
+        reefSecretary1.SetActive(false);
+        reefSecretary2.SetActive(false);
+
+        decisionDialogueBox.SetActive(false);
+    }
+    public void UpdateFundsUI(int newFunds)
+    {
+        funds.text = newFunds.ToString();
+    }
+    public void UpdatePurityUI(int newPurity)
+    {
+        purity.text = newPurity.ToString();
+    }
+    public void UpdateBiodiversityUI(int newBiodiversity)
+    {
+        biodiversity.text = newBiodiversity.ToString();
+    }
+    public void UpdateDecisionsTaken(int newDecisions)
+    {
+        currentDecisionsTaken.text = newDecisions.ToString();
+    }
+    public void RemoveEvent(EventBase e)
+    {
+        for (int i = 0; i < decisionList.Count; i++)
+        {
+            EventUI script = decisionList[i].GetComponent<EventUI>();
+            if (script != null)
+            {
+                if (script.GetActiveEvent().eventTitle == e.eventTitle)
+                {
+                    GameObject obj = decisionList[i];
+
+                    decisionList.RemoveAt(i);
+                    Destroy(obj);
+                    break;
+                }
+            }
+        }
     }
     public void RemoveDecision(Decision decision)
     {
         for (int i = 0; i < decisionList.Count; i++)
         {
             DecisionUI script = decisionList[i].GetComponent<DecisionUI>();
-            if (script.decision.decisionTitle == decision.decisionTitle)
+            if (script != null)
             {
-                GameObject obj = decisionList[i];
+                if (script.decision.decisionTitle == decision.decisionTitle)
+                {
+                    GameObject obj = decisionList[i];
 
-                decisionList.RemoveAt(i);
-                Destroy(obj);
-                break;
+                    decisionList.RemoveAt(i);
+                    Destroy(obj);
+                    break;
+                }
             }
         }
     }

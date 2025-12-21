@@ -7,6 +7,6 @@ public class TestManager : MonoBehaviour
 
     private void Start()
     {
-        DayManager.Instance.StartDay();
+        //DayManager.Instance.StartDay();
     }
 }

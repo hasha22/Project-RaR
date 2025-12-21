@@ -1,11 +1,13 @@
 using UnityEngine;
-public class EventBase : ScriptableObject
+public abstract class EventBase : ScriptableObject
 {
     [Header("Data")]
     [TextArea(2, 7)]
     public string eventText;
     public string eventTitle;
     public ReefType reefType;
+    public EventState state = EventState.Pending;
+    [HideInInspector] public int daysSinceTrigger = 0;
 
     [Header("Trigger Conditions")]
     public int timeToTrigger;
@@ -16,6 +18,12 @@ public class EventBase : ScriptableObject
     [Header("Later Event")]
     public EventBase laterEvent;
 
-    [HideInInspector] public int daysSinceTrigger;
-    [HideInInspector] public bool hasBeenSeen;
+    public abstract void Execute();
+    public virtual void ExecuteChoice(bool affirmative)
+    {
+        Execute();
+    }
+    public abstract void ShowUI();
+    public abstract bool AreConditionsMet(int funds, int purity, int biodiversity);
+    public abstract void ChangeButtonText();
 }

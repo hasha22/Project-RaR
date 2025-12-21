@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EventManager : MonoBehaviour
@@ -6,6 +7,7 @@ public class EventManager : MonoBehaviour
     public static EventManager instance { get; private set; }
 
     [Header("Events")]
+    public EventBase currentActiveEvent;
     public List<EventBase> activeEvents = new();
     private void Awake()
     {
@@ -24,40 +26,75 @@ public class EventManager : MonoBehaviour
         for (int i = 0; i < activeEvents.Count; i++)
         {
             activeEvents[i].daysSinceTrigger++;
+            Debug.Log($"Event `{activeEvents[i].eventTitle}`: {activeEvents[i].daysSinceTrigger}. ");
         }
     }
-    public void CheckAllEvents()
+    public void EvaluateEvents()
     {
-        for (int i = 0; i < activeEvents.Count; i++)
+        foreach (var e in activeEvents)
         {
-            // used to determine which reef specific resources to affect
-            ReefType reef = DetermineReef(activeEvents[i]);
-            int reefPurity = ResourceManager.instance.purityByReef[reef];
-            int reefBiodiversity = ResourceManager.instance.biodiversityByReef[reef];
+            bool timeMet = TimeConditionMet(e);
+            bool resourcesMet = false;
 
-            //events only fire after a set amount of days have passed
-            if (activeEvents[i].timeToTrigger >= activeEvents[i].daysSinceTrigger)
+            if (timeMet)
             {
-                if (activeEvents[i].fundsToTrigger == 0 && activeEvents[i].purityToTrigger == 0 && activeEvents[i].biodiversityToTrigger == 0)
-                {
-                    //Trigger day based event
-                }
-                TriggerResourceBasedEvent(activeEvents[i], ResourceManager.instance.funds, reefPurity, reefBiodiversity, reef);
+                resourcesMet = ResourceConditionsMet(e);
+            }
+            else
+            {
+                Debug.Log($"Time condition NOT met for event: {e.eventTitle}");
+            }
+
+            if (timeMet && resourcesMet)
+            {
+                Debug.Log($"Event READY: {e.eventTitle}");
+                e.state = EventState.Ready;
             }
         }
+
+        Debug.Log("Events Evaluated!");
+    }
+    private bool TimeConditionMet(EventBase e)
+    {
+        if (e.daysSinceTrigger >= e.timeToTrigger)
+            Debug.Log($"Time Condition Met for event: {e.eventTitle}.");
+
+        return e.daysSinceTrigger >= e.timeToTrigger;
+    }
+    private bool ResourceConditionsMet(EventBase e)
+    {
+        ReefType reef = DetermineReef(e);
+
+        int funds = ResourceManager.instance.funds;
+        int purity = ResourceManager.instance.purityByReef[reef];
+        int biodiversity = ResourceManager.instance.biodiversityByReef[reef];
+
+        bool met = e.AreConditionsMet(funds, purity, biodiversity);
+
+        Debug.Log(
+            $"Resource check for {e.eventTitle} " +
+            $"Funds: {funds}, Purity: {purity}, Biodiversity: {biodiversity} -> {met}"
+        );
+
+        return met;
     }
     public List<EventBase> GetReadyEvents()
     {
-        List<EventBase> readyEvents = new();
-        foreach (var e in activeEvents)
-        {
-            if (!e.hasBeenSeen && e.daysSinceTrigger >= e.timeToTrigger)
-            {
-                readyEvents.Add(e);
-            }
-        }
-
-        return readyEvents;
+        return activeEvents
+        .Where(e => e.state == EventState.Ready)
+        .ToList();
+    }
+    public void OnEventButtonPressed()
+    {
+        currentActiveEvent.Execute();
+    }
+    public void OnYesPressed()
+    {
+        currentActiveEvent.ExecuteChoice(true);
+    }
+    public void OnNoPressed()
+    {
+        currentActiveEvent.ExecuteChoice(false);
     }
     public void RemoveActiveEvent(string title)
     {
@@ -70,46 +107,6 @@ public class EventManager : MonoBehaviour
             }
         }
     }
-    private void TriggerResourceBasedEvent(EventBase activeEvent, int funds, int purity, int biodiversity, ReefType reef)
-    {
-        if (activeEvent.fundsToTrigger != 0)
-        {
-            //Trigger Event
-            if (activeEvent.fundsToTrigger >= 5000 && funds >= activeEvent.fundsToTrigger)
-            {
-
-            }
-            else if (activeEvent.fundsToTrigger < 5000 && funds <= activeEvent.fundsToTrigger)
-            {
-
-            }
-        }
-        if (activeEvent.purityToTrigger != 0)
-        {
-            //Trigger Event
-            if (activeEvent.purityToTrigger >= 50 && purity >= activeEvent.purityToTrigger)
-            {
-
-            }
-            else if (activeEvent.purityToTrigger < 50 && purity <= activeEvent.purityToTrigger)
-            {
-
-            }
-        }
-        if (activeEvent.biodiversityToTrigger != 0)
-        {
-            //Trigger Event
-            if (activeEvent.biodiversityToTrigger >= 50 && biodiversity >= activeEvent.biodiversityToTrigger)
-            {
-
-            }
-            else if (activeEvent.biodiversityToTrigger < 50 && biodiversity <= activeEvent.biodiversityToTrigger)
-            {
-
-            }
-        }
-    }
-
     //helper method
     private ReefType DetermineReef(EventBase activeEvent)
     {

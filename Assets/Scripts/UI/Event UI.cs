@@ -15,12 +15,19 @@ public class EventUI : MonoBehaviour
 
     public void OnConfirm()
     {
-        //method to display event
-        //activeEvent.Execute();
-
-        activeEvent.hasBeenSeen = true;
-        EventManager.instance.RemoveActiveEvent(activeEvent.eventTitle);
-
-        UIManager.instance.RemoveEvent(this);
+        if (activeEvent != null)
+        {
+            EventManager.instance.currentActiveEvent = activeEvent;
+            activeEvent.ChangeButtonText();
+            activeEvent.ShowUI();
+        }
+        else
+        {
+            Debug.Log("Event data is NULL!");
+        }
+    }
+    public EventBase GetActiveEvent()
+    {
+        return activeEvent;
     }
 }

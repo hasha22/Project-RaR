@@ -17,9 +17,6 @@ public class DecisionManager : MonoBehaviour
     private HashSet<string> takenDecisionTitles = new();
     [Space]
     public int dailyDecisionsTaken;
-    //public int decisionsTakenThirdReef;
-    //public int decisionsTakenFourthReef;
-    [Space]
     public int decisionHardCap;
 
     private void Awake()
@@ -34,21 +31,17 @@ public class DecisionManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Init()
+    private void Start()
     {
         if (ReefManager.Instance != null)
         {
-            ReefManager.Instance.OnReefSwitched += UpdateDecisionPool;
+            ReefManager.Instance.OnReefSwitched += (reefType) =>
+            {
+                UIManager.instance.RefreshDecisionAndEventUI();
+            };
         }
     }
-
-    private void Start()
-    {
-        ReefManager.Instance.SetNewReef(ReefManager.Instance.allReefData[0]);
-        UpdateDecisionPool(ResourceManager.instance.activeReef);
-        Init();
-    }
-
+    /*
     public void UpdateDecisionPool(ReefType newReef)
     {
         if (ReefManager.Instance.activeReefData == null) return;
@@ -71,16 +64,25 @@ public class DecisionManager : MonoBehaviour
         List<Decision> newDecisions = GetDailyDecisions(data, DayManager.Instance.currentDay);
         UIManager.instance.InstantiateDecisions(newDecisions);
     }
-
+    */
     private void CheckProgress()
     {
-        if (dailyDecisionsTaken >= decisionHardCap) DayManager.Instance.AdvanceDay();
-        dailyDecisionsTaken = 0;
-        UIManager.instance.UpdateDecisionsTaken(dailyDecisionsTaken);
+        if (dailyDecisionsTaken >= decisionHardCap)
+        {
+            DayManager.Instance.AdvanceDay();
+            dailyDecisionsTaken = 0;
+            UIManager.instance.UpdateDecisionsTaken(dailyDecisionsTaken);
+        }
     }
 
     public List<Decision> GetDailyDecisions(ReefData data, int currentDay)
     {
+        if (data == null)
+        {
+            Debug.Log("GetDailyDecisions called with null ReefData.");
+            return new List<Decision>();
+        }
+
         if (DayManager.Instance.dailyDecisionCache.TryGetValue(data, out var cache))
         {
             if (cache.day == currentDay)

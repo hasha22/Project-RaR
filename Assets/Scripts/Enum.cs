@@ -12,3 +12,9 @@ public enum ReefType
     Reef3,
     Reef4,
 }
+public enum EventState
+{
+    Pending,
+    Ready,
+    Resolved
+}

@@ -65,7 +65,17 @@ public class ResourceManager : MonoBehaviour
             ReefManager.Instance.OnReefSwitched += OnReefSwitched;
         }
     }
+    private void OnDisable()
+    {
+        if (ReefManager.Instance != null)
+            ReefManager.Instance.OnReefSwitched -= OnReefSwitched;
 
+        if (DayManager.Instance != null)
+        {
+            DayManager.Instance.OnDayStart -= AssignResources;
+            DayManager.Instance.OnDayEnd -= GetDailyChange;
+        }
+    }
     private void OnReefSwitched(ReefType targetReef)
     {
         activeReef = targetReef;
