@@ -7,11 +7,7 @@ public class TitleScreenManager : MonoBehaviour
     public static TitleScreenManager instance { get; private set; }
 
     [Header("Scene Index")]
-    [SerializeField] private int introSceneIndex = 1;
-    [SerializeField] private int gameSceneIndex = 2;
-
-    [Header("Confirmation Message")]
-    [SerializeField] private GameObject confirmationBox;
+    [SerializeField] private int gameSceneIndex = 1;
 
     private void Awake()
     {
@@ -24,23 +20,18 @@ public class TitleScreenManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        confirmationBox.SetActive(false);
+    }
+    private void Start()
+    {
+        AudioManager.instance.PlayBGM(AudioManager.instance.menuBGM);
     }
     public void QuitGame()
     {
         Application.Quit();
     }
-    public void EnableConfirmation()
-    {
-        confirmationBox.SetActive(true);
-    }
     public void StartNewGame()
     {
         StartCoroutine(LoadScene(gameSceneIndex));
-    }
-    public void StartGameIntro()
-    {
-        StartCoroutine(LoadScene(introSceneIndex));
     }
     public IEnumerator LoadScene(int index)
     {

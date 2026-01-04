@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ReefData
   reefType: 2
   reefName: Reef 2
-  initialPurity: 60
+  initialPurity: 40
   initialBiodiversity: 20
   backgroundImage: {fileID: -2403896515798236783, guid: 6a775aea317d87b42a3d095bc67e27e5, type: 3}
   decisionPool:

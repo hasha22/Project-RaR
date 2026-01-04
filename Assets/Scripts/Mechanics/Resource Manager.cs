@@ -8,6 +8,7 @@ public class ResourceManager : MonoBehaviour
 
     [Header("Player Resources")]
     public int funds;
+    [SerializeField] private int initialFunds = 3000;
     public Dictionary<ReefType, int> purityByReef = new Dictionary<ReefType, int>();
     public Dictionary<ReefType, int> biodiversityByReef = new Dictionary<ReefType, int>();
     public event Action<int> OnFundsChanged;
@@ -101,7 +102,7 @@ public class ResourceManager : MonoBehaviour
 
         if (DayManager.Instance.currentDay == 1)
         {
-            funds = 2000;
+            funds = initialFunds;
         }
 
         foreach (ReefData data in ReefManager.Instance.allReefData)

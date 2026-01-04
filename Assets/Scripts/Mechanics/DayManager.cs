@@ -20,7 +20,7 @@ public class DayManager : MonoBehaviour
     public event Action OnDayStart;
     public event Action OnDayEnd;
 
-    [Header("Dialog Setting")]
+    [Header("Dialogue Setting")]
     [SerializeField] private DialogueSetting dialogueSetting;
 
     private void Awake()
@@ -52,6 +52,8 @@ public class DayManager : MonoBehaviour
         }
 
         OnDayStart?.Invoke();
+
+        AudioManager.instance.PlayBGM(AudioManager.instance.defaultBGM);
     }
 
     // 하루 끝

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714a0965560e54551b7bc768954c7e32, type: 3}
+  m_Name: Tutorial Node
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
+  sequentialTalks:
+  - talkerName: Angela
+    content: Alright, so there are three main things to look out for when on the
+      job. First off is our finances; protecting the reef is going to cost money.
+  - talkerName: Angela
+    content: Then, we have the reefs' Water Purity and Biodiversity. We have to make
+      sure both are kept at a healthy level or we risk losing the whole reef.
+  - talkerName: Manager
+    content: Okay, is there anything else?
+  - talkerName: Anglea
+    content: Of course, let's move on to your Decisions!
+  - talkerName: Angela
+    content: The Decisions are the main way we will be ensuring the preservation
+      of the reef. You can only take a set amount each day, so choose carefully!
+  - talkerName: Angela
+    content: Each Reef has its own set of Decisions for you to make, and each Day
+      you get to make new ones!
+  - talkerName: Angela
+    content: Lastly, you can view the Reefs you have to manage using the Compass,
+      but we will get to that later.
+  - talkerName: Manager
+    content: Great, I'm looking forward to working with you!
+  - talkerName: Angela
+    content: I feel the same! Shall we begin the Day, Manager?
+  choices: []

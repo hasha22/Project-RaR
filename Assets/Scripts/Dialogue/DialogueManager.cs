@@ -21,6 +21,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject choicePanel; // 분기점
     [HideInInspector] public bool isDialogueBoxOpened = false;
     [SerializeField] private GameObject nextText;
+    [SerializeField] private GameObject nextButton;
 
     [Header("Choice Button")]
     [SerializeField] private ChoiceController choiceButtonPrefab;
@@ -48,7 +49,6 @@ public class DialogueManager : MonoBehaviour
     {
         if (startNode == null) return;
 
-
         currentDialogueNode = startNode;
         activeTalkIndex = 0;
         dialogueBox.SetActive(true);
@@ -67,6 +67,7 @@ public class DialogueManager : MonoBehaviour
     // 유저의 클릭으로 다음 대화나 선택지로 진행
     public void OnClickNext()
     {
+        Debug.Log("Clicking next");
         // 게임오버인 경우 클릭 무시
         if (ResourceManager.instance.isGameOver) return;
 
@@ -90,6 +91,7 @@ public class DialogueManager : MonoBehaviour
             // talk panel 활성화
             // choice panel 비활성화
             talkPanel.SetActive(true);
+            nextButton.SetActive(true);
             choicePanel.SetActive(false);
             nextText.SetActive(false);
             DestroyChoiceButtons();
@@ -125,8 +127,8 @@ public class DialogueManager : MonoBehaviour
     // 선택지 버튼
     private void ShowChoices()
     {
-        // talkPanel.SetActive(false);
         choicePanel.SetActive(true);
+        nextButton.SetActive(false);
 
         DestroyChoiceButtons();
 
