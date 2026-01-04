@@ -103,6 +103,7 @@ public class EventManager : MonoBehaviour
             if (activeEvents[i].eventTitle == title)
             {
                 activeEvents.Remove(activeEvents[i]);
+                if (activeEvents.Count == 0) UIManager.instance.activeEventsExist = false;
                 break;
             }
         }

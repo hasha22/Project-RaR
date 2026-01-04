@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -31,11 +32,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentDecisionsTaken;
     [SerializeField] private TextMeshProUGUI maxDecisions;
     public List<GameObject> decisionList = new List<GameObject>();
-    private bool isDecisionListOpened = false;
     [Space]
     [SerializeField] private GameObject decisionDialogueBox;
     [SerializeField] private TextMeshProUGUI speakerName;
     [SerializeField] private TextMeshProUGUI decisionContext;
+
+    private bool isDecisionListOpened = false;
     private TypingEffect decisionTypingEffect;
 
     [Header("Events")]
@@ -49,13 +51,24 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI regularEventButtonText;
     public TextMeshProUGUI decisionEventYesText;
     public TextMeshProUGUI decisionEventNoText;
+    public bool activeEventsExist = false;
+
     private TypingEffect regularEventTypingEffect;
     private TypingEffect decisionEventTypingEffect;
+
+    [Header("Decision Text Flicker")]
+    [SerializeField] private TextMeshProUGUI decisionListText;
+    [SerializeField] private float flickerInterval = 1f;
+
+    private Color regularColor = Color.white;
+    private Color warningColor = new Color(1f, 0.3f, 0.3f);
 
     [Header("Warning UI")]
     [SerializeField] private GameObject[] warningBadges; // 0:Funds / 1:Purity / 2:Bio
     [SerializeField] private GameObject warningPopup;
     [SerializeField] private TextMeshProUGUI warningText;
+
+    private Coroutine flickerRoutine;
 
     private void Awake()
     {
@@ -178,9 +191,20 @@ public class UIManager : MonoBehaviour
         decisionList.Clear();
 
         var dailyEvents = EventManager.instance.GetReadyEvents();
+
         Debug.Log($"Found {dailyEvents.Count} ready events.");
+
         if (dailyEvents.Count > 0)
-        { InstantiateEvents(dailyEvents); }
+        {
+            activeEventsExist = true;
+            InstantiateEvents(dailyEvents);
+            StartDecisionFlicker();
+        }
+        else
+        {
+            activeEventsExist = false;
+            StopDecisionFlicker();
+        }
 
         var decisions = DecisionManager.instance.GetDailyDecisions(
             ReefManager.Instance.activeReefData,
@@ -369,7 +393,38 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+    private IEnumerator DecisionFlicker()
+    {
+        bool isRed = false;
 
+        while (EventManager.instance.activeEvents.Count != 0)
+        {
+            isRed = !isRed;
+            decisionListText.color = isRed ? warningColor : regularColor;
+
+            yield return new WaitForSeconds(flickerInterval);
+        }
+
+        decisionListText.color = regularColor;
+        flickerRoutine = null;
+    }
+    private void StartDecisionFlicker()
+    {
+        if (flickerRoutine != null)
+            StopCoroutine(flickerRoutine);
+
+        flickerRoutine = StartCoroutine(DecisionFlicker());
+    }
+    private void StopDecisionFlicker()
+    {
+        if (flickerRoutine != null)
+        {
+            StopCoroutine(flickerRoutine);
+            flickerRoutine = null;
+        }
+
+        decisionListText.color = regularColor;
+    }
     public void ToggleWarningBadge(int index, bool isActive)
     {
         if (warningBadges[index] != null) warningBadges[index].SetActive(isActive);

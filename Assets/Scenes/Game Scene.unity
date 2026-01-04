@@ -177,6 +177,8 @@ MonoBehaviour:
   regularEventButtonText: {fileID: 1061891537}
   decisionEventYesText: {fileID: 567778607}
   decisionEventNoText: {fileID: 1544896940}
+  decisionListText: {fileID: 462854412}
+  flickerInterval: 0.5
   warningBadges:
   - {fileID: 1200846444}
   - {fileID: 668604389}
@@ -2697,6 +2699,7 @@ GameObject:
   - component: {fileID: 462854411}
   - component: {fileID: 462854413}
   - component: {fileID: 462854412}
+  - component: {fileID: 462854414}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2822,6 +2825,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 462854410}
   m_CullTransparentMesh: 1
+--- !u!225 &462854414
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462854410}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &479358318
 GameObject:
   m_ObjectHideFlags: 0

@@ -65,10 +65,15 @@ public class DecisionManager : MonoBehaviour
         UIManager.instance.InstantiateDecisions(newDecisions);
     }
     */
-    private void CheckProgress()
+    public void CheckProgress()
     {
         if (dailyDecisionsTaken >= decisionHardCap)
         {
+            if (UIManager.instance.activeEventsExist)
+            {
+                Debug.Log("Resolve all active events before ending the day!");
+                return;
+            }
             DayManager.Instance.AdvanceDay();
             dailyDecisionsTaken = 0;
             UIManager.instance.UpdateDecisionsTaken(dailyDecisionsTaken);

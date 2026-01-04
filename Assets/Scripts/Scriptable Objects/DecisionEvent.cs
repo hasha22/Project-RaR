@@ -64,6 +64,7 @@ public class DecisionEvent : EventBase
         UIManager.instance.EndDecisionEventDialogue();
         EventManager.instance.RemoveActiveEvent(eventTitle);
         UIManager.instance.RemoveEvent(this);
+        DecisionManager.instance.CheckProgress();
     }
     public override void ShowUI()
     {
@@ -74,7 +75,7 @@ public class DecisionEvent : EventBase
         if (fundsToTrigger == 0 && purityToTrigger == 0 && biodiversityToTrigger == 0)
             return true;
         else
-            Debug.Log("Kys");
+            Debug.Log("idk");
 
         if (fundsToTrigger != 0)
         {
