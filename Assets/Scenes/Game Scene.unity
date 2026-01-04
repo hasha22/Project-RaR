@@ -177,6 +177,7 @@ MonoBehaviour:
   regularEventButtonText: {fileID: 1061891537}
   decisionEventYesText: {fileID: 567778607}
   decisionEventNoText: {fileID: 1544896940}
+  activeEventsExist: 0
   decisionListText: {fileID: 462854412}
   flickerInterval: 0.5
   warningBadges:
@@ -8355,11 +8356,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa3259e6bab717c4a82686fa21e36507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  audioPrefab: {fileID: 0}
+  audioPrefab: {fileID: 7305981031943373645, guid: b6dd1bcd4f52fa646aaa9b995b423315, type: 3}
   bgmSource: {fileID: 1898385459}
   defaultBGM: {fileID: 8300000, guid: 3c966724d17bdd94f9a1e053ebc5b778, type: 3}
   menuBGM: {fileID: 8300000, guid: 055b672cb1e33a54a8601ff1c44c4dd3, type: 3}
-  bgmVolume: 0.1
+  bgmVolume: 0.05
 --- !u!4 &1608740734
 Transform:
   m_ObjectHideFlags: 0

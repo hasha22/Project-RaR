@@ -1410,7 +1410,7 @@ MonoBehaviour:
   bgmSource: {fileID: 1898385459}
   defaultBGM: {fileID: 8300000, guid: 3c966724d17bdd94f9a1e053ebc5b778, type: 3}
   menuBGM: {fileID: 8300000, guid: 055b672cb1e33a54a8601ff1c44c4dd3, type: 3}
-  bgmVolume: 0.15
+  bgmVolume: 0.1
 --- !u!4 &1608740734
 Transform:
   m_ObjectHideFlags: 0
