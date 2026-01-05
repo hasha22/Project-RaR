@@ -75,6 +75,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float slideDuration = 0.25f;
     [SerializeField] private float slideDelay = 0.3f;
 
+    private Dictionary<RectTransform, Vector2> initialPos = new();
+
     [Header("Warning UI")]
     [SerializeField] private GameObject[] warningBadges; // 0:Funds / 1:Purity / 2:Bio
     [SerializeField] private GameObject warningPopup;
@@ -109,7 +111,6 @@ public class UIManager : MonoBehaviour
         Init();
         maxDecisions.text = DecisionManager.instance.decisionHardCap.ToString();
     }
-
     private void Init()
     {
         if (ReefManager.Instance != null)
@@ -251,6 +252,23 @@ public class UIManager : MonoBehaviour
             decisionScript.decision = decisions[i];
         }
     }
+    private void StoreInitialPositions(List<GameObject> buttons)
+    {
+        foreach (var button in buttons)
+        {
+            RectTransform rect = button.GetComponent<RectTransform>();
+            if (!initialPos.ContainsKey(rect))
+                initialPos.Add(rect, rect.anchoredPosition);
+        }
+    }
+    private void ResetButtonsOffscreen(List<GameObject> buttons)
+    {
+        foreach (var button in buttons)
+        {
+            RectTransform rect = button.GetComponent<RectTransform>();
+            rect.anchoredPosition = initialPos[rect] + Vector2.right * slideDistance;
+        }
+    }
     public void BeginEventDialogue(EventBase newEvent)
     {
         if (DialogueManager.Instance.isDialogueBoxOpened) return;
@@ -322,50 +340,45 @@ public class UIManager : MonoBehaviour
     }
     private void StartButtonAnimation(List<GameObject> buttons)
     {
+        StoreInitialPositions(buttons);
+
         if (buttonRoutine != null)
         {
             StopCoroutine(buttonRoutine);
         }
+
+        ResetButtonsOffscreen(buttons);
 
         buttonRoutine = StartCoroutine(AnimateDecisionButtons(buttons));
     }
 
     private IEnumerator AnimateDecisionButtons(List<GameObject> buttons)
     {
-        List<Vector2> targetPositions = new();
         List<RectTransform> rectTransforms = new();
 
-        foreach (GameObject button in buttons)
-        {
-            RectTransform rect = button.GetComponent<RectTransform>();
-
-            rectTransforms.Add(rect);
-            targetPositions.Add(rect.anchoredPosition);
-
-            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + slideDistance, rect.anchoredPosition.y);
-        }
+        foreach (var b in buttons)
+            rectTransforms.Add(b.GetComponent<RectTransform>());
 
         for (int i = 0; i < rectTransforms.Count; i++)
         {
             RectTransform rect = rectTransforms[i];
-            Vector2 startPosition = rect.anchoredPosition;
-            Vector2 targetPosition = targetPositions[i];
+
+            Vector2 start = rect.anchoredPosition;
+            Vector2 target = initialPos[rect];
 
             float elapsed = 0f;
-
             while (elapsed < slideDuration)
             {
-                float t = elapsed / slideDuration;
                 elapsed += Time.deltaTime;
-
-                rect.anchoredPosition = Vector2.Lerp(startPosition, targetPosition, t);
+                float t = Mathf.Clamp01(elapsed / slideDuration);
+                rect.anchoredPosition = Vector2.Lerp(start, target, t);
                 yield return null;
             }
 
-            rect.anchoredPosition = targetPosition;
-
+            rect.anchoredPosition = target;
             yield return new WaitForSeconds(slideDelay);
         }
+
         buttonRoutine = null;
     }
     public void OnClickNext()

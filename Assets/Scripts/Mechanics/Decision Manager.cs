@@ -151,11 +151,6 @@ public class DecisionManager : MonoBehaviour
                 activeDecision.eventToTriggerA.laterEvent.daysSinceTrigger = 0;
                 EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerA.laterEvent);
             }
-
-            if (activeDecision.eventToTriggerA.timeToTrigger == 0)
-            {
-                //Trigger Event Immediately and activate event box immediately
-            }
         }
 
         //removes from daily decision cache
@@ -163,6 +158,11 @@ public class DecisionManager : MonoBehaviour
 
         UIManager.instance.EndDecisionDialogue();
         UIManager.instance.RemoveDecision(activeDecision);
+
+        if (activeDecision.eventToTriggerA.timeToTrigger == 0)
+        {
+            activeDecision.eventToTriggerA.ShowUI();
+        }
 
         CheckProgress();
     }

@@ -2671,7 +2671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &410282512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3090,7 +3090,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 795, y: -401.00003}
+  m_AnchoredPosition: {x: 775, y: -401.00003}
   m_SizeDelta: {x: 335, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &523258229
@@ -4053,7 +4053,7 @@ GameObject:
   - component: {fileID: 679298152}
   - component: {fileID: 679298151}
   m_Layer: 5
-  m_Name: Funds Icon (2)
+  m_Name: Biodiversity Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4075,8 +4075,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 65.219, y: 457.18802}
-  m_SizeDelta: {x: 85.937, y: 94.375}
+  m_AnchoredPosition: {x: 64.478, y: 457.18802}
+  m_SizeDelta: {x: 87.42, y: 94.375}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &679298151
 MonoBehaviour:
@@ -8776,7 +8776,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 795, y: -501}
+  m_AnchoredPosition: {x: 775, y: -501}
   m_SizeDelta: {x: 335, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1628185672
@@ -9326,6 +9326,7 @@ GameObject:
   - component: {fileID: 1733048572}
   - component: {fileID: 1733048571}
   - component: {fileID: 1733048570}
+  - component: {fileID: 1733048573}
   m_Layer: 5
   m_Name: Yes
   m_TagString: Untagged
@@ -9350,7 +9351,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 795, y: -301}
+  m_AnchoredPosition: {x: 775, y: -301}
   m_SizeDelta: {x: 335, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1733048570
@@ -9447,6 +9448,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733048568}
   m_CullTransparentMesh: 1
+--- !u!95 &1733048573
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733048568}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1766935727
 GameObject:
   m_ObjectHideFlags: 0
@@ -9459,7 +9482,7 @@ GameObject:
   - component: {fileID: 1766935730}
   - component: {fileID: 1766935729}
   m_Layer: 5
-  m_Name: Funds Icon (1)
+  m_Name: Purity Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
