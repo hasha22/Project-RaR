@@ -18,12 +18,12 @@ MonoBehaviour:
     eating snails.
   fundsToAddA: 0
   purityToAddA: 20
-  biodiversityToAddA: 20
+  biodiversityToAddA: 25
   fundsToSubtractA: 500
   purityToSubtractA: 0
   biodiversityToSubtractA: 0
   fundsToAddN: 0
-  purityToAddN: 0
+  purityToAddN: 5
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0

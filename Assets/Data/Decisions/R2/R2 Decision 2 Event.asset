@@ -15,12 +15,14 @@ MonoBehaviour:
   eventText: You won the case against the company that caused the oil spill!
   eventTitle: Law Suit Won!
   reefType: 2
+  state: 0
+  daysSinceTrigger: 0
   timeToTrigger: 1
   fundsToTrigger: 0
   purityToTrigger: 0
   biodiversityToTrigger: 0
-  daysSinceTrigger: 0
-  fundsToAdd: 7000
+  laterEvent: {fileID: 0}
+  fundsToAdd: 6000
   purityToAdd: 0
   biodiversityToAdd: 0
   fundsToSubtract: 0

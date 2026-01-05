@@ -16,11 +16,11 @@ MonoBehaviour:
   decisionTitle: Scuba Divers
   decisionText: There is an unused section of the beach near the reef. A scuba diving
     club wants to set up business in that area.
-  fundsToAddA: 3000
+  fundsToAddA: 2500
   purityToAddA: 0
   biodiversityToAddA: 0
   fundsToSubtractA: 0
-  purityToSubtractA: 0
+  purityToSubtractA: 5
   biodiversityToSubtractA: 0
   fundsToAddN: 0
   purityToAddN: 0

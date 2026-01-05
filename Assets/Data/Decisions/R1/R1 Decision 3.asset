@@ -20,11 +20,13 @@ MonoBehaviour:
   purityToAddA: 30
   biodiversityToAddA: 0
   fundsToSubtractA: 0
-  purityToSubtractA: 10
-  biodiversityToSubtractA: 10
+  purityToSubtractA: 0
+  biodiversityToSubtractA: 15
   fundsToAddN: 0
   purityToAddN: 0
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
-  biodiversityToSubtractN: 0
+  biodiversityToSubtractN: 5
+  eventToTriggerA: {fileID: 0}
+  eventToTriggerN: {fileID: 0}

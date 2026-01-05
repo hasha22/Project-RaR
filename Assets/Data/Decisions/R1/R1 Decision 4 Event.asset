@@ -16,15 +16,17 @@ MonoBehaviour:
     coral under their sheer mass!
   eventTitle: Snail Crisis
   reefType: 1
+  state: 0
+  daysSinceTrigger: 1
   timeToTrigger: 1
   fundsToTrigger: 0
   purityToTrigger: 40
   biodiversityToTrigger: 0
-  daysSinceTrigger: 0
+  laterEvent: {fileID: 0}
   fundsToAdd: 0
   purityToAdd: 5
   biodiversityToAdd: 0
   fundsToSubtract: 0
   purityToSubtract: 0
-  biodiversityToSubtract: 30
+  biodiversityToSubtract: 40
   buttonFlavorText: Oh no...

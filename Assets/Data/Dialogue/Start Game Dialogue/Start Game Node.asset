@@ -15,7 +15,7 @@ MonoBehaviour:
   sequentialTalks:
   - talkerName: Secretary
     content: "Ah, you\u2019ve finally arrived. Welcome! It\u2019s a pleasure to finally
-      get to meet you. I\u2019ve been excited awaiting your arrival since you volunteered
+      get to meet you. I\u2019ve been awaiting your arrival since you volunteered
       for this position!"
   - talkerName: Manager
     content: Thank you, can you fill me in?

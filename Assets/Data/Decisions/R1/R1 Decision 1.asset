@@ -27,4 +27,6 @@ MonoBehaviour:
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
-  biodiversityToSubtractN: 20
+  biodiversityToSubtractN: 25
+  eventToTriggerA: {fileID: 0}
+  eventToTriggerN: {fileID: 0}
