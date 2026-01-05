@@ -41,7 +41,7 @@ public class RegularEvent : EventBase
     }
     public override void ShowUI()
     {
-        UIManager.instance.BeginRegularEventDialogue(this);
+        UIManager.instance.BeginEventDialogue(this);
     }
     public override bool AreConditionsMet(int funds, int purity, int biodiversity)
     {

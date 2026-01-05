@@ -36,6 +36,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject decisionDialogueBox;
     [SerializeField] private TextMeshProUGUI speakerName;
     [SerializeField] private TextMeshProUGUI decisionContext;
+    [Space]
+    [SerializeField] private GameObject decisionYesButton;
+    [SerializeField] private GameObject decisionNoButton;
+    [SerializeField] private GameObject decisionMaybeButton;
+    [SerializeField] private GameObject eventButton;
+    [SerializeField] private GameObject decisionEventYesButton;
+    [SerializeField] private GameObject decisionEventNoButton;
 
     private bool isDecisionListOpened = false;
     private TypingEffect decisionTypingEffect;
@@ -63,12 +70,18 @@ public class UIManager : MonoBehaviour
     private Color regularColor = Color.white;
     private Color warningColor = new Color(1f, 0.3f, 0.3f);
 
+    [Header("Button Animation")]
+    [SerializeField] private float slideDistance = 355f;
+    [SerializeField] private float slideDuration = 0.25f;
+    [SerializeField] private float slideDelay = 0.3f;
+
     [Header("Warning UI")]
     [SerializeField] private GameObject[] warningBadges; // 0:Funds / 1:Purity / 2:Bio
     [SerializeField] private GameObject warningPopup;
     [SerializeField] private TextMeshProUGUI warningText;
 
     private Coroutine flickerRoutine;
+    private Coroutine buttonRoutine;
 
     private void Awake()
     {
@@ -238,11 +251,11 @@ public class UIManager : MonoBehaviour
             decisionScript.decision = decisions[i];
         }
     }
-    public void BeginRegularEventDialogue(EventBase newEvent)
+    public void BeginEventDialogue(EventBase newEvent)
     {
         if (DialogueManager.Instance.isDialogueBoxOpened) return;
 
-        regularEventContext.text = newEvent.eventText;
+        List<GameObject> newButtons = new List<GameObject>();
 
         switch (newEvent.reefType)
         {
@@ -256,35 +269,33 @@ public class UIManager : MonoBehaviour
                 break;
         }
 
-        regularEventBox.SetActive(true);
-        regularEventTypingEffect.StartTyping(newEvent.eventText);
-    }
-    public void BeginDecisionEventDialogue(EventBase newEvent)
-    {
-        if (DialogueManager.Instance.isDialogueBoxOpened) return;
-
-        decisionEventContext.text = newEvent.eventText;
-
-        switch (newEvent.reefType)
+        if (newEvent is RegularEvent)
         {
-            case ReefType.Reef1:
-                decisionEventSpeaker.text = "Angela";
-                reefSecretary1.SetActive(true);
-                break;
-            case ReefType.Reef2:
-                decisionEventSpeaker.text = "Dutch";
-                reefSecretary2.SetActive(true);
-                break;
+            regularEventContext.text = newEvent.eventText;
+            regularEventBox.SetActive(true);
+            regularEventTypingEffect.StartTyping(newEvent.eventText);
+
+            newButtons.Add(eventButton);
+        }
+        else
+        {
+            decisionEventContext.text = newEvent.eventText;
+            decisionEventBox.SetActive(true);
+            decisionEventTypingEffect.StartTyping(newEvent.eventText);
+
+            newButtons.Add(decisionEventYesButton);
+            newButtons.Add(decisionEventNoButton);
         }
 
-        decisionEventBox.SetActive(true);
-        decisionEventTypingEffect.StartTyping(newEvent.eventText);
+        StartButtonAnimation(newButtons);
     }
     public void BeginDecisionDialogue(Decision decision)
     {
         if (DialogueManager.Instance.isDialogueBoxOpened) return;
 
         decisionContext.text = decision.decisionText;
+
+        List<GameObject> newButtons = new List<GameObject>();
 
         switch (decision.reefType)
         {
@@ -296,19 +307,66 @@ public class UIManager : MonoBehaviour
                 speakerName.text = "Dutch";
                 reefSecretary2.SetActive(true);
                 break;
-                /*
-                case ReefType.Reef3:
-                    speakerName.text = "Micah";
-                    break;
-                case ReefType.Reef4:
-                    speakerName.text = "Your mom";
-                    break;
-                */
         }
+
 
         decisionDialogueBox.SetActive(true);
         decisionTypingEffect.StartTyping(decision.decisionText);
 
+        newButtons.Add(decisionYesButton);
+        newButtons.Add(decisionNoButton);
+        newButtons.Add(decisionMaybeButton);
+
+        StartButtonAnimation(newButtons);
+
+    }
+    private void StartButtonAnimation(List<GameObject> buttons)
+    {
+        if (buttonRoutine != null)
+        {
+            StopCoroutine(buttonRoutine);
+        }
+
+        buttonRoutine = StartCoroutine(AnimateDecisionButtons(buttons));
+    }
+
+    private IEnumerator AnimateDecisionButtons(List<GameObject> buttons)
+    {
+        List<Vector2> targetPositions = new();
+        List<RectTransform> rectTransforms = new();
+
+        foreach (GameObject button in buttons)
+        {
+            RectTransform rect = button.GetComponent<RectTransform>();
+
+            rectTransforms.Add(rect);
+            targetPositions.Add(rect.anchoredPosition);
+
+            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x + slideDistance, rect.anchoredPosition.y);
+        }
+
+        for (int i = 0; i < rectTransforms.Count; i++)
+        {
+            RectTransform rect = rectTransforms[i];
+            Vector2 startPosition = rect.anchoredPosition;
+            Vector2 targetPosition = targetPositions[i];
+
+            float elapsed = 0f;
+
+            while (elapsed < slideDuration)
+            {
+                float t = elapsed / slideDuration;
+                elapsed += Time.deltaTime;
+
+                rect.anchoredPosition = Vector2.Lerp(startPosition, targetPosition, t);
+                yield return null;
+            }
+
+            rect.anchoredPosition = targetPosition;
+
+            yield return new WaitForSeconds(slideDelay);
+        }
+        buttonRoutine = null;
     }
     public void OnClickNext()
     {
