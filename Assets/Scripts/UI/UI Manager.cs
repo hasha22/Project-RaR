@@ -272,6 +272,7 @@ public class UIManager : MonoBehaviour
     public void BeginEventDialogue(EventBase newEvent)
     {
         if (DialogueManager.Instance.isDialogueBoxOpened) return;
+        if (decisionEventBox.activeSelf || regularEventBox.activeSelf) return;
 
         List<GameObject> newButtons = new List<GameObject>();
 
@@ -318,6 +319,7 @@ public class UIManager : MonoBehaviour
     public void BeginDecisionDialogue(Decision decision)
     {
         if (DialogueManager.Instance.isDialogueBoxOpened) return;
+        if (decisionEventBox.activeSelf || regularEventBox.activeSelf) return;
 
         decisionContext.text = decision.decisionText;
 
@@ -402,6 +404,16 @@ public class UIManager : MonoBehaviour
         if (decisionTypingEffect.isTyping)
         {
             decisionTypingEffect.SkipTyping();
+            return;
+        }
+        if (decisionEventTypingEffect.isTyping)
+        {
+            decisionEventTypingEffect.SkipTyping();
+            return;
+        }
+        if (regularEventTypingEffect.isTyping)
+        {
+            regularEventTypingEffect.SkipTyping();
             return;
         }
     }

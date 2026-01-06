@@ -145,12 +145,6 @@ public class DecisionManager : MonoBehaviour
         {
             activeDecision.eventToTriggerA.daysSinceTrigger = 0;
             EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerA);
-
-            if (activeDecision.eventToTriggerA.laterEvent != null)
-            {
-                activeDecision.eventToTriggerA.laterEvent.daysSinceTrigger = 0;
-                EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerA.laterEvent);
-            }
         }
 
         //removes from daily decision cache
@@ -161,6 +155,11 @@ public class DecisionManager : MonoBehaviour
 
         if (activeDecision.eventToTriggerA.timeToTrigger == 0)
         {
+            EventManager.instance.EvaluateEvents();
+            UIManager.instance.RefreshDecisionAndEventUI();
+
+            EventManager.instance.currentActiveEvent = activeDecision.eventToTriggerA;
+            activeDecision.eventToTriggerA.ChangeButtonText();
             activeDecision.eventToTriggerA.ShowUI();
         }
 
@@ -189,17 +188,6 @@ public class DecisionManager : MonoBehaviour
         {
             activeDecision.eventToTriggerN.daysSinceTrigger = 0;
             EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerN);
-
-            if (activeDecision.eventToTriggerN.laterEvent != null)
-            {
-                activeDecision.eventToTriggerN.laterEvent.daysSinceTrigger = 0;
-                EventManager.instance.activeEvents.Add(activeDecision.eventToTriggerN.laterEvent);
-            }
-
-            if (activeDecision.eventToTriggerN.timeToTrigger == 0)
-            {
-
-            }
         }
 
         //removes from daily decision cache
@@ -207,6 +195,16 @@ public class DecisionManager : MonoBehaviour
 
         UIManager.instance.EndDecisionDialogue();
         UIManager.instance.RemoveDecision(activeDecision);
+
+        if (activeDecision.eventToTriggerN.timeToTrigger == 0)
+        {
+            EventManager.instance.EvaluateEvents();
+            UIManager.instance.RefreshDecisionAndEventUI();
+
+            EventManager.instance.currentActiveEvent = activeDecision.eventToTriggerN;
+            activeDecision.eventToTriggerN.ChangeButtonText();
+            activeDecision.eventToTriggerN.ShowUI();
+        }
 
         CheckProgress();
     }

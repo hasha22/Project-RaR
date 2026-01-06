@@ -37,6 +37,7 @@ public class RegularEvent : EventBase
         UIManager.instance.EndRegularEventDialogue();
         EventManager.instance.RemoveActiveEvent(eventTitle);
         UIManager.instance.RemoveEvent(this);
+        UIManager.instance.RefreshDecisionAndEventUI();
         DecisionManager.instance.CheckProgress();
     }
     public override void ShowUI()

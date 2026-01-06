@@ -17,13 +17,14 @@ MonoBehaviour:
     species\u2019 biology?"
   eventTitle: Fund Research
   reefType: 2
+  state: 1
+  daysSinceTrigger: 0
   timeToTrigger: 0
   fundsToTrigger: 0
   purityToTrigger: 0
   biodiversityToTrigger: 0
   laterEvent: {fileID: 11400000, guid: b0ef2770109b4fe4bb43b557d18098d2, type: 2}
-  daysSinceTrigger: 0
-  yesButtonText: Approve the Research
+  yesButtonText: Approve
   noButtonText: Decline
   fundsToAddA: 0
   purityToAddA: 0

@@ -98,12 +98,14 @@ public class EventManager : MonoBehaviour
     }
     public void RemoveActiveEvent(string title)
     {
+        currentActiveEvent = null;
         for (int i = 0; i < activeEvents.Count; i++)
         {
             if (activeEvents[i].eventTitle == title)
             {
                 activeEvents.Remove(activeEvents[i]);
-                if (activeEvents.Count == 0) UIManager.instance.activeEventsExist = false;
+                if (activeEvents.Count == 0)
+                { UIManager.instance.activeEventsExist = false; }
                 break;
             }
         }

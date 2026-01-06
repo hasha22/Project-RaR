@@ -64,6 +64,7 @@ public class DecisionEvent : EventBase
         UIManager.instance.EndDecisionEventDialogue();
         EventManager.instance.RemoveActiveEvent(eventTitle);
         UIManager.instance.RemoveEvent(this);
+        UIManager.instance.RefreshDecisionAndEventUI();
         DecisionManager.instance.CheckProgress();
     }
     public override void ShowUI()
