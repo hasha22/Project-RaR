@@ -198,7 +198,7 @@ public class DecisionManager : MonoBehaviour
 
             if (activeDecision.eventToTriggerN.timeToTrigger == 0)
             {
-                //Trigger Event Immediately and activate event box immediately
+
             }
         }
 

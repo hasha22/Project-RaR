@@ -1,18 +1,20 @@
-using UnityEngine;
-using System.Collections;
-using TMPro;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 // Assigned to each Text UI
 
 public class TypingEffect : MonoBehaviour
 {
-    public float typeSpeed = 0.03f; 
+    public float typeSpeed = 0.03f;
     public bool isTyping { get; private set; }
 
     private TextMeshProUGUI textUI;
     private Coroutine typingCoroutine;
     private string fullText = "";
+    private List<GameObject> newButtons = new List<GameObject>();
 
     public Action OnTypingComplete;
 
@@ -20,10 +22,11 @@ public class TypingEffect : MonoBehaviour
     {
         textUI = GetComponent<TextMeshProUGUI>();
     }
-
-    public void StartTyping(string text)
+    // added optional buttons list to make buttons slide-in after typing has been finished
+    public void StartTyping(string text, List<GameObject> buttons = null)
     {
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
+        if (buttons != null) newButtons = buttons;
 
         fullText = text;
         textUI.text = "";
@@ -38,6 +41,7 @@ public class TypingEffect : MonoBehaviour
         StopCoroutine(typingCoroutine);
         textUI.text = fullText;
         isTyping = false;
+        UIManager.instance.StartButtonAnimation(newButtons);
         OnTypingComplete?.Invoke();
     }
 
@@ -52,6 +56,7 @@ public class TypingEffect : MonoBehaviour
         }
 
         isTyping = false;
+        UIManager.instance.StartButtonAnimation(newButtons);
         OnTypingComplete?.Invoke();
     }
 }
