@@ -271,23 +271,31 @@ public class UIManager : MonoBehaviour
 
         if (newEvent is RegularEvent)
         {
+            newButtons.Add(eventButton);
+
+            foreach (var button in newButtons)
+            {
+                button.SetActive(false);
+            }
+
             regularEventContext.text = newEvent.eventText;
             regularEventBox.SetActive(true);
-            regularEventTypingEffect.StartTyping(newEvent.eventText);
-
-            newButtons.Add(eventButton);
+            regularEventTypingEffect.StartTyping(newEvent.eventText, newButtons);
         }
         else
         {
-            decisionEventContext.text = newEvent.eventText;
-            decisionEventBox.SetActive(true);
-            decisionEventTypingEffect.StartTyping(newEvent.eventText);
-
             newButtons.Add(decisionEventYesButton);
             newButtons.Add(decisionEventNoButton);
-        }
 
-        StartButtonAnimation(newButtons);
+            foreach (var button in newButtons)
+            {
+                button.SetActive(false);
+            }
+
+            decisionEventContext.text = newEvent.eventText;
+            decisionEventBox.SetActive(true);
+            decisionEventTypingEffect.StartTyping(newEvent.eventText, newButtons);
+        }
     }
     public void BeginDecisionDialogue(Decision decision)
     {
@@ -309,19 +317,25 @@ public class UIManager : MonoBehaviour
                 break;
         }
 
-
-        decisionDialogueBox.SetActive(true);
-        decisionTypingEffect.StartTyping(decision.decisionText);
-
         newButtons.Add(decisionYesButton);
         newButtons.Add(decisionNoButton);
         newButtons.Add(decisionMaybeButton);
 
-        StartButtonAnimation(newButtons);
+        foreach (var button in newButtons)
+        {
+            button.SetActive(false);
+        }
 
+        decisionDialogueBox.SetActive(true);
+        decisionTypingEffect.StartTyping(decision.decisionText, newButtons);
     }
-    private void StartButtonAnimation(List<GameObject> buttons)
+    public void StartButtonAnimation(List<GameObject> buttons)
     {
+        foreach (var button in buttons)
+        {
+            button.SetActive(true);
+        }
+
         if (buttonRoutine != null)
         {
             StopCoroutine(buttonRoutine);
@@ -329,7 +343,6 @@ public class UIManager : MonoBehaviour
 
         buttonRoutine = StartCoroutine(AnimateDecisionButtons(buttons));
     }
-
     private IEnumerator AnimateDecisionButtons(List<GameObject> buttons)
     {
         List<Vector2> targetPositions = new();

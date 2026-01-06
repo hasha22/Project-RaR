@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Overall flow:
 // 1) 'StartDialogue(node)' is called externally
@@ -30,6 +31,11 @@ public class DialogueManager : MonoBehaviour
     private DialogueNode currentDialogueNode;
     private int activeTalkIndex = 0;
     private List<ChoiceController> choiceButtons = new List<ChoiceController>();
+
+    //added colors for dialogue clarity
+    private Color speakerColor = Color.white;
+    private Color backgroundColor = new Color(166f / 255f, 166f / 255f, 166f / 255f);
+
 
     private TypingEffect typingEffect;
 
@@ -67,7 +73,6 @@ public class DialogueManager : MonoBehaviour
     // 유저의 클릭으로 다음 대화나 선택지로 진행
     public void OnClickNext()
     {
-        Debug.Log("Clicking next");
         // 게임오버인 경우 클릭 무시
         if (ResourceManager.instance.isGameOver) return;
 
@@ -98,6 +103,12 @@ public class DialogueManager : MonoBehaviour
 
             DialogueNode.Talk currentTalk = currentDialogueNode.sequentialTalks[activeTalkIndex];
             talkerNameText.text = currentTalk.talkerName;
+
+            GameObject reefSecretary = ReefManager.Instance.GetActiveReefSecretary();
+            Image secretaryImage = reefSecretary.GetComponent<Image>();
+
+            if (talkerNameText.text == "Manager") secretaryImage.color = backgroundColor;
+            else secretaryImage.color = speakerColor;
 
             // contentText.text = currentTalk.content;
             typingEffect.StartTyping(currentTalk.content);
