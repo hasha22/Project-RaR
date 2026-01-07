@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6e298682fed9d14ba0c9eb4b3d254a4, type: 3}
-  m_Name: R2 Decision 3 Event (2)
+  m_Name: R2 Decision 3 Event A
   m_EditorClassIdentifier: Assembly-CSharp::DecisionEvent
   eventText: 'The research results have  come back. The fish had a specific predator,
     and that predator would need to be introduced to maintain the balance of the
@@ -19,17 +19,21 @@ MonoBehaviour:
 '
   eventTitle: Research Results
   reefType: 2
+  state: 0
+  daysSinceTrigger: 0
   timeToTrigger: 1
   fundsToTrigger: 0
   purityToTrigger: 0
   biodiversityToTrigger: 0
-  daysSinceTrigger: 0
+  laterEventRegular: {fileID: 0}
+  laterEventA: {fileID: 0}
+  laterEventN: {fileID: 11400000, guid: e71089466bbceb24d97dd5f19774d0e5, type: 2}
   yesButtonText: Yes
   noButtonText: No
   fundsToAddA: 0
   purityToAddA: 0
-  biodiversityToAddA: 40
-  fundsToSubtractA: 0
+  biodiversityToAddA: 25
+  fundsToSubtractA: 500
   purityToSubtractA: 0
   biodiversityToSubtractA: 0
   fundsToAddN: 0
@@ -37,4 +41,4 @@ MonoBehaviour:
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
-  biodiversityToSubtractN: 35
+  biodiversityToSubtractN: 0

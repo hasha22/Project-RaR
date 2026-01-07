@@ -16,7 +16,9 @@ public abstract class EventBase : ScriptableObject
     public int biodiversityToTrigger;
 
     [Header("Later Event")]
-    public EventBase laterEvent;
+    public EventBase laterEventRegular;
+    public EventBase laterEventA;
+    public EventBase laterEventN;
 
     public abstract void Execute();
     public virtual void ExecuteChoice(bool affirmative)

@@ -153,14 +153,17 @@ public class DecisionManager : MonoBehaviour
         UIManager.instance.EndDecisionDialogue();
         UIManager.instance.RemoveDecision(activeDecision);
 
-        if (activeDecision.eventToTriggerA.timeToTrigger == 0)
+        if (activeDecision.eventToTriggerA != null)
         {
-            EventManager.instance.EvaluateEvents();
-            UIManager.instance.RefreshDecisionAndEventUI();
+            if (activeDecision.eventToTriggerA.timeToTrigger == 0)
+            {
+                EventManager.instance.EvaluateEvents();
+                UIManager.instance.RefreshDecisionAndEventUI();
 
-            EventManager.instance.currentActiveEvent = activeDecision.eventToTriggerA;
-            activeDecision.eventToTriggerA.ChangeButtonText();
-            activeDecision.eventToTriggerA.ShowUI();
+                EventManager.instance.currentActiveEvent = activeDecision.eventToTriggerA;
+                activeDecision.eventToTriggerA.ChangeButtonText();
+                activeDecision.eventToTriggerA.ShowUI();
+            }
         }
 
         CheckProgress();
@@ -196,14 +199,17 @@ public class DecisionManager : MonoBehaviour
         UIManager.instance.EndDecisionDialogue();
         UIManager.instance.RemoveDecision(activeDecision);
 
-        if (activeDecision.eventToTriggerN.timeToTrigger == 0)
+        if (activeDecision.eventToTriggerN != null)
         {
-            EventManager.instance.EvaluateEvents();
-            UIManager.instance.RefreshDecisionAndEventUI();
+            if (activeDecision.eventToTriggerN.timeToTrigger == 0)
+            {
+                EventManager.instance.EvaluateEvents();
+                UIManager.instance.RefreshDecisionAndEventUI();
 
-            EventManager.instance.currentActiveEvent = activeDecision.eventToTriggerN;
-            activeDecision.eventToTriggerN.ChangeButtonText();
-            activeDecision.eventToTriggerN.ShowUI();
+                EventManager.instance.currentActiveEvent = activeDecision.eventToTriggerN;
+                activeDecision.eventToTriggerN.ChangeButtonText();
+                activeDecision.eventToTriggerN.ShowUI();
+            }
         }
 
         CheckProgress();

@@ -28,10 +28,10 @@ public class RegularEvent : EventBase
         ResourceManager.instance.SubtractPurity(currentReef, purityToSubtract);
         ResourceManager.instance.SubtractBiodiversity(currentReef, biodiversityToSubtract);
 
-        if (laterEvent != null)
+        if (laterEventRegular != null)
         {
-            laterEvent.daysSinceTrigger = 0;
-            EventManager.instance.activeEvents.Add(laterEvent);
+            laterEventRegular.daysSinceTrigger = 0;
+            EventManager.instance.activeEvents.Add(laterEventRegular);
         }
 
         UIManager.instance.EndRegularEventDialogue();

@@ -55,10 +55,15 @@ public class DecisionEvent : EventBase
                 reef
             );
         }
-        if (laterEvent != null)
+        if (laterEventA != null && affirmative)
         {
-            laterEvent.daysSinceTrigger = 0;
-            EventManager.instance.activeEvents.Add(laterEvent);
+            laterEventA.daysSinceTrigger = 0;
+            EventManager.instance.activeEvents.Add(laterEventA);
+        }
+        else if (laterEventN != null && !affirmative)
+        {
+            laterEventN.daysSinceTrigger = 0;
+            EventManager.instance.activeEvents.Add(laterEventN);
         }
 
         UIManager.instance.EndDecisionEventDialogue();
