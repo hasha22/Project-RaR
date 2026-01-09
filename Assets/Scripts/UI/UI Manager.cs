@@ -290,7 +290,7 @@ public class UIManager : MonoBehaviour
                 reefSecretary1.SetActive(true);
                 break;
             case ReefType.Reef2:
-                regularEventSpeaker.text = "Dutch";
+                regularEventSpeaker.text = "Kieran";
                 reefSecretary2.SetActive(true);
                 break;
         }
@@ -339,7 +339,7 @@ public class UIManager : MonoBehaviour
                 reefSecretary1.SetActive(true);
                 break;
             case ReefType.Reef2:
-                speakerName.text = "Dutch";
+                speakerName.text = "Kieran";
                 reefSecretary2.SetActive(true);
                 break;
         }
