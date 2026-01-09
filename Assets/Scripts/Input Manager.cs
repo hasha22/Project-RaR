@@ -45,6 +45,11 @@ public class InputManager : MonoBehaviour
     }
     public void OnMonitorScreenEnabled(InputAction.CallbackContext context)
     {
+        if (!context.started) return;
+        if (!UIManager.instance.IsUIInputAllowed()) return;
+
+        hasPressedSpace = true;
+
         if (context.started)
         {
             hasPressedSpace = true;

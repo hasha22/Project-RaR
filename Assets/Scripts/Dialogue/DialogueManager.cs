@@ -194,4 +194,8 @@ public class DialogueManager : MonoBehaviour
         activeTalkIndex = 0;
         DestroyChoiceButtons();
     }
+    public GameObject GetDialogueBox()
+    {
+        return dialogueBox;
+    }
 }

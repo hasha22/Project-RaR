@@ -139,15 +139,6 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.instance.hasPressedSpace)
-        {
-            InputManager.instance.hasPressedSpace = false;
-
-            if (isMonitorOpened) monitorUI.SetActive(false);
-            else monitorUI.SetActive(true);
-
-            isMonitorOpened = !isMonitorOpened;
-        }
         if (InputManager.instance.hasPressedF)
         {
             InputManager.instance.hasPressedF = false;
@@ -165,6 +156,22 @@ public class UIManager : MonoBehaviour
             }
 
             isDecisionListOpened = !isDecisionListOpened;
+        }
+
+        if (!IsUIInputAllowed())
+        {
+            InputManager.instance.hasPressedSpace = false;
+            return;
+        }
+
+        if (InputManager.instance.hasPressedSpace)
+        {
+            InputManager.instance.hasPressedSpace = false;
+
+            if (isMonitorOpened) monitorUI.SetActive(false);
+            else monitorUI.SetActive(true);
+
+            isMonitorOpened = !isMonitorOpened;
         }
     }
     public void EnableMonitorUI()
@@ -537,5 +544,12 @@ public class UIManager : MonoBehaviour
     public void CloseWarningPopup()
     {
         warningPopup.SetActive(false);
+    }
+    public bool IsUIInputAllowed()
+    {
+        return !decisionDialogueBox.activeSelf
+        && !DialogueManager.Instance.GetDialogueBox().activeSelf
+        && !regularEventBox.activeSelf
+        && !decisionEventBox.activeSelf;
     }
 }

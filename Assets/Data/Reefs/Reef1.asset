@@ -16,7 +16,7 @@ MonoBehaviour:
   reefName: Reef Shallows
   initialPurity: 30
   initialBiodiversity: 40
-  backgroundImage: {fileID: 7226839270606809080, guid: 538cfe25ddfad194db093b47111dd2ea, type: 3}
+  backgroundImage: {fileID: 1208040086343421634, guid: 0cba98523d0a06e4ebdd22c0368ac74c, type: 3}
   decisionPool:
   - {fileID: 11400000, guid: 608afb31c5efdca4d8584336eb509b96, type: 2}
   - {fileID: 11400000, guid: ed44abdfcd4bf204396e7c54772be988, type: 2}
