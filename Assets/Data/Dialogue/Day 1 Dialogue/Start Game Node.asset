@@ -41,7 +41,7 @@ MonoBehaviour:
     content: Yes! Straight to business!. Well, I have the first question for you,
       have you done this before?
   choices:
-  - text: Yes! (Skip Tutorial)
+  - text: Yes
     nextNode: {fileID: 11400000, guid: 544ec9c6dd66f4b4dbefafee0ab159dd, type: 2}
-  - text: No. (Begin Tutorial)
+  - text: No
     nextNode: {fileID: 11400000, guid: 20d1059ebb25e82419d23ce6c4f81582, type: 2}
