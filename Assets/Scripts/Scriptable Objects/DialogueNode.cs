@@ -11,6 +11,7 @@ public class DialogueNode : ScriptableObject
         public string talkerName; 
         [TextArea(2, 7)]
         public string content; 
+        public string highlightUIKey;
     }
 
     public Talk[] sequentialTalks; // 순차적 대화 목록

@@ -16,24 +16,33 @@ MonoBehaviour:
   - talkerName: Angela
     content: Alright, so there are three main things to look out for when on the
       job. First off is our finances; protecting the reef is going to cost money.
+    highlightUIKey: Money
   - talkerName: Angela
     content: Then, we have the reefs' Water Purity and Biodiversity. We have to make
       sure both are kept at a healthy level or we risk losing the whole reef.
+    highlightUIKey: Purity&Biodiversity
   - talkerName: Manager
     content: Okay, is there anything else?
+    highlightUIKey: 
   - talkerName: Anglea
     content: Of course, let's move on to your Decisions!
+    highlightUIKey: Decisions
   - talkerName: Angela
     content: The Decisions are the main way we will be ensuring the preservation
       of the reef. You can only take a set amount each day, so choose carefully!
+    highlightUIKey: Decisions
   - talkerName: Angela
     content: Each Reef has its own set of Decisions for you to make, and each Day
       you get to make new ones!
+    highlightUIKey: 
   - talkerName: Angela
     content: Lastly, you can view the Reefs you have to manage using the Compass,
       but we will get to that later.
+    highlightUIKey: Compass
   - talkerName: Manager
     content: Great, I'm looking forward to working with you!
+    highlightUIKey: 
   - talkerName: Angela
     content: I feel the same! Shall we begin the Day, Manager?
+    highlightUIKey: 
   choices: []

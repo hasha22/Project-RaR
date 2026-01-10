@@ -107,6 +107,9 @@ public class DialogueManager : MonoBehaviour
             GameObject reefSecretary = ReefManager.Instance.GetActiveReefSecretary();
             Image secretaryImage = reefSecretary.GetComponent<Image>();
 
+            if (!string.IsNullOrEmpty(currentTalk.highlightUIKey)) HighlightManager.Instance.SetHighlight(currentTalk.highlightUIKey);
+            else HighlightManager.Instance?.SetHighlight(null);
+
             if (talkerNameText.text == "Manager") secretaryImage.color = backgroundColor;
             else secretaryImage.color = speakerColor;
 
@@ -125,6 +128,8 @@ public class DialogueManager : MonoBehaviour
         // 2. 노드 마지막에 도달한 경우
         else
         {
+            HighlightManager.Instance?.SetHighlight(null);
+
             nextText.SetActive(false);
 
             // 1) 선택지 분기점 처리
@@ -180,6 +185,8 @@ public class DialogueManager : MonoBehaviour
     private void EndDialogue()
     {
         Debug.Log("Dialogue End");
+
+        HighlightManager.Instance?.SetHighlight(null);
 
         dialogueBox.SetActive(false);
 
