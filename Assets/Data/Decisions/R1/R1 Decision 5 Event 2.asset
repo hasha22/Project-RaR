@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bededec6f7db73647bcdc83df439b4f2, type: 3}
+  m_Name: R1 Decision 5 Event 2
+  m_EditorClassIdentifier: Assembly-CSharp::RegularEvent
+  eventText: The coral support exoskeletons are having a positive impact on the Reef's
+    Biodiversity!
+  eventTitle: Coral Support
+  reefType: 1
+  state: 0
+  daysSinceTrigger: 0
+  timeToTrigger: 1
+  fundsToTrigger: 0
+  purityToTrigger: 0
+  biodiversityToTrigger: 0
+  laterEventRegular: {fileID: 11400000, guid: 3b1820d5677f5784eb4129e93bb0fca3, type: 2}
+  laterEventA: {fileID: 0}
+  laterEventN: {fileID: 0}
+  fundsToAdd: 0
+  purityToAdd: 0
+  biodiversityToAdd: 10
+  fundsToSubtract: 0
+  purityToSubtract: 0
+  biodiversityToSubtract: 0
+  buttonFlavorText: Great!

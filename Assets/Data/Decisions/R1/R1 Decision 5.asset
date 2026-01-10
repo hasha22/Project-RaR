@@ -19,7 +19,7 @@ MonoBehaviour:
     coral support exoskeletons.
   fundsToAddA: 0
   purityToAddA: 0
-  biodiversityToAddA: 40
+  biodiversityToAddA: 25
   fundsToSubtractA: 3000
   purityToSubtractA: 0
   biodiversityToSubtractA: 0
@@ -29,3 +29,5 @@ MonoBehaviour:
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: 0
+  eventToTriggerA: {fileID: 0}
+  eventToTriggerN: {fileID: 0}

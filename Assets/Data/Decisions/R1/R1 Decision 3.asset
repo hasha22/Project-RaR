@@ -21,7 +21,7 @@ MonoBehaviour:
   biodiversityToAddA: 0
   fundsToSubtractA: 0
   purityToSubtractA: 0
-  biodiversityToSubtractA: 15
+  biodiversityToSubtractA: 10
   fundsToAddN: 0
   purityToAddN: 0
   biodiversityToAddN: 0

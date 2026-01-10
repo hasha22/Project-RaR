@@ -15,7 +15,7 @@ MonoBehaviour:
   reefType: 1
   decisionTitle: Take Loan
   decisionText: The Government is offering to give you a loan. You will have to pay
-    it back. with interest. Do you take it or not?
+    it back, with interest. Do you take it or not?
   fundsToAddA: 5000
   purityToAddA: 0
   biodiversityToAddA: 0
