@@ -216,7 +216,7 @@ public class ResourceManager : MonoBehaviour
         purityByReef[targetReef] += newPurity;
         if (purityByReef[targetReef] >= maxPurity) purityByReef[targetReef] = maxPurity;
 
-        // 현재 활성 Reef인 경우에만 UI에 변경을 알립니다.
+        // 현재 활성 Reef인 경우에만 UI에 변경을 알림
         if (targetReef == activeReef)
         {
             OnPurityChanged?.Invoke(purityByReef[targetReef]);
@@ -234,7 +234,7 @@ public class ResourceManager : MonoBehaviour
         biodiversityByReef[targetReef] += newBiodiversity;
         if (biodiversityByReef[targetReef] >= maxBiodiversity) biodiversityByReef[targetReef] = maxBiodiversity;
 
-        // 현재 활성 Reef인 경우에만 UI에 변경을 알립니다.
+        // 현재 활성 Reef인 경우에만 UI에 변경을 알림
         if (targetReef == activeReef)
         {
             OnBiodiversityChanged?.Invoke(biodiversityByReef[targetReef]);
@@ -260,7 +260,7 @@ public class ResourceManager : MonoBehaviour
 
         purityByReef[targetReef] -= newPurity;
 
-        // 현재 활성 Reef인 경우에만 UI에 변경을 알립니다.
+        // 현재 활성 Reef인 경우에만 UI에 변경을 알림
         if (targetReef == activeReef)
         {
             OnPurityChanged?.Invoke(purityByReef[targetReef]);
@@ -277,7 +277,7 @@ public class ResourceManager : MonoBehaviour
 
         biodiversityByReef[targetReef] -= newBiodiversity;
 
-        // 현재 활성 Reef인 경우에만 UI에 변경을 알립니다.
+        // 현재 활성 Reef인 경우에만 UI에 변경을 알림
         if (targetReef == activeReef)
         {
             OnBiodiversityChanged?.Invoke(biodiversityByReef[targetReef]);
