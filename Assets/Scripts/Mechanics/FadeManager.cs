@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 
-// Manager that handles fade-in/out during scene transitions
+// Manager that handles fade-in/out
 public class FadeManager : MonoBehaviour
 {
     public static FadeManager Instance;
@@ -36,21 +37,7 @@ public class FadeManager : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         if (isFading) return;
-        StartCoroutine(StartLoadScene(sceneName));
-    }
-
-    private IEnumerator StartLoadScene(string sceneName)
-    {
-        isFading = true;
-        FindFadePanel();
-        if (fadePanelObject != null)
-        {
-            fadePanelObject.SetActive(true);
-            canvasGroup.alpha = 0f;
-            yield return StartCoroutine(Fade(1, fadeDuration));
-        }
-
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(DoFadeIn(() => SceneManager.LoadScene(sceneName)));
     }
 
     private void EndLoadScene(Scene scene, LoadSceneMode mode)
@@ -59,8 +46,8 @@ public class FadeManager : MonoBehaviour
         if (fadePanelObject != null)
         {
             fadePanelObject.SetActive(true);
-            canvasGroup.alpha = 1f;
-            StartCoroutine(Fade(0, fadeDuration));
+            // canvasGroup.alpha = 1f;
+            StartCoroutine(DoFadeOut(null));
         }
 
         else isFading = false;
@@ -78,6 +65,70 @@ public class FadeManager : MonoBehaviour
                 fadePanelObject = fadePanelTransform.gameObject;
                 canvasGroup = fadePanelTransform.GetComponent<CanvasGroup>();
             }
+        }
+    }
+
+    public void FadeIn(Action onComplete)
+    {
+        if (isFading) return;
+        StartCoroutine(DoFadeIn(onComplete));
+    }
+
+    public void FadeOut(Action onComplete)
+    {
+        // if (isFading) return;
+        StartCoroutine(DoFadeOut(onComplete));
+    }
+
+    private IEnumerator DoFadeIn(Action onComplete)
+    {
+        isFading = true;
+        FindFadePanel();
+
+        if (fadePanelObject != null)
+        {
+            canvasGroup.alpha = 0f;
+            fadePanelObject.SetActive(true);
+            yield return StartCoroutine(Fade(1, fadeDuration));
+        }
+
+        onComplete?.Invoke();
+    }
+
+    private IEnumerator DoFadeOut(Action onComplete)
+    {
+        if (fadePanelObject != null)
+        {
+            yield return StartCoroutine(Fade(0, fadeDuration));
+        }
+
+        onComplete?.Invoke();
+        isFading = false;
+    }
+
+    public void ChangeDay(Action onMidFade)
+    {
+        if (isFading) return;
+        StartCoroutine(ChangeDayFade(onMidFade));
+    }
+
+    private IEnumerator ChangeDayFade(Action onMidFade)
+    {
+        isFading = true;
+        FindFadePanel();
+
+        if (fadePanelObject != null)
+        {
+            fadePanelObject.SetActive(true);
+
+            // 1. fade in
+            yield return StartCoroutine(Fade(1, fadeDuration));
+
+            // 2. start next dat
+            onMidFade?.Invoke();
+
+            // 3. fade out
+            yield return StartCoroutine(Fade(0, fadeDuration));
         }
     }
 
@@ -108,6 +159,6 @@ public class FadeManager : MonoBehaviour
             if (fadePanelObject != null) fadePanelObject.SetActive(false);
         }
 
-        isFading = false;
+        // isFading = false;
     }
 }
