@@ -176,6 +176,8 @@ public class UIManager : MonoBehaviour
     }
     public void EnableMonitorUI()
     {
+        if (!IsUIInputAllowed()) return;
+
         if (!isMonitorOpened)
         {
             isMonitorOpened = true;

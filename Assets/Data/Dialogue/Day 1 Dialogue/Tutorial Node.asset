@@ -25,7 +25,8 @@ MonoBehaviour:
     content: Okay, is there anything else?
     highlightUIKey: 
   - talkerName: Anglea
-    content: Of course, let's move on to your Decisions!
+    content: Of course, let's move on to your Decisions! You can press on the dropdown
+      button to view available Decisions.
     highlightUIKey: Decisions
   - talkerName: Angela
     content: The Decisions are the main way we will be ensuring the preservation
