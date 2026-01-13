@@ -16,10 +16,13 @@ public class EndGameManager : MonoBehaviour
     [Space]
     [SerializeField] private GameObject coralSecretary;
     [SerializeField] private GameObject kelpSecretary;
-    [SerializeField] private GameObject coralBG;
-    [SerializeField] private GameObject kelpBG;
+    [SerializeField] private GameObject goodCoralBG;
+    [SerializeField] private GameObject evilCoralBG;
+    [SerializeField] private GameObject goodKelpBG;
+    [SerializeField] private GameObject evilKelpBG;
     [SerializeField] private GameObject gameBG1;
     [SerializeField] private GameObject gameBG2;
+    [SerializeField] private GameObject pollution;
 
     [Header("Dialogue")]
     [SerializeField] private DialogueNode badEndingNode;
@@ -28,6 +31,8 @@ public class EndGameManager : MonoBehaviour
 
     private DialogueNode currentDialogueNode;
     private int activeTalkIndex = 0;
+
+    private bool isEvil = false;
 
     private TypingEffect typingEffect;
     private void Awake()
@@ -64,6 +69,7 @@ public class EndGameManager : MonoBehaviour
                 break;
             case 3:
                 endGameNode = badEndingNode;
+                isEvil = true;
                 break;
         }
 
@@ -107,21 +113,33 @@ public class EndGameManager : MonoBehaviour
             if (talkerNameText.text == "Carol")
             {
                 coralSecretary.SetActive(true);
-                coralBG.SetActive(true);
+                if (isEvil)
+                {
+                    pollution.gameObject.SetActive(true);
+                    evilCoralBG.SetActive(true);
+                }
+                else goodCoralBG.SetActive(true);
                 gameBG1.SetActive(true);
 
                 kelpSecretary.SetActive(false);
-                kelpBG.SetActive(false);
+                goodKelpBG.SetActive(false);
+                evilKelpBG.SetActive(false);
                 gameBG2.SetActive(false);
             }
             else
             {
                 coralSecretary.SetActive(false);
-                coralBG.SetActive(false);
+                goodCoralBG.SetActive(false);
+                evilCoralBG.SetActive(false);
                 gameBG1.SetActive(false);
 
                 kelpSecretary.SetActive(true);
-                kelpBG.SetActive(true);
+                if (isEvil)
+                {
+                    pollution.SetActive(true);
+                    evilKelpBG.SetActive(true);
+                }
+                else goodKelpBG.SetActive(true);
                 gameBG2.SetActive(true);
             }
 

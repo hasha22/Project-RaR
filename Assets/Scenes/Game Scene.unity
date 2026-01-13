@@ -188,7 +188,7 @@ MonoBehaviour:
   activeEventsExist: 0
   decisionListText: {fileID: 462854412}
   flickerInterval: 0.5
-  slideDistance: 500
+  slideDistance: 650
   slideDuration: 0.25
   slideDelay: 0.3
   warningBadges:
