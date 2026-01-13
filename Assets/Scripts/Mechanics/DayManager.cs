@@ -40,6 +40,12 @@ public class DayManager : MonoBehaviour
         isDayActive = true;
         currentDay += 1;
 
+        if (currentDay == 3)
+        {
+            EndGame();
+            return;
+        }
+
         //events go first
         EventManager.instance.EvaluateEvents();
 
@@ -54,6 +60,58 @@ public class DayManager : MonoBehaviour
         OnDayStart?.Invoke();
 
         AudioManager.instance.PlayBGM(AudioManager.instance.defaultBGM);
+    }
+
+    public void EndGame()
+    {
+        int purityReef1 = 0;
+        int purityReef2 = 0;
+        int biodiversityReef1 = 0;
+        int biodiversityReef2 = 0;
+
+        foreach (ReefData data in ReefManager.Instance.allReefData)
+        {
+            if (data.reefType == ReefType.Reef1)
+            {
+                purityReef1 = ResourceManager.instance.purityByReef[data.reefType];
+                biodiversityReef1 = ResourceManager.instance.biodiversityByReef[data.reefType];
+            }
+            if (data.reefType == ReefType.Reef2)
+            {
+                purityReef2 = ResourceManager.instance.purityByReef[data.reefType];
+                biodiversityReef2 = ResourceManager.instance.biodiversityByReef[data.reefType];
+            }
+        }
+
+        float averagePurity = (purityReef1 + purityReef2) / 2;
+        float averageBiodiversity = (biodiversityReef1 + biodiversityReef2) / 2;
+
+        float overallAverage = (averagePurity + averageBiodiversity) / 2;
+
+        /* Good Ending
+         * Average purity OR Average Biodiversity (or both) above 70, and overall average above 60. Reef is saved
+         * 
+         * Neutral Ending
+         * Average purity OR Average Biodiversity (or both) below 70 and above 50, and overall average below 60 and above 40. Neutral ending. Reef was preserved, but only momentarily. It is still endangered.
+         * 
+         * Bad Ending
+         * Average purity OR Average Biodiversity (or both) below 50, and overall average below 40. Reef is facing extinction and environmental collapse. You have failed utterly at your task.
+         * 
+        */
+
+        if ((averagePurity >= 70 || averageBiodiversity >= 70) && overallAverage >= 60)
+        {
+            Debug.Log("Triggered good ending. Yippee");
+        }
+        if ((averagePurity >= 50 && averagePurity < 70) || (averageBiodiversity >= 50 && averageBiodiversity < 70) && (overallAverage >= 40 && overallAverage < 60))
+        {
+            Debug.Log("Triggered neutral ending. Reef was saved, for now.");
+        }
+        if ((averagePurity < 50 || averageBiodiversity < 50) && overallAverage < 40)
+        {
+            Debug.Log("Bad ending. Reef was destroyed.");
+        }
+        isDayActive = false;
     }
 
     // 하루 끝

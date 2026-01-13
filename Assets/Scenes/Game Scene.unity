@@ -173,7 +173,7 @@ MonoBehaviour:
   eventButton: {fileID: 1516902032}
   decisionEventYesButton: {fileID: 401995753}
   decisionEventNoButton: {fileID: 1071056150}
-  eventPrefab: {fileID: 1215349268600955425, guid: 7856dec34671da34db41eb047ea26875, type: 3}
+  eventPrefab: {fileID: 6402375357121563856, guid: 7856dec34671da34db41eb047ea26875, type: 3}
   regularEventBox: {fileID: 348408340}
   decisionEventBox: {fileID: 1127384854}
   regularEventSpeaker: {fileID: 2027126338}
@@ -6587,7 +6587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1220816018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11038,8 +11038,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 16931802}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.00000011920929}
+  m_AnchorMax: {x: 1, y: 0.70734584}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11098,7 +11098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1951985216
 RectTransform:
   m_ObjectHideFlags: 0
