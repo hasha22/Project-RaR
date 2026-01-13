@@ -288,7 +288,7 @@ public class UIManager : MonoBehaviour
         switch (newEvent.reefType)
         {
             case ReefType.Reef1:
-                regularEventSpeaker.text = "Angela";
+                regularEventSpeaker.text = "Carol";
                 reefSecretary1.SetActive(true);
                 break;
             case ReefType.Reef2:

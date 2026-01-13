@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Skip Tutorial Node
   m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
   sequentialTalks:
-  - talkerName: Angela
+  - talkerName: Carol
     content: 'Great, an experienced Manager! '
-  - talkerName: Angela
+    highlightUIKey: 
+  - talkerName: Carol
     content: Shall we begin the Day then, Manager?
+    highlightUIKey: 
   choices: []
