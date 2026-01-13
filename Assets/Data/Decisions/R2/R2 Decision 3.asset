@@ -15,7 +15,7 @@ MonoBehaviour:
   reefType: 2
   decisionTitle: Bring Back Fish
   decisionText: A group of scientists have approached you about bringing back an
-    extinct species of fish. This would improve the Reef's biodiveristy at virtually
+    extinct species of fish. This would improve the Reef's biodiversity at virtually
     no cost.
   fundsToAddA: 0
   purityToAddA: 0
@@ -23,11 +23,13 @@ MonoBehaviour:
   fundsToSubtractA: 0
   purityToSubtractA: 0
   biodiversityToSubtractA: 0
+  yesFlavorText: Yes, why not?
   fundsToAddN: 0
   purityToAddN: 0
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: 0
+  noFlavorText: "No, I don\u2019t want any more fish!"
   eventToTriggerA: {fileID: 11400000, guid: 4b8e192f17481f64c99fe233591372f0, type: 2}
   eventToTriggerN: {fileID: 0}

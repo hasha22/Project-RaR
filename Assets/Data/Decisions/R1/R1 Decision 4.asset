@@ -22,11 +22,13 @@ MonoBehaviour:
   fundsToSubtractA: 500
   purityToSubtractA: 0
   biodiversityToSubtractA: 0
+  yesFlavorText: Yes, why not?
   fundsToAddN: 0
   purityToAddN: 5
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: 0
+  noFlavorText: No, I hate snails!
   eventToTriggerA: {fileID: 11400000, guid: d493c5f78e6342141963789b4696ff60, type: 2}
   eventToTriggerN: {fileID: 0}

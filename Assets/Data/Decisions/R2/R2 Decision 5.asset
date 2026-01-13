@@ -22,11 +22,13 @@ MonoBehaviour:
   fundsToSubtractA: 4000
   purityToSubtractA: 0
   biodiversityToSubtractA: 0
+  yesFlavorText: Yes, we must push this initiative!
   fundsToAddN: 500
   purityToAddN: 0
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: 0
+  noFlavorText: "No, it\u2019s too expensive."
   eventToTriggerA: {fileID: 0}
   eventToTriggerN: {fileID: 0}

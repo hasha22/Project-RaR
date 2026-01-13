@@ -20,7 +20,7 @@ MonoBehaviour:
   eventTitle: Research Results
   reefType: 2
   state: 0
-  daysSinceTrigger: 0
+  daysSinceTrigger: 1
   timeToTrigger: 1
   fundsToTrigger: 0
   purityToTrigger: 0
@@ -28,8 +28,8 @@ MonoBehaviour:
   laterEventRegular: {fileID: 0}
   laterEventA: {fileID: 0}
   laterEventN: {fileID: 11400000, guid: e71089466bbceb24d97dd5f19774d0e5, type: 2}
-  yesButtonText: Yes
-  noButtonText: No
+  yesButtonText: Yes, we need to maintain the balance.
+  noButtonText: "No, I\u2019m sure it will be fine."
   fundsToAddA: 0
   purityToAddA: 0
   biodiversityToAddA: 25

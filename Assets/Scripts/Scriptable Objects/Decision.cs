@@ -16,6 +16,7 @@ public class Decision : ScriptableObject
     public int fundsToSubtractA;
     public int purityToSubtractA;
     public int biodiversityToSubtractA;
+    public string yesFlavorText;
 
     [Header("Negative")]
     public int fundsToAddN;
@@ -24,6 +25,7 @@ public class Decision : ScriptableObject
     public int fundsToSubtractN;
     public int purityToSubtractN;
     public int biodiversityToSubtractN;
+    public string noFlavorText;
 
     [Header("Event Data")]
     public EventBase eventToTriggerA;

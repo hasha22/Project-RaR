@@ -22,11 +22,13 @@ MonoBehaviour:
   fundsToSubtractA: 1500
   purityToSubtractA: 0
   biodiversityToSubtractA: 0
+  yesFlavorText: "It could be useful, let\u2019s buy it."
   fundsToAddN: 0
   purityToAddN: 0
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: -5
+  noFlavorText: No, we already have enough.
   eventToTriggerA: {fileID: 0}
   eventToTriggerN: {fileID: 0}

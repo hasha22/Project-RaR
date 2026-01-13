@@ -22,11 +22,13 @@ MonoBehaviour:
   fundsToSubtractA: 2000
   purityToSubtractA: 0
   biodiversityToSubtractA: 0
+  yesFlavorText: Yes, begin research immediately!
   fundsToAddN: 0
   purityToAddN: 0
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: 25
+  noFlavorText: "No, I\u2019m sure it can\u2019t be that bad."
   eventToTriggerA: {fileID: 0}
   eventToTriggerN: {fileID: 0}
