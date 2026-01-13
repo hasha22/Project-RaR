@@ -574,6 +574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TitleScreenManager
   gameSceneIndex: 1
+  endGameSceneIndex: 2
 --- !u!4 &1072080823
 Transform:
   m_ObjectHideFlags: 0
@@ -1223,8 +1224,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   audioPrefab: {fileID: 7305981031943373645, guid: b6dd1bcd4f52fa646aaa9b995b423315, type: 3}
   bgmSource: {fileID: 1898385459}
-  defaultBGM: {fileID: 8300000, guid: 3c966724d17bdd94f9a1e053ebc5b778, type: 3}
+  defaultBGM: {fileID: 8300000, guid: 60c34737c6d99e44ab1c3e29e6357bff, type: 3}
   menuBGM: {fileID: 8300000, guid: 055b672cb1e33a54a8601ff1c44c4dd3, type: 3}
+  endGameBGM: {fileID: 8300000, guid: 2db6f9950b02546499fc304c253d17ee, type: 3}
   bgmVolume: 0.1
 --- !u!4 &1608740734
 Transform:

@@ -23,6 +23,8 @@ public class DayManager : MonoBehaviour
     [Header("Dialogue Setting")]
     [SerializeField] private DialogueSetting dialogueSetting;
 
+    [HideInInspector] public int ending;
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(this); return; }
@@ -40,9 +42,11 @@ public class DayManager : MonoBehaviour
         isDayActive = true;
         currentDay += 1;
 
-        if (currentDay == 3)
+        if (currentDay == 2)
         {
-            EndGame();
+            isDayActive = false;
+            ending = EndGame();
+            TitleScreenManager.instance.EndGame();
             return;
         }
 
@@ -62,7 +66,7 @@ public class DayManager : MonoBehaviour
         AudioManager.instance.PlayBGM(AudioManager.instance.defaultBGM);
     }
 
-    public void EndGame()
+    public int EndGame()
     {
         int purityReef1 = 0;
         int purityReef2 = 0;
@@ -102,16 +106,19 @@ public class DayManager : MonoBehaviour
         if ((averagePurity >= 70 || averageBiodiversity >= 70) && overallAverage >= 60)
         {
             Debug.Log("Triggered good ending. Yippee");
+            return 1;
         }
         if ((averagePurity >= 50 && averagePurity < 70) || (averageBiodiversity >= 50 && averageBiodiversity < 70) && (overallAverage >= 40 && overallAverage < 60))
         {
             Debug.Log("Triggered neutral ending. Reef was saved, for now.");
+            return 2;
         }
         if ((averagePurity < 50 || averageBiodiversity < 50) && overallAverage < 40)
         {
             Debug.Log("Bad ending. Reef was destroyed.");
+            return 3;
         }
-        isDayActive = false;
+        return 0;
     }
 
     // 하루 끝

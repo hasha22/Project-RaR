@@ -549,6 +549,8 @@ public class UIManager : MonoBehaviour
     }
     public bool IsUIInputAllowed()
     {
+        if (!DayManager.Instance.isDayActive) return false;
+
         return !decisionDialogueBox.activeSelf
         && !DialogueManager.Instance.GetDialogueBox().activeSelf
         && !regularEventBox.activeSelf

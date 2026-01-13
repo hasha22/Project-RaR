@@ -3382,8 +3382,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 775, y: -400}
-  m_SizeDelta: {x: 335, y: 70}
+  m_AnchoredPosition: {x: 226.26, y: -20}
+  m_SizeDelta: {x: 400, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &523258229
 MonoBehaviour:
@@ -3461,7 +3461,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a51bf5dc5577ae48980ce38bd0b834d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1a3fca29e3bd804aaf4f8a11fb5d8ae, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4103,7 +4103,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280032288
+    rgba: 4281279022
   m_fontColor: {r: 0.18039216, g: 0.13333334, b: 0.18431373, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -6437,6 +6437,7 @@ MonoBehaviour:
   daysWithDeficit: 0
   maxAllowedDeficitDays: 3
   dialogueSetting: {fileID: 11400000, guid: 03a4bdd0140bb334da04efee376beec7, type: 2}
+  ending: 0
 --- !u!1 &1200846444
 GameObject:
   m_ObjectHideFlags: 0
@@ -7587,7 +7588,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280032288
+    rgba: 4281279022
   m_fontColor: {r: 0.18039216, g: 0.13333334, b: 0.18431373, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -8718,9 +8719,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   audioPrefab: {fileID: 7305981031943373645, guid: b6dd1bcd4f52fa646aaa9b995b423315, type: 3}
   bgmSource: {fileID: 1898385459}
-  defaultBGM: {fileID: 8300000, guid: 3c966724d17bdd94f9a1e053ebc5b778, type: 3}
+  defaultBGM: {fileID: 8300000, guid: 60c34737c6d99e44ab1c3e29e6357bff, type: 3}
   menuBGM: {fileID: 8300000, guid: 055b672cb1e33a54a8601ff1c44c4dd3, type: 3}
-  bgmVolume: 0.05
+  endGameBGM: {fileID: 8300000, guid: 2db6f9950b02546499fc304c253d17ee, type: 3}
+  bgmVolume: 1
 --- !u!4 &1608740734
 Transform:
   m_ObjectHideFlags: 0
@@ -9051,7 +9053,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 775, y: -490}
+  m_AnchoredPosition: {x: 574, y: -141}
   m_SizeDelta: {x: 335, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1628185672
@@ -9667,8 +9669,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 775, y: -310}
-  m_SizeDelta: {x: 335, y: 70}
+  m_AnchoredPosition: {x: -283, y: -23.549}
+  m_SizeDelta: {x: 400, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1733048570
 MonoBehaviour:
@@ -9746,7 +9748,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a51bf5dc5577ae48980ce38bd0b834d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1a3fca29e3bd804aaf4f8a11fb5d8ae, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10453,7 +10455,7 @@ GameObject:
   - component: {fileID: 1848399302}
   - component: {fileID: 1848399301}
   m_Layer: 5
-  m_Name: Angela
+  m_Name: Carol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11743,7 +11745,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Angela
+  m_text: Carol
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f197507c830cd744bb820c7bb1b530c5, type: 2}
   m_sharedMaterial: {fileID: -2548573021985749307, guid: f197507c830cd744bb820c7bb1b530c5, type: 2}
