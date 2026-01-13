@@ -22,11 +22,13 @@ MonoBehaviour:
   fundsToSubtractA: 0
   purityToSubtractA: 5
   biodiversityToSubtractA: 0
+  yesFlavorText: Sure, they can use it.
   fundsToAddN: 0
   purityToAddN: 0
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: 0
+  noFlavorText: "No, I don\u2019t like scuba divers!"
   eventToTriggerA: {fileID: 0}
   eventToTriggerN: {fileID: 0}

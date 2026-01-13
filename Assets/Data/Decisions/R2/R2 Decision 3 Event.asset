@@ -26,8 +26,8 @@ MonoBehaviour:
   laterEventRegular: {fileID: 0}
   laterEventA: {fileID: 11400000, guid: b0ef2770109b4fe4bb43b557d18098d2, type: 2}
   laterEventN: {fileID: 11400000, guid: e71089466bbceb24d97dd5f19774d0e5, type: 2}
-  yesButtonText: Approve
-  noButtonText: Decline
+  yesButtonText: Yes, fund the research.
+  noButtonText: "No, I\u2019m sure it will be fine."
   fundsToAddA: 0
   purityToAddA: 0
   biodiversityToAddA: 0

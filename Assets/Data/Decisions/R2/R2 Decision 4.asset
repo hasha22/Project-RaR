@@ -22,11 +22,13 @@ MonoBehaviour:
   fundsToSubtractA: 0
   purityToSubtractA: -5
   biodiversityToSubtractA: 0
+  yesFlavorText: Yes, they can shoot their films.
   fundsToAddN: 0
   purityToAddN: 5
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: 0
+  noFlavorText: No, their films are boring anyway.
   eventToTriggerA: {fileID: 0}
   eventToTriggerN: {fileID: 0}

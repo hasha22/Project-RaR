@@ -36,7 +36,6 @@ public class DialogueManager : MonoBehaviour
     private Color speakerColor = Color.white;
     private Color backgroundColor = new Color(166f / 255f, 166f / 255f, 166f / 255f);
 
-
     private TypingEffect typingEffect;
 
     private void Awake()
@@ -49,7 +48,6 @@ public class DialogueManager : MonoBehaviour
         if (contentText != null) typingEffect = contentText.GetComponent<TypingEffect>();
         typingEffect.OnTypingComplete = () => { if (nextText != null) nextText.SetActive(true); };
     }
-
     // 외부에서 대화를 시작할 때 호출
     public void StartDialogue(DialogueNode startNode)
     {

@@ -10,13 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 714a0965560e54551b7bc768954c7e32, type: 3}
-  m_Name: Skip Tutorial Node
+  m_Name: Bad Ending Node
   m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
   sequentialTalks:
   - talkerName: Carol
-    content: 'Great, an experienced Manager! '
+    content: This is the bad ending.
     highlightUIKey: 
   - talkerName: Carol
-    content: Shall we begin the Day then, Manager?
+    content: The reef died.
+    highlightUIKey: 
+  - talkerName: Kieran
+    content: Yeah, you're shit at your job.
+    highlightUIKey: 
+  - talkerName: Kieran
+    content: Don't come back here.
     highlightUIKey: 
   choices: []

@@ -36,6 +36,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject decisionDialogueBox;
     [SerializeField] private TextMeshProUGUI speakerName;
     [SerializeField] private TextMeshProUGUI decisionContext;
+    [SerializeField] private TextMeshProUGUI yesButtonFlavor;
+    [SerializeField] private TextMeshProUGUI noButtonFlavor;
     [Space]
     [SerializeField] private GameObject decisionYesButton;
     [SerializeField] private GameObject decisionNoButton;
@@ -275,7 +277,7 @@ public class UIManager : MonoBehaviour
         foreach (var button in buttons)
         {
             RectTransform rect = button.GetComponent<RectTransform>();
-            rect.anchoredPosition = initialPos[rect] + Vector2.right * slideDistance;
+            rect.anchoredPosition = initialPos[rect] + Vector2.down * slideDistance;
         }
     }
     public void BeginEventDialogue(EventBase newEvent)
@@ -288,7 +290,7 @@ public class UIManager : MonoBehaviour
         switch (newEvent.reefType)
         {
             case ReefType.Reef1:
-                regularEventSpeaker.text = "Angela";
+                regularEventSpeaker.text = "Carol";
                 reefSecretary1.SetActive(true);
                 break;
             case ReefType.Reef2:
@@ -331,6 +333,8 @@ public class UIManager : MonoBehaviour
         if (decisionEventBox.activeSelf || regularEventBox.activeSelf) return;
 
         decisionContext.text = decision.decisionText;
+        yesButtonFlavor.text = decision.yesFlavorText;
+        noButtonFlavor.text = decision.noFlavorText;
 
         List<GameObject> newButtons = new List<GameObject>();
 
@@ -549,6 +553,8 @@ public class UIManager : MonoBehaviour
     }
     public bool IsUIInputAllowed()
     {
+        if (!DayManager.Instance.isDayActive) return false;
+
         return !decisionDialogueBox.activeSelf
         && !DialogueManager.Instance.GetDialogueBox().activeSelf
         && !regularEventBox.activeSelf

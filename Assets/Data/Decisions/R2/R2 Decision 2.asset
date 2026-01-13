@@ -22,11 +22,13 @@ MonoBehaviour:
   fundsToSubtractA: 2500
   purityToSubtractA: 30
   biodiversityToSubtractA: 30
+  yesFlavorText: "Yes, we can\u2019t let them get away with this!"
   fundsToAddN: 0
   purityToAddN: 0
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 30
   biodiversityToSubtractN: 30
+  noFlavorText: "No, we have already lost too much\u2026"
   eventToTriggerA: {fileID: 11400000, guid: b25b16b4976eaf440bba3f2c727142b9, type: 2}
   eventToTriggerN: {fileID: 0}

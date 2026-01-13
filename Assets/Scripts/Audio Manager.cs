@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource bgmSource;
     public AudioClip defaultBGM;
     public AudioClip menuBGM;
+    public AudioClip endGameBGM;
     [SerializeField][Range(0, 1)] private float bgmVolume = 1f;
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class AudioManager : MonoBehaviour
 
         defaultBGM.LoadAudioData();
         menuBGM.LoadAudioData();
+        endGameBGM.LoadAudioData();
 
         bgmSource.volume = bgmVolume;
     }

@@ -23,11 +23,14 @@ MonoBehaviour:
   fundsToSubtractA: 3000
   purityToSubtractA: 0
   biodiversityToSubtractA: 0
+  yesFlavorText: "We shall support the students\u2019 initiative, it will help the
+    reef in the long term. "
   fundsToAddN: 1000
   purityToAddN: 0
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: 0
+  noFlavorText: No, that would be way too expensive.
   eventToTriggerA: {fileID: 0}
   eventToTriggerN: {fileID: 0}

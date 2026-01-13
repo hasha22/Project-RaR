@@ -8,6 +8,7 @@ public class TitleScreenManager : MonoBehaviour
 
     [Header("Scene Index")]
     [SerializeField] private int gameSceneIndex = 1;
+    [SerializeField] private int endGameSceneIndex = 2;
 
     private void Awake()
     {
@@ -32,6 +33,10 @@ public class TitleScreenManager : MonoBehaviour
     public void StartNewGame()
     {
         StartCoroutine(LoadScene(gameSceneIndex));
+    }
+    public void EndGame()
+    {
+        StartCoroutine(LoadScene(endGameSceneIndex));
     }
     public IEnumerator LoadScene(int index)
     {

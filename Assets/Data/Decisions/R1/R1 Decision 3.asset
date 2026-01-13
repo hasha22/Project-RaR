@@ -22,11 +22,13 @@ MonoBehaviour:
   fundsToSubtractA: 0
   purityToSubtractA: 0
   biodiversityToSubtractA: 10
+  yesFlavorText: Windfarms are green energy, so why not?
   fundsToAddN: 0
   purityToAddN: 0
   biodiversityToAddN: 0
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: 5
+  noFlavorText: No wind farms for you!
   eventToTriggerA: {fileID: 0}
   eventToTriggerN: {fileID: 0}

@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ReportUI : MonoBehaviour
@@ -9,9 +9,9 @@ public class ReportUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameOverText;
     [SerializeField] private Button nextDayButton;
 
-    private void Init() 
-    { 
-        if (DayManager.Instance != null) DayManager.Instance.OnDayEnd += ShowDailyReport; 
+    private void Init()
+    {
+        if (DayManager.Instance != null) DayManager.Instance.OnDayEnd += ShowDailyReport;
         Debug.Log($"{name}: Subscribing to DayManager events");
     }
 
@@ -24,12 +24,13 @@ public class ReportUI : MonoBehaviour
     public void ShowDailyReport()
     {
         ResourceManager.instance.GetDailyChange();
-        Debug.Log ("ShowReport OK");
+        Debug.Log("ShowReport OK");
 
         ReefType currentReef = ReefManager.Instance.activeReefType;
 
-        FadeManager.Instance.FadeIn(() => {
-            
+        FadeManager.Instance.FadeIn(() =>
+        {
+
             reportPanel.SetActive(true);
             int dFunds = ResourceManager.instance.deltaFunds;
             // int dPurity = ResourceManager.instance.deltaPurity;
@@ -60,9 +61,10 @@ public class ReportUI : MonoBehaviour
     }
 
     public void OnClickNextDay()
-    {   
+    {
         reportPanel.SetActive(false);
-        FadeManager.Instance.FadeOut(() => {
+        FadeManager.Instance.FadeOut(() =>
+    {
         DayManager.Instance.StartDay();
     });
     }

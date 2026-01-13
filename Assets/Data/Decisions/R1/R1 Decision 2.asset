@@ -22,11 +22,14 @@ MonoBehaviour:
   fundsToSubtractA: 0
   purityToSubtractA: 20
   biodiversityToSubtractA: 20
+  yesFlavorText: This would provide a steady source of income, at least for a little
+    while!
   fundsToAddN: 0
   purityToAddN: 5
   biodiversityToAddN: 5
   fundsToSubtractN: 0
   purityToSubtractN: 0
   biodiversityToSubtractN: 0
+  noFlavorText: "No, I don\u2019t want any resorts polluting the water."
   eventToTriggerA: {fileID: 11400000, guid: 2a0321f5cae84064a8396b9a3087644b, type: 2}
   eventToTriggerN: {fileID: 0}
