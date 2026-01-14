@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Monitor")]
     [SerializeField] private GameObject monitorUI;
+    public GameObject lockUI;
     private bool isMonitorOpened = false;
 
     [Header("Decisions")]
@@ -341,7 +342,7 @@ public class UIManager : MonoBehaviour
         switch (decision.reefType)
         {
             case ReefType.Reef1:
-                speakerName.text = "Angela";
+                speakerName.text = "Carol";
                 reefSecretary1.SetActive(true);
                 break;
             case ReefType.Reef2:

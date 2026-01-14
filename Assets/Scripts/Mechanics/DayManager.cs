@@ -24,6 +24,7 @@ public class DayManager : MonoBehaviour
     [SerializeField] private DialogueSetting dialogueSetting;
 
     [HideInInspector] public int ending;
+    [HideInInspector] public bool isSecondReefOpened = false;
 
     private void Awake()
     {
@@ -43,6 +44,12 @@ public class DayManager : MonoBehaviour
         currentDay += 1;
 
         if (currentDay == 2)
+        {
+            isSecondReefOpened = true;
+            UIManager.instance.lockUI.SetActive(false);
+        }
+
+        if (currentDay == 3)
         {
             isDayActive = false;
             ending = EndGame();

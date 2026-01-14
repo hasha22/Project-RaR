@@ -30,6 +30,8 @@ public class ReefManager : MonoBehaviour
     {
         if (activeReefType == targetReef) return;
 
+        if (activeReefType != targetReef && !DayManager.Instance.isSecondReefOpened) return;
+
         ReefData data = allReefData.Find(r => r.reefType == targetReef);
         if (data == null) return;
 
