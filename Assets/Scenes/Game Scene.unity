@@ -7476,7 +7476,7 @@ MonoBehaviour:
   currentDay: 0
   isDayActive: 0
   dayToUnlockReef: 2
-  dayToEndGame: 6
+  dayToEndGame: 5
   daysWithDeficit: 0
   maxAllowedDeficitDays: 3
   dialogueSetting: {fileID: 11400000, guid: 03a4bdd0140bb334da04efee376beec7, type: 2}
