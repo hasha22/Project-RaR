@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4f611f972e7f946af855e6fdceb7a5, type: 3}
+  m_Name: R2 Decision 8
+  m_EditorClassIdentifier: Assembly-CSharp::Decision
+  reefType: 2
+  decisionTitle: Oil Deposit
+  decisionText: An oil deposit has been discovered near your reef, and some oil companies
+    are lobbying to use it, in spite of the potential environmental damages. However,
+    fighting large corporations is an incredibly difficult battle.
+  fundsToAddA: 0
+  purityToAddA: 0
+  biodiversityToAddA: 0
+  fundsToSubtractA: 3500
+  purityToSubtractA: 0
+  biodiversityToSubtractA: 0
+  yesFlavorText: Fight using lawyers, and try to gather public support as well!
+  fundsToAddN: 0
+  purityToAddN: 0
+  biodiversityToAddN: 0
+  fundsToSubtractN: 0
+  purityToSubtractN: 0
+  biodiversityToSubtractN: 0
+  noFlavorText: There's nothing we can do...
+  eventToTriggerA: {fileID: 0}
+  eventToTriggerN: {fileID: 0}

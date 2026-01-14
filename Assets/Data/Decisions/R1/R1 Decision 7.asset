@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4f611f972e7f946af855e6fdceb7a5, type: 3}
+  m_Name: R1 Decision 7
+  m_EditorClassIdentifier: Assembly-CSharp::Decision
+  reefType: 1
+  decisionTitle: Water Purification
+  decisionText: "You have been approached with an offer to build a water purification
+    plant, it\u2019ll be expensive though. Do you fund it?"
+  fundsToAddA: 0
+  purityToAddA: 40
+  biodiversityToAddA: 0
+  fundsToSubtractA: 2500
+  purityToSubtractA: 0
+  biodiversityToSubtractA: 0
+  yesFlavorText: "We need to improve the water purity, let\u2019s fund it."
+  fundsToAddN: 0
+  purityToAddN: 0
+  biodiversityToAddN: 0
+  fundsToSubtractN: 0
+  purityToSubtractN: 10
+  biodiversityToSubtractN: 0
+  noFlavorText: "No, it\u2019s too expensive for now."
+  eventToTriggerA: {fileID: 0}
+  eventToTriggerN: {fileID: 0}

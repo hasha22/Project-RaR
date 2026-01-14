@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4f611f972e7f946af855e6fdceb7a5, type: 3}
+  m_Name: R1 Decision 8
+  m_EditorClassIdentifier: Assembly-CSharp::Decision
+  reefType: 1
+  decisionTitle: Fund School
+  decisionText: A local ambassador asks if you can fund a school for the local indigenous
+    peoples. They promise to teach about environmentalism.
+  fundsToAddA: 0
+  purityToAddA: 0
+  biodiversityToAddA: 0
+  fundsToSubtractA: 2000
+  purityToSubtractA: 0
+  biodiversityToSubtractA: 0
+  yesFlavorText: Yes, we should give back to the people.
+  fundsToAddN: 0
+  purityToAddN: 0
+  biodiversityToAddN: 0
+  fundsToSubtractN: 0
+  purityToSubtractN: 0
+  biodiversityToSubtractN: 0
+  noFlavorText: No, it doesn't concern us.
+  eventToTriggerA: {fileID: 11400000, guid: ea9ee35c79e6a87489abe812269b6d5b, type: 2}
+  eventToTriggerN: {fileID: 0}
