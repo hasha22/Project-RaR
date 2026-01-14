@@ -11,6 +11,9 @@ public class DayManager : MonoBehaviour
     public int currentDay = 0; // 현재 게임 일수
     public bool isDayActive = false;
 
+    public int dayToUnlockReef = 2;
+    public int dayToEndGame = 5;
+
     public int daysWithDeficit = 0; // 적자로 끝난 날수
     public int maxAllowedDeficitDays = 3; // 적자 허락되는 최대 일수
 
@@ -43,13 +46,13 @@ public class DayManager : MonoBehaviour
         isDayActive = true;
         currentDay += 1;
 
-        if (currentDay == 2)
+        if (currentDay == dayToUnlockReef)
         {
             isSecondReefOpened = true;
             UIManager.instance.lockUI.SetActive(false);
         }
 
-        if (currentDay == 3)
+        if (currentDay == dayToEndGame)
         {
             isDayActive = false;
             ending = EndGame();

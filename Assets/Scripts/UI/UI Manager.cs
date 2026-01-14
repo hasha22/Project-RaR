@@ -142,7 +142,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (InputManager.instance.hasPressedF)
+        if (InputManager.instance.hasPressedF && DayManager.Instance.isDayActive)
         {
             InputManager.instance.hasPressedF = false;
             Image img = dropdownButton.GetComponent<Image>();
