@@ -23,10 +23,10 @@ MonoBehaviour:
   seaChangeThreshold: 30
   trashThresholds: 230000001e0000001900000014000000
   trashSprites:
-  - {fileID: 7032184553362833509, guid: 25aec26aa19b4415192a2070c95c3e4a, type: 3}
-  - {fileID: 3300204468560107035, guid: 8f95470baede1416e897f4e4e3485d4d, type: 3}
-  - {fileID: -4417681823050904842, guid: 334f0688b1ece4de1923bbf8b53c197d, type: 3}
-  - {fileID: 8329938741710489295, guid: 2043d4ae4723b421cb06ba8a3cc56edd, type: 3}
+  - {fileID: 21300000, guid: 25aec26aa19b4415192a2070c95c3e4a, type: 3}
+  - {fileID: 21300000, guid: 8f95470baede1416e897f4e4e3485d4d, type: 3}
+  - {fileID: 21300000, guid: 334f0688b1ece4de1923bbf8b53c197d, type: 3}
+  - {fileID: 21300000, guid: 2043d4ae4723b421cb06ba8a3cc56edd, type: 3}
   decisionPool:
   - {fileID: 11400000, guid: e9755ab63d5964dd683ad1c05ae672dd, type: 2}
   - {fileID: 11400000, guid: 8446a178a55ee4443ba196ab5970cf87, type: 2}
