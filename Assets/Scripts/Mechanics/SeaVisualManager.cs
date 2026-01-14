@@ -46,18 +46,17 @@ public class SeaVisualManager : MonoBehaviour
     {
         if (currentData == null || currentData.seaBackgroundImages.Count == 0) return;
 
-        // 1. 바다 배경 단계 계산 (예: 3단계인 경우 100-67 / 66-34 / 33-0)
-        int stepCount = currentData.seaBackgroundImages.Count;
-        int newStepIndex = Mathf.Clamp(stepCount - 1 - (purity * stepCount / 101), 0, stepCount - 1);
+        // 1. 바다 배경 단계 체크
+        int newStepIndex = (purity <= currentData.seaChangeThreshold) ? 1 : 0;
 
-        // 단계가 바뀔 때만 서서히 이미지 교체
+        // 단계가 바뀔 때 서서히 이미지 교체
         if (newStepIndex != currentStepIndex)
         {
             ChangeSeaImage(currentData.seaBackgroundImages[newStepIndex]);
             currentStepIndex = newStepIndex;
         }
 
-        // 2. 쓰레기 관리 로직: 임계값 체크
+        // 2. 쓰레기 관리 로직
         ManageTrash(purity);
     }
 
@@ -78,16 +77,20 @@ public class SeaVisualManager : MonoBehaviour
 
     private void ManageTrash(int purity)
     {
-        if (purity <= currentData.pollutionThreshold)
+        int targetTrashCount = 0;
+
+        // trashThresholds가 [70 / 60 / 40 / 20] 인 경우
+        // purity가 50일 때: 70 / 60보다 작으므로 targetTrashCount는 2가 됨
+        foreach (int threshold in currentData.trashThresholds)
         {
-            // 임계값 도달 시 쓰레기가 없는 경우 생성
-            if (activeTrashes.Count == 0) SpawnTrash();
+            if (purity <= threshold) targetTrashCount += 1;
         }
-        else
-        {
-            // 수치 벗어날 시 제거
-            if (activeTrashes.Count > 0) ClearAllTrashesWithFade();
-        }
+
+        // 현재 쓰레기 개수가 target 값보다 적은 경우 추가 생성
+        while (activeTrashes.Count < targetTrashCount) SpawnTrash();
+
+        // 현재 쓰레기 개수가 target 값보다 많은 경우(정화됨) 하나씩 제거
+        while (activeTrashes.Count > targetTrashCount) RemoveTrash();
     }
 
     private void SpawnTrash()
@@ -96,10 +99,13 @@ public class SeaVisualManager : MonoBehaviour
 
         // 무작위 쓰레기 하나 선택해서 생성
         GameObject trash = Instantiate(trashPrefab, trashContainer);
-        activeTrashes.Add(trash);
+        // 현재 활성화된 쓰레기 개수를 인덱스로 씀
+        int spriteIndex = activeTrashes.Count % currentData.trashSprites.Count;
+    
+        activeTrashes.Add(trash); 
 
         Image img = trash.GetComponent<Image>();
-        img.sprite = currentData.trashSprites[Random.Range(0, currentData.trashSprites.Count)];
+        img.sprite = currentData.trashSprites[spriteIndex];
         
         // 서서히 나타남
         img.color = new Color(1, 1, 1, 0);
@@ -112,14 +118,15 @@ public class SeaVisualManager : MonoBehaviour
             .SetLoops(-1, LoopType.Yoyo);
     }
 
-    private void ClearAllTrashesWithFade()
+    // 가장 마지막에 생성된 쓰레기부터 서서히 지우는 함수
+    private void RemoveTrash()
     {
-        foreach (var trash in activeTrashes)
-        {
-            trash.GetComponent<Image>().DOFade(0f, 1.5f).OnComplete(() => Destroy(trash));
-        }
+        if (activeTrashes.Count == 0) return;
 
-        activeTrashes.Clear();
+        GameObject lastTrash = activeTrashes[activeTrashes.Count - 1];
+        activeTrashes.RemoveAt(activeTrashes.Count - 1);
+
+        lastTrash.GetComponent<Image>().DOFade(0f, 1.5f).OnComplete(() => Destroy(lastTrash));
     }
 
     private void ClearAllTrashes()

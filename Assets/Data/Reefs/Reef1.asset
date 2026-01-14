@@ -19,8 +19,8 @@ MonoBehaviour:
   backgroundImage: {fileID: 21300000, guid: 6141ea35df54aa1478446b2522d28678, type: 3}
   seaBackgroundImages:
   - {fileID: 1208040086343421634, guid: 0cba98523d0a06e4ebdd22c0368ac74c, type: 3}
-  - {fileID: 1208040086343421634, guid: 0cba98523d0a06e4ebdd22c0368ac74c, type: 3}
-  pollutionThreshold: 40
+  seaChangeThreshold: 50
+  trashThresholds: 
   trashSprites: []
   decisionPool:
   - {fileID: 11400000, guid: 608afb31c5efdca4d8584336eb509b96, type: 2}

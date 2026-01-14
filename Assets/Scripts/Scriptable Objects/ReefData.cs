@@ -13,9 +13,10 @@ public class ReefData : ScriptableObject
     [Header("Visuals: Backgrounds")]
     public Sprite backgroundImage; // 실내 배경: 고정
     public List<Sprite> seaBackgroundImages;
+    public int seaChangeThreshold = 50; // 바다 배경 바뀌는 Purity 임계값
 
     [Header("Visuals: Pollution Settings")]
-    [Range(0, 100)] public int pollutionThreshold = 40; // 쓰레기가 생성되는 Purity 지점
+    public List<int> trashThresholds; // 쓰레기가 생성되는 Purity 임계값들
     public List<Sprite> trashSprites;
 
     [Header("Decision Pool Reference")]
