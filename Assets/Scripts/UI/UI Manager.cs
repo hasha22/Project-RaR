@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI biodiversity;
 
     [Header("Reef Visuals")]
-    [SerializeField] private Image reefImage;
+    [SerializeField] private Image backgroundImage;
     public GameObject reefSecretary1;
     public GameObject reefSecretary2;
 
@@ -150,9 +150,9 @@ public class UIManager : MonoBehaviour
         ReefData data = ReefManager.Instance.activeReefData;
 
         // 인게임 배경 이미지 갱신
-        if (reefImage != null && data.backgroundImage != null)
+        if (backgroundImage != null && data.backgroundImage != null)
         {
-            reefImage.sprite = data.backgroundImage;
+            backgroundImage.sprite = data.backgroundImage;
         }
     }
 
