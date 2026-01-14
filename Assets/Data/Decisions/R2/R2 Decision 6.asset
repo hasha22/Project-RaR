@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: R2 Decision 6
   m_EditorClassIdentifier: Assembly-CSharp::Decision
   reefType: 2
-  decisionTitle: Introduce More Nutrients
+  decisionTitle: Introduce Nutrients
   decisionText: A fertilizer company is offering a special device that helps introduce
     more nutrients into the ecosystem. Do you wish to buy this technology?
   fundsToAddA: 0

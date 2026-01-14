@@ -24,7 +24,7 @@ public class TitleScreenManager : MonoBehaviour
     }
     private void Start()
     {
-        AudioManager.instance.PlayBGM(AudioManager.instance.menuBGM);
+        //AudioManager.instance.PlayBGM(AudioManager.instance.menuBGM);
     }
     public void QuitGame()
     {

@@ -73,7 +73,7 @@ public class DayManager : MonoBehaviour
 
         OnDayStart?.Invoke();
 
-        AudioManager.instance.PlayBGM(AudioManager.instance.defaultBGM);
+        //AudioManager.instance.PlayBGM(AudioManager.instance.defaultBGM);
     }
 
     public int EndGame()

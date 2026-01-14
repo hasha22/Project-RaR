@@ -46,6 +46,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject eventButton;
     [SerializeField] private GameObject decisionEventYesButton;
     [SerializeField] private GameObject decisionEventNoButton;
+    [Space]
+    public GameObject decisionsAPlusIcon;
+    public GameObject decisionNPlusIcon;
+    public GameObject decisionAMinusIcon;
+    public GameObject decisionNMinusIcon;
+    public TextMeshProUGUI decisionAFunds;
+    public TextMeshProUGUI decisionNFunds;
 
     private bool isDecisionListOpened = false;
     private TypingEffect decisionTypingEffect;
@@ -62,6 +69,13 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI decisionEventYesText;
     public TextMeshProUGUI decisionEventNoText;
     public bool activeEventsExist = false;
+    [Space]
+    public GameObject eventAPlusIcon;
+    public GameObject eventNPlusIcon;
+    public GameObject eventAMinusIcon;
+    public GameObject eventNMinusIcon;
+    public TextMeshProUGUI eventAFunds;
+    public TextMeshProUGUI eventNFunds;
 
     private TypingEffect regularEventTypingEffect;
     private TypingEffect decisionEventTypingEffect;
@@ -113,6 +127,8 @@ public class UIManager : MonoBehaviour
     {
         Init();
         maxDecisions.text = DecisionManager.instance.decisionHardCap.ToString();
+
+        AudioManager.instance.PlayBGM(AudioManager.instance.defaultBGM);
     }
     private void Init()
     {
@@ -324,6 +340,8 @@ public class UIManager : MonoBehaviour
             }
 
             decisionEventContext.text = newEvent.eventText;
+            DetermineEventIcons(newEvent);
+
             decisionEventBox.SetActive(true);
             decisionEventTypingEffect.StartTyping(newEvent.eventText, newButtons);
         }
@@ -336,6 +354,8 @@ public class UIManager : MonoBehaviour
         decisionContext.text = decision.decisionText;
         yesButtonFlavor.text = decision.yesFlavorText;
         noButtonFlavor.text = decision.noFlavorText;
+
+        DetermineDecisionIcons(decision);
 
         List<GameObject> newButtons = new List<GameObject>();
 
@@ -362,6 +382,88 @@ public class UIManager : MonoBehaviour
 
         decisionDialogueBox.SetActive(true);
         decisionTypingEffect.StartTyping(decision.decisionText, newButtons);
+    }
+    private void DetermineDecisionIcons(Decision decision)
+    {
+        if (decision.fundsToAddA != 0)
+        {
+            decisionsAPlusIcon.SetActive(true);
+            decisionAMinusIcon.SetActive(false);
+            decisionAFunds.text = decision.fundsToAddA.ToString();
+        }
+        else if (decision.fundsToSubtractA != 0)
+        {
+            decisionAMinusIcon.SetActive(true);
+            decisionsAPlusIcon.SetActive(false);
+            decisionAFunds.text = decision.fundsToSubtractA.ToString();
+        }
+        else
+        {
+            decisionAMinusIcon.SetActive(false);
+            decisionsAPlusIcon.SetActive(false);
+            decisionAFunds.text = "";
+        }
+
+        if (decision.fundsToAddN != 0)
+        {
+            decisionNPlusIcon.SetActive(true);
+            decisionNMinusIcon.SetActive(false);
+            decisionNFunds.text = decision.fundsToAddN.ToString();
+        }
+        else if (decision.fundsToSubtractN != 0)
+        {
+            decisionNMinusIcon.SetActive(true);
+            decisionNPlusIcon.SetActive(false);
+            decisionNFunds.text = decision.fundsToSubtractN.ToString();
+        }
+        else
+        {
+            decisionNPlusIcon.SetActive(false);
+            decisionNMinusIcon.SetActive(false);
+            decisionNFunds.text = "";
+        }
+    }
+    private void DetermineEventIcons(EventBase newEvent)
+    {
+        /*
+        if (newEvent.fundsToAddA != 0)
+        {
+            decisionsAPlusIcon.SetActive(true);
+            decisionAMinusIcon.SetActive(false);
+            decisionAFunds.text = decision.fundsToAddA.ToString();
+        }
+        else if (decision.fundsToSubtractA != 0)
+        {
+            decisionAMinusIcon.SetActive(true);
+            decisionsAPlusIcon.SetActive(false);
+            decisionAFunds.text = decision.fundsToSubtractA.ToString();
+        }
+        else
+        {
+            decisionAMinusIcon.SetActive(false);
+            decisionsAPlusIcon.SetActive(false);
+            decisionAFunds.text = "";
+        }
+
+        if (decision.fundsToAddN != 0)
+        {
+            decisionNPlusIcon.SetActive(true);
+            decisionNMinusIcon.SetActive(false);
+            decisionNFunds.text = decision.fundsToAddN.ToString();
+        }
+        else if (decision.fundsToSubtractN != 0)
+        {
+            decisionNMinusIcon.SetActive(true);
+            decisionNPlusIcon.SetActive(false);
+            decisionNFunds.text = decision.fundsToSubtractN.ToString();
+        }
+        else
+        {
+            decisionNPlusIcon.SetActive(false);
+            decisionNMinusIcon.SetActive(false);
+            decisionNFunds.text = "";
+        }
+        */
     }
     public void StartButtonAnimation(List<GameObject> buttons)
     {
