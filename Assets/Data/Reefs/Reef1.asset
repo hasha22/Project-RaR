@@ -18,10 +18,15 @@ MonoBehaviour:
   initialBiodiversity: 40
   backgroundImage: {fileID: 21300000, guid: 6141ea35df54aa1478446b2522d28678, type: 3}
   seaBackgroundImages:
-  - {fileID: 1208040086343421634, guid: 0cba98523d0a06e4ebdd22c0368ac74c, type: 3}
-  seaChangeThreshold: 50
-  trashThresholds: 
-  trashSprites: []
+  - {fileID: 4269745722632819135, guid: 82116e787260b4616a97b364ab1c5e1e, type: 3}
+  - {fileID: 2570815331506838880, guid: fa1f432db1afa42c2b63b0725d81a62d, type: 3}
+  seaChangeThreshold: 30
+  trashThresholds: 230000001e0000001900000014000000
+  trashSprites:
+  - {fileID: 7032184553362833509, guid: 25aec26aa19b4415192a2070c95c3e4a, type: 3}
+  - {fileID: 3300204468560107035, guid: 8f95470baede1416e897f4e4e3485d4d, type: 3}
+  - {fileID: -4417681823050904842, guid: 334f0688b1ece4de1923bbf8b53c197d, type: 3}
+  - {fileID: 8329938741710489295, guid: 2043d4ae4723b421cb06ba8a3cc56edd, type: 3}
   decisionPool:
   - {fileID: 11400000, guid: 608afb31c5efdca4d8584336eb509b96, type: 2}
   - {fileID: 11400000, guid: ed44abdfcd4bf204396e7c54772be988, type: 2}
