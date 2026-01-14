@@ -26,6 +26,11 @@ public class ReefManager : MonoBehaviour
         activeReefType = ReefType.Reef1;
     }
 
+    private void Start()
+    {
+        OnReefSwitched?.Invoke(activeReefType);
+    }
+
     public void SwitchReef(ReefType targetReef)
     {
         if (activeReefType == targetReef) return;
